@@ -178,9 +178,9 @@
       occurs at time 0. The term <i>current time</i> refers to the number of milliseconds
       since the start of navigation of the document until the current moment in time.
       This definition of time is based on the High Resolution Time specification
-      [[!hr-time-20120522]] and is different
+      [[!hr-time-2]] and is different
       from the definition of time used in the Navigation Timing specification
-      [[!navigation-timing-20120726]],
+      [[!navigation-timing-2]],
       where time is measured in milliseconds since midnight of January 1, 1970 (UTC).
     </p>
   </section>
@@ -223,7 +223,7 @@
             Each call to the <code>mark()</code> method stores a new timestamp
             under the specified mark name.</p>
             <p>The mark name cannot be the same name as any of the attributes in the
-            <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface [[!navigation-timing-20120726]].</p>
+            <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface [[!navigation-timing-2]].</p>
 
             <p id="ut-standard-mark-names"><b>Recommended Mark Names</b></p>
             <p>Developers are encouraged to use the following Recommended Mark Names to mark common interactions. The user agent is responsible for storing
@@ -297,7 +297,7 @@
              from the most recent occurrence of the start mark to the most recent occurrence of the end mark.</li>
     </ul>
     <p>The <em>startMark</em> and <em>endMark</em> arguments may be the name of one of the attributes in the
-       <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface <a href="#NavigationTiming">[navigation-timing-20120726]</a>.
+       <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface [[!navigation-timing-2]].
        In this case, the value of that attribute is used as the <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value.</p>
     <section class="parameters">
         <p><b>Parameters</b></p>
@@ -316,7 +316,7 @@
             <p>If specified, the most recent <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value of the start mark is used.</p>
             <p>If not specified, <a href="http://www.w3.org/TR/navigation-timing/#dom-performancetiming-navigationstart">navigationStart</a> is used.</p>
             <p>May be the name of one of the attributes in the
-               <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface <a href="#NavigationTiming">[navigation-timing-20120726]</a>.
+               <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface [[!navigation-timing-2]].
                In this case, the value of that attribute is used as the start <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value.</p>
         </section>
 
@@ -326,7 +326,7 @@
             <p>If specified, the most recent <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value of the end mark is used.</p>
             <p>If not specified, the current time as a <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> is used.</p>
             <p>May be the name of one of the attributes in the
-               <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface <a href="#NavigationTiming">[navigation-timing-20120726]</a>.
+               <code><a href="http://www.w3.org/TR/navigation-timing/#performancetiming">PerformanceTiming</a></code> interface [[!navigation-timing-2]].
                In this case, the value of that attribute is used as the end <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value.</p>
         </section>
 
@@ -371,7 +371,7 @@
     	The <a href="#performancemark">PerformanceMark</a> interface also
 		exposes marks created via the <code><a href="#dom-performance-mark">mark()</a></code>
 		method to the
-    	<a href="http://www.w3.org/TR/performance-timeline/#sec-performance-timeline">Performance Timeline</a>[[!performance-timeline-20120726]]. The <a href="#performancemark">PerformanceMark</a>
+    	<a href="http://www.w3.org/TR/performance-timeline/#sec-performance-timeline">Performance Timeline</a>[[!performance-timeline]]. The <a href="#performancemark">PerformanceMark</a>
 		interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline/#performanceentry">PerformanceEntry</a>
 		interface:
     </p>
@@ -380,7 +380,7 @@
         <p>The <code>name</code> attribute will return the mark's name.</p>
         <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>mark</code>.</p>
         <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
-		with the mark's time value [[!hr-time-20120522]].
+		with the mark's time value [[!hr-time-2]].
     	</p>
         <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		of value 0.</p>
@@ -398,14 +398,14 @@
 	<p>
     	The <a href="#performancemeasure">PerformanceMeasure</a> interface also
 		exposes measures created via the <code><a href="#dom-performance-measure">measure()</a></code>
-		method to the <a href="http://www.w3.org/TR/performance-timeline/#sec-performance-timeline">Performance Timeline</a> [[!performance-timeline-20120726]]. The <a href="#performancemeasure">PerformanceMeasure</a> interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline/#performanceentry">PerformanceEntry</a> interface:
+		method to the <a href="http://www.w3.org/TR/performance-timeline/#sec-performance-timeline">Performance Timeline</a> [[!performance-timeline]]. The <a href="#performancemeasure">PerformanceMeasure</a> interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline/#performanceentry">PerformanceEntry</a> interface:
     </p>
 
     <section class="parameters">
         <p>The <code>name</code> attribute will return the measure's name.</p>
         <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>measure</code>.</p>
         <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
-		with the measure's start mark [[!hr-time-20120522]].</p>
+		with the measure's start mark [[!hr-time-2]].</p>
         <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the duration of the measure. </p>
     </section>
