@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>
-      User Timing
+      User Timing Level 2
     </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' class='remove'>
     </script>
     <script class="remove">
       // (this is to make tidy happy)
@@ -16,8 +16,6 @@
           shortName: "user-timing",
           maxTocLevel: 2,
 
-          previousPublishDate: "2013-12-12",
-          previousMaturity: "REC",
           edDraftURI: "http://w3c.github.io/user-timing/",
 
           editors: [
@@ -53,25 +51,19 @@
 
           noLegacyStyle: true,
 
-          otherLinks: [
-            {
-              key: "Participate",
-              data: [
-                {
-                  value: "Mailing list",
-                  href: "http://lists.w3.org/Archives/Public/public-web-perf/"
-                },
-                {
-                  value: "Browse open issues",
-                  href: "https://github.com/w3c/user-timing/issues"
-                },
-                {
-                  value: "Discussion",
-                  href: "http://www.w3.org/Search/Mail/Public/search?keywords=%5BUserTiming%5D&hdr-1-name=subject&hdr-1-query=&index-grp=Public_FULL&index-type=t&type-index=public-web-perf"
-                }
-              ]
-            },
-          ]
+          otherLinks: [{
+             key: 'Repository',
+             data: [{
+               value: 'We are on GitHub',
+               href: 'https://github.com/w3c/user-timing/'
+             }, {
+               value: 'Commit history',
+               href: 'https://github.com/w3c/user-timing/commits/gh-pages/index.html'
+             }, {
+               value: 'File a bug',
+               href: 'https://github.com/w3c/user-timing/issues'
+             }]
+           }]
       };
     </script>
   </head>
@@ -82,7 +74,10 @@
     to high precision timestamps.</p>
     </section>
 
-    <section id='sotd'></section>
+    <section id='sotd'>
+    <p>This new version is aligned with [[HR-TIME-2]] and introduces <a href='#dictionary-filteroptions-members'>filtering</a> and <a href="#the-performance-observer-interface">performance observers</a>.</p>
+    <p>This is a <strong>work in progress</strong> and may change without any notices.</p>
+    </section>
 
     <section class='informative' id="introduction">
     <h2>
