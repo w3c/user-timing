@@ -167,7 +167,7 @@ partial interface Performance {
   <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
   <ol>
     <li>If <var>markName</var> uses the same name as an attribute in the
-        <code><a href="http://www.w3.org/TR/navigation-timing-2/#performancetiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
+        <code><a href="http://www.w3.org/TR/navigation-timing-2/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
     <li>Create a new <a>PerformanceMark</a> object.</li>
     <li>Set <code>name</code> to <var>markName</var>.</var>
     <li>Set <code>entryType</code> to <code>DOMString "mark"</code>.
@@ -202,10 +202,10 @@ partial interface Performance {
   </ol>
 
     <p class='issue'>User Timing 1 included: The <em>startMark</em> and <em>endMark</em> arguments may be the name of one of the attributes in the
-       <code><a href="http://www.w3.org/TR/navigation-timing-2/#performancetiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]].
+       <code><a href="http://www.w3.org/TR/navigation-timing-2/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]].
        In this case, the value of that attribute is used as the <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value.</p>
 
-  <p>The <dfn for="Performance" data-lt='clearMeasure'>clearMeasure(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
+  <p>The <dfn for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
     <li>Let <var>set</var> be a new empty <a href='http://heycam.github.io/webidl/#idl-sequence'>sequence</a>.</li>
     <li>If <var>measureName</var> is omitted, add to <var>set</var> all <a>PerformanceMeasure</a> objects in <a>measure list</a>. Otherwise
@@ -238,7 +238,6 @@ partial interface Performance {
 		interface:
     </p>
 
-    <section class="parameters">
         <p>The <code>name</code> attribute will return the mark's name.</p>
         <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"mark"</code>.</p>
         <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
@@ -246,7 +245,6 @@ partial interface Performance {
     	</p>
         <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		of value 0.</p>
-    </section>
   </section>
 
   <section id="performancemeasure">
@@ -266,14 +264,12 @@ partial interface Performance {
     The <a>PerformanceMeasure</a> interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline-2/#performanceentry">PerformanceEntry</a> interface:
     </p>
 
-    <section class="parameters">
         <p>The <code>name</code> attribute will return the measure's name.</p>
         <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"measure"</code>.</p>
         <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the measure's start mark [[!HR-TIME-2]].</p>
         <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the duration of the measure. </p>
-    </section>
   </section>
 
     <section id="vendor-prefixes">
