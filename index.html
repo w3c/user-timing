@@ -206,9 +206,8 @@ partial interface Performance {
 
   <p>The <dfn for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
-    <li>Let <var>set</var> be a new empty <a href='http://heycam.github.io/webidl/#idl-sequence'>sequence</a>.</li>
-    <li>If <var>measureName</var> is omitted, add to <var>set</var> all <a>PerformanceMeasure</a> objects in <a>measure list</a>. Otherwise
-     add to <var>set</var> all <a>PerformanceMeasure</a> objects with a <code>name</code> attribute value equals to the value <var>measureName</var> in <a>measure list</a>.</li>
+    <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in <a>measure list</a>.</li>
+    <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in <a>measure list</a> whose <code>name</code> matches <var>measureName</var> .</li>
     <li>Remove all objects listed in <var>set</var> from <a>measure list</a>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
