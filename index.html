@@ -171,7 +171,7 @@ partial interface Performance {
     <li>Create a new <a>PerformanceMark</a> object.</li>
     <li>Set <code>name</code> to <var>markName</var>.</var>
     <li>Set <code>entryType</code> to <code>DOMString "mark"</code>.
-    <li>Set <code>startTime</code> to the time in milliseconds from the <a href='http://w3c.github.io/hr-time/#time-origin'>time origin</a> to the occurrence of the call of the <a for='Performance'>mark</a> method.</li>
+    <li>Set <code>startTime</code> to be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method.</li>
     <li>Set <code>duration</code> to <code>0</code>.</li>
     <li><a href="https://w3c.github.io/performance-timeline/#dfn-queue-a-performanceentry">Queue</a> the <a>PerformanceMark</a> object.</li>
     <li id='stored_mark'>Add the <a>PerformanceMark</a> object to <a>mark list</a>.</li>
