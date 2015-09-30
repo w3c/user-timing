@@ -157,11 +157,11 @@ partial interface Performance {
 };
 </pre>
   <p>
-    All <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> [[!HTML51]] have a <dfn>mark list</dfn>. Unless the <a for='Performance'>mark</a> is invoked, its <a>mark list</a> is empty. Each member of the list is a <a>PerformanceMark</a> object.
+    Each <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> [[!HTML51]] has a <dfn>mark list</dfn>. Unless the <a for='Performance'>mark</a> is invoked, its <a>mark list</a> is empty. Each member of the list is a <a>PerformanceMark</a> object.
   </p>
 
   <p>
-    All <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> have a <dfn>measure list</dfn>. Unless the <a for='Performance'>measure</a> is invoked, its <a>measure list</a> is empty. Each member of the list is a <a>PerformanceMeasure</a> object.
+    Each <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> has a <dfn>measure list</dfn>. Unless the <a for='Performance'>measure</a> is invoked, its <a>measure list</a> is empty. Each member of the list is a <a>PerformanceMeasure</a> object.
   </p>
 
   <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
