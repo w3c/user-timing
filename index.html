@@ -180,16 +180,15 @@ partial interface Performance {
 
   <p>The <dfn for="Performance" data-lt='clearMarks'>clearMarks(markName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
-    <li>Let <var>set</var> be a new empty <a href='http://heycam.github.io/webidl/#idl-sequence'>sequence</a>.</li>
-    <li>If <var>markName</var> is omitted, add to <var>set</var> all <a>PerformanceMark</a> objects in <a>mark list</a>. Otherwise, add to <var>set</var> all <a>PerformanceMark</a> objects with a <code>name</code> attribute value equals to the value <var>markName</var> in <a>mark list</a>.</li>
-    <li>Remove all objects listed in <var>set</var> from <a>mark list</a>.</li>
+    <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects in <a>mark list</a>.</li>
+    <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in <a>mark list</a> whose <var>name</var> matches<var>markName</var> .</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
   <p>The <dfn for="Performance" data-lt='measure'>measure(measureName, startMark, endMark)</dfn> method stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
   <ol>
     <li>Let <var>end time</var> be 0.</li>
-    <li>If <var>endMark</var> is omitted, let <var>end time</var> be the time in milliseconds from the <a href='http://w3c.github.io/hr-time/#time-origin'>time origin</a> to the occurrence of the call to the <a for='Performance'>measure</a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in <a>mark list</a> with a <code>name</code> attribute value equals to the value <var>endMark</var>.</li></li>
+    <li>If <var>endMark</var> is omitted, let <var>end time</var> be the time in milliseconds from the <a href='http://w3c.github.io/hr-time/#time-origin'>time origin</a> to the occurrence of the call to the <a for='Performance'>measure</a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in <a>mark list</a> with a <code>name</code> attribute value equal to the value <var>endMark</var>.</li></li>
     <li>If <var>startMark</var> is omitted, let <var>start time</var> be 0. Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in <a>mark list</a> with a <code>name</code> attribute value equals to the value <var>startMark</var>.</li></li>
     <li>Create a new <a>PerformanceMeasure</a> object.</li>
     <li>Set <code>name</code> to <var>measureName</var>.</var>
