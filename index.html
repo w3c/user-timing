@@ -156,14 +156,6 @@ partial interface Performance {
     void clearMeasures(optional DOMString measureName);
 };
 </pre>
-  <p>
-    Each <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> [[!HTML51]] has a <dfn>mark list</dfn>. Unless the <a for='Performance'>mark</a> is invoked, its <a>mark list</a> is empty. Each member of the list is a <a>PerformanceMark</a> object.
-  </p>
-
-  <p>
-    Each <a href='http://www.w3.org/TR/html51/webappapis.html#global-object'>global object</a> has a <dfn>measure list</dfn>. Unless the <a for='Performance'>measure</a> is invoked, its <a>measure list</a> is empty. Each member of the list is a <a>PerformanceMeasure</a> object.
-  </p>
-
   <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
   <ol>
     <li>If <var>markName</var> uses the same name as an attribute in the
@@ -174,14 +166,14 @@ partial interface Performance {
     <li>Set <code>startTime</code> to be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method.</li>
     <li>Set <code>duration</code> to <code>0</code>.</li>
     <li><a href="https://w3c.github.io/performance-timeline/#dfn-queue-a-performanceentry">Queue</a> the <a>PerformanceMark</a> object.</li>
-    <li id='stored_mark'>Add the <a>PerformanceMark</a> object to <a>mark list</a>.</li>
+    <li id='stored_mark'>Add the <code>PerformanceMark</code> object to the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
   <p>The <dfn for="Performance" data-lt='clearMarks'>clearMarks(markName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
-    <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects in <a>mark list</a>.</li>
-    <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in <a>mark list</a> whose <var>name</var> matches<var>markName</var> .</li>
+    <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
+    <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <var>name</var> matches<var>markName</var>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
@@ -196,7 +188,7 @@ partial interface Performance {
     <li>Set <code>startTime</code> to <var>start time</var>.</li>
     <li>Set <code>duration</code> to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
     <li><a href="https://w3c.github.io/performance-timeline/#dfn-queue-a-performanceentry">Queue</a> the <a>PerformanceMeasure</a> object.</li>
-    <li id='stored_measure'>Add the <a>PerformanceMeasure</a> object to <a>measure list</a>.</li>
+    <li id='stored_measure'>Add the <code>PerformanceMeasure</code> object to the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
@@ -206,8 +198,8 @@ partial interface Performance {
 
   <p>The <dfn for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
-    <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in <a>measure list</a>.</li>
-    <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in <a>measure list</a> whose <code>name</code> matches <var>measureName</var> .</li>
+    <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
+    <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches <var>measureName</var>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
