@@ -148,6 +148,14 @@
         &lt;/body&gt;
       &lt;/html&gt;
       </pre>
+      <p class="note">[[PERFORMANCE-TIMELINE]] defines two mechanisms that
+      can be used to retrieve recorded metrics: <code>getEntries()</code>
+      and <code>getEntriesByType()</code> methods, and the
+      <code>PerformanceObserver</code> interface. The former is best suited
+      for cases where you want to retrieve a particular metric by name at a
+      single point in time, and the latter is optimized for cases where you
+      may want to receive notifications of new metrics as they become
+      available.</p>
     </section>
   </section>
 
