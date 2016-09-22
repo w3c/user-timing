@@ -14,13 +14,19 @@
           specStatus: "ED",
           shortName: "user-timing",
           maxTocLevel: 2,
-
           edDraftURI: "https://w3c.github.io/user-timing/",
-
-          editors: [
+          editors: [{
+              name: "Ilya Grigorik",
+              url: "https://www.igvita.com/",
+              mailto: "igrigorik@gmail.com",
+              company: "Google",
+              companyURL: "https://google.com/",
+              w3cid: "56102"
+            },
             {
               name: "Jatinder Mann",
               company: "Microsoft Corp.",
+              note: "Until February 2014",
               email: "jmann@microsoft.com",
               w3cid: "44357"
             },
@@ -185,7 +191,8 @@ partial interface Performance {
 </pre>
   <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
   <ol>
-    <li>If <var>markName</var> uses the same name as an attribute in the
+    <li>If the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global
+      object</a> [[!HTML51]] is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://heycam.github.io/webidl/#dfn-read-only">read only attribute</a> in the
         <code><a href="http://www.w3.org/TR/navigation-timing-2/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
     <li>Create a new <a>PerformanceMark</a> object.</li>
     <li>Set <code>name</code> to <var>markName</var>.</var>
@@ -207,8 +214,8 @@ partial interface Performance {
   <p>The <dfn for="Performance" data-lt='measure'>measure(measureName, startMark, endMark)</dfn> method stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
   <ol>
     <li>Let <var>end time</var> be 0.</li>
-    <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in <a>mark list</a> with a <code>name</code> attribute value equal to the value <var>endMark</var>.</li></li>
-    <li>If <var>startMark</var> is omitted, let <var>start time</var> be 0. Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in <a>mark list</a> with a <code>name</code> attribute value equals to the value <var>startMark</var>.</li></li>
+    <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches value <var>endMark</var>.</li>
+    <li>If <var>startMark</var> is omitted, let <var>start time</var> be 0. Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches value <var>startMark</var>.</li>
     <li>Create a new <a>PerformanceMeasure</a> object.</li>
     <li>Set <code>name</code> to <var>measureName</var>.</var>
     <li>Set <code>entryType</code> to <code>DOMString "measure"</code>.
