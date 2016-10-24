@@ -295,12 +295,18 @@ partial interface Performance {
   </section>
 
   <section id="privacy-security" class='informative'>
-	<h2>Privacy and Security</h2>
-
-	<p>The interfaces defined in this specification	expose potentially sensitive timing information on specific JavaScript activity of a page.
-	However, unlike other interfaces defined in [[PERFORMANCE-TIMELINE-2]]>,
-	the interfaces defined in this specification do not have any restrictions on sharing timing information through script. This is because the web platform has been designed with the invariant that
-	any script included on a page has the same access as any other script included on that page regardless of the origin of the script. </p>
+    <h2>Privacy and Security</h2>
+    <p>The interfaces defined in this specification expose potentially
+    sensitive timing information on specific JavaScript activity of a page.
+    Please refer to [HR-TIME-2] for privacy and security considerations of
+    exposing high-resolution timing information.</p>
+    <p>Because the web platform has been designed with the invariant that any
+    script included on a page has the same access as any other script included
+    on the same page, regardless of the origin of either scripts, the
+    interfaces defined by this specification do not place any restrictions on
+    recording or retrieval of recorded timing information - i.e. a user timing
+    mark or measure recorded by any script included on the page can be read by
+    any other script running on the same page, regardless of origin.</p>
   </section>
 
   <section class="appendix">
