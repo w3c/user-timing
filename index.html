@@ -229,10 +229,6 @@ partial interface Performance {
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
-    <p class='issue'>User Timing 1 included: The <em>startMark</em> and <em>endMark</em> arguments may be the name of one of the attributes in the
-       <code><a href="http://www.w3.org/TR/navigation-timing-2/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]].
-       In this case, the value of that attribute is used as the <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> time value.</p>
-
   <p>The <dfn for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
     <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
