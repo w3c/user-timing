@@ -12,7 +12,7 @@
       // See http://www.w3.org/respec/ for ReSpec documentation.
       var respecConfig = {
           specStatus: "ED",
-          shortName: "user-timing",
+          shortName: "user-timing-2",
           maxTocLevel: 2,
           edDraftURI: "https://w3c.github.io/user-timing/",
           editors: [{
@@ -67,7 +67,7 @@
                href: 'https://github.com/w3c/user-timing/commits/gh-pages/index.html'
              }, {
                value: 'File a bug',
-               href: 'https://github.com/w3c/user-timing/issues'
+               href: 'https://github.com/w3c/user-timing/issues?q=milestone:%22Level%202%22'
              }]
            },{
              key: 'Mailing list',
@@ -99,8 +99,11 @@
     </section>
 
     <section id='sotd'>
-    <p>This new version is aligned with [[HR-TIME-2]] and [[!PERFORMANCE-TIMELINE-2]].</p>
-    <p>This is a <strong>work in progress</strong> and may change without any notices.</p>
+      <p>User Timing Level 2 replaces the first version of [[USER-TIMING]] and includes:</p>
+      <ul>
+        <li>Support for <a>PerformanceMark</a> and <a>PerformanceMeasure</a> in Web Workers [[WORKERS]] via integration with [[HR-TIME-2]];
+        <li>Processing clarifications for mark names that reference <code>PerformanceTiming</code> interface defined in [[NAVIGATION-TIMING-2]].</li>
+      </ul>
     </section>
 
     <section class='informative' id="introduction">
