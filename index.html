@@ -194,9 +194,9 @@ partial interface Performance {
 </pre>
   <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
   <ol>
-    <li>If the <a href="http://www.w3.org/TR/html51/webappapis.html#global-object">global
+    <li>If the <a href="https://w3c.github.io/html/webappapis.html#global-object">global
       object</a> [[!HTML51]] is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://heycam.github.io/webidl/#dfn-read-only">read only attribute</a> in the
-        <code><a href="http://www.w3.org/TR/navigation-timing-2/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
+        <code><a href="https://w3c.github.io/navigation-timing/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
     <li>Create a new <a>PerformanceMark</a> object.</li>
     <li>Set <code>name</code> to <var>markName</var>.</var>
     <li>Set <code>entryType</code> to <code>DOMString "mark"</code>.
@@ -245,7 +245,7 @@ partial interface Performance {
       The <dfn>PerformanceMark</dfn> interface also
     exposes marks created via the <a>Performance.mark</a>
     method to the
-      <a href="http://www.w3.org/TR/performance-timeline-2/#sec-performance-timeline">Performance Timeline</a> [[!PERFORMANCE-TIMELINE-2]].
+      <a href="https://w3c.github.io/performance-timeline/#dfn-performance-timeline">Performance Timeline</a> [[!PERFORMANCE-TIMELINE-2]].
     </p>
 
     <pre class="idl">
@@ -256,16 +256,16 @@ partial interface Performance {
 
     <p>
     The <a>PerformanceMark</a>
-		interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline-2/#performanceentry">PerformanceEntry</a>
+		interface extends the following attributes of the <a href="https://w3c.github.io/performance-timeline/#performanceentry">PerformanceEntry</a>
 		interface:
     </p>
 
         <p>The <code>name</code> attribute will return the mark's name.</p>
-        <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"mark"</code>.</p>
-        <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
+        <p>The <code>entryType</code> attribute will return the <a href='https://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"mark"</code>.</p>
+        <p>The <code>startTime</code> attribute will return a <a href="https://w3c.github.io/hr-time/#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the mark's time value [[!HR-TIME-2]].
     	</p>
-        <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
+        <p>The <code>duration</code> attribute will return a <a href="https://w3c.github.io/hr-time/#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		of value 0.</p>
   </section>
 
@@ -274,7 +274,7 @@ partial interface Performance {
     <p>
       The <dfn>PerformanceMeasure</dfn> interface also
       exposes measures created via the <a>Performance.measure</a>
-    method to the <a href="http://www.w3.org/TR/performance-timeline-2/#sec-performance-timeline">Performance Timeline</a> [[!PERFORMANCE-TIMELINE-2]].
+    method to the <a href="https://w3c.github.io/performance-timeline/#sec-performance-timeline">Performance Timeline</a> [[!PERFORMANCE-TIMELINE-2]].
     </p>
     <pre class="idl">
   [Exposed=(Window,Worker)]
@@ -283,14 +283,14 @@ partial interface Performance {
     </pre>
 
 	<p>
-    The <a>PerformanceMeasure</a> interface extends the following attributes of the <a href="http://www.w3.org/TR/performance-timeline-2/#performanceentry">PerformanceEntry</a> interface:
+    The <a>PerformanceMeasure</a> interface extends the following attributes of the <a href="https://w3c.github.io/performance-timeline/#performanceentry">PerformanceEntry</a> interface:
     </p>
 
         <p>The <code>name</code> attribute will return the measure's name.</p>
-        <p>The <code>entryType</code> attribute will return the <a href='http://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"measure"</code>.</p>
-        <p>The <code>startTime</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
+        <p>The <code>entryType</code> attribute will return the <a href='https://www.w3.org/TR/WebIDL/#idl-DOMString'><code>DOMString</code></a> <code>"measure"</code>.</p>
+        <p>The <code>startTime</code> attribute will return a <a href="https://w3c.github.io/hr-time/#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the measure's start mark [[!HR-TIME-2]].</p>
-        <p>The <code>duration</code> attribute will return a <a href="http://www.w3.org/TR/hr-time-2/#domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
+        <p>The <code>duration</code> attribute will return a <a href="https://w3c.github.io/hr-time/#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a>
 		with the duration of the measure. </p>
   </section>
 
