@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>
@@ -177,7 +177,7 @@
 
     <p>The IDL fragments in this specification MUST be interpreted as
     required for conforming IDL fragments, as described in the Web IDL
-    specification. [[!WebIDL]]</a></p>
+    specification. [[!WEBIDL]]</p>
   </section>
 
     <section id="extensions-performance-interface">
@@ -198,7 +198,7 @@ partial interface Performance {
       object</a> [[!HTML51]] is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://heycam.github.io/webidl/#dfn-read-only">read only attribute</a> in the
         <code><a href="https://w3c.github.io/navigation-timing/#idl-def-PerformanceTiming">PerformanceTiming</a></code> interface [[!NAVIGATION-TIMING-2]], <a href='https://heycam.github.io/webidl/#dfn-throw'>throw</a> a <a href='https://heycam.github.io/webidl/#syntaxerror'><code>SyntaxError</code></a>.</li>
     <li>Create a new <a>PerformanceMark</a> object.</li>
-    <li>Set <code>name</code> to <var>markName</var>.</var>
+    <li>Set <code>name</code> to <var>markName</var>.
     <li>Set <code>entryType</code> to <code>DOMString "mark"</code>.
     <li>Set <code>startTime</code> to be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method.</li>
     <li>Set <code>duration</code> to <code>0</code>.</li>
@@ -220,7 +220,7 @@ partial interface Performance {
     <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches value <var>endMark</var>.</li>
     <li>If <var>startMark</var> is omitted, let <var>start time</var> be 0. Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches value <var>startMark</var>.</li>
     <li>Create a new <a>PerformanceMeasure</a> object.</li>
-    <li>Set <code>name</code> to <var>measureName</var>.</var>
+    <li>Set <code>name</code> to <var>measureName</var>.
     <li>Set <code>entryType</code> to <code>DOMString "measure"</code>.
     <li>Set <code>startTime</code> to <var>start time</var>.</li>
     <li>Set <code>duration</code> to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
@@ -323,7 +323,6 @@ partial interface Performance {
     Tony Gentilcore
     for their contributions to this work.</p>
   </section>
-</section>
 </body>
 
 </html>
