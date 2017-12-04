@@ -181,7 +181,8 @@
   </section>
 
     <section id="extensions-performance-interface">
-      <h2>Extensions to the <code>Performance</code> Interface</h2>
+    <h2>Extensions to the <code><dfn data-cite="!HR-TIME-2#the-performance-interface">Performance</dfn></code> Interface</h2>
+    The <a>Performance</a> Interface is defined in [[!HR-TIME-2]].
 
       <pre class="idl">
 partial interface Performance {
@@ -192,7 +193,7 @@ partial interface Performance {
     void clearMeasures(optional DOMString measureName);
 };
 </pre>
-  <p>The <dfn for="Performance" data-lt='mark'>mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
+  <p>The <dfn data-dfn-for="Performance" data-lt="mark">mark(markName)</dfn> method stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
   <ol>
     <li>If the <a href="https://w3c.github.io/html/webappapis.html#global-object">global
       object</a> [[!HTML51]] is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://heycam.github.io/webidl/#dfn-read-only">read only attribute</a> in the
@@ -207,14 +208,14 @@ partial interface Performance {
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
-  <p>The <dfn for="Performance" data-lt='clearMarks'>clearMarks(markName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
+  <p>The <dfn data-dfn-for="Performance" data-lt='clearMarks'>clearMarks(markName)</dfn> method removes the stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
     <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
     <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <var>name</var> matches<var>markName</var>.</li>
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
-  <p>The <dfn for="Performance" data-lt='measure'>measure(measureName, startMark, endMark)</dfn> method stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
+  <p>The <dfn data-dfn-for="Performance" data-lt='measure'>measure(measureName, startMark, endMark)</dfn> method stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
   <ol>
     <li>Let <var>end time</var> be 0.</li>
     <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a href="http://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></a> method. Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurence <a>PerformanceMark</a> object in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches value <var>endMark</var>.</li>
@@ -229,7 +230,7 @@ partial interface Performance {
     <li>Return <strong>undefined</strong>.</li>
   </ol>
 
-  <p>The <dfn for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
+  <p>The <dfn data-dfn-for="Performance" data-lt='clearMeasures'>clearMeasures(measureName)</dfn> removes stored timestamp with the associated name. It MUST run these steps:</p>
   <ol>
     <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a>.</li>
     <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a href='https://w3c.github.io/performance-timeline/#dfn-performance-entry-buffer'>performance entry buffer</a> whose <code>name</code> matches <var>measureName</var>.</li>
