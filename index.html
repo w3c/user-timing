@@ -130,30 +130,29 @@
         &lt;/head&gt;
         &lt;body onload="init()"&gt;
           &lt;script&gt;
-             function init()
-             {
-                  performance.mark("startTask1");
-                  doTask1(); // Some developer code
-                  performance.mark("endTask1");
+	    function init() {
+	      performance.mark("startTask1");
+	      doTask1(); // Some developer code
+	      performance.mark("endTask1");
 
-                  performance.mark("startTask2");
-                  doTask2(); // Some developer code
-                  performance.mark("endTask2");
+	      performance.mark("startTask2");
+	      doTask2(); // Some developer code
+	      performance.mark("endTask2");
 
-                  measurePerf();
-             }
+	      displayPerf();
+	    }
 
-             function measurePerf()
-             {
-                 var perfEntries = performance.getEntriesByType("mark");
-                 for (var i = 0; i &lt; perfEntries.length; i++)
-                 {
-                       if (window.console) console.log("Name: "        + perfEntries[i].name      +
-                                                       " Entry Type: " + perfEntries[i].entryType +
-                                                       " Start Time: " + perfEntries[i].startTime +
-                                                       " Duration: "   + perfEntries[i].duration  + "\n");
-                 }
-             }
+	    function displayPerf() {
+	      for (const entry of performance.getEntriesByType("mark")) {
+		const { name, entryType, startTime, duration } = entry;
+		console.log(
+		  `Name: ${name}`,
+		  `Entry Type: ${entryType}`,
+		  `Start Time: ${startTime}`,
+		  `Duration: ${duration}`
+		);
+	      }
+	    }
           &lt;/script&gt;
         &lt;/body&gt;
       &lt;/html&gt;
