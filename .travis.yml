@@ -1,0 +1,15 @@
+language: node_js
+sudo: false
+branches:
+  only:
+  - gh-pages
+env:
+  global:
+  - URL="http://w3c.github.io/user-timing/W3CTRMANIFEST"
+  - DECISION="http://www.w3.org/2015/06/24-webperf-minutes.html#item01"
+  - secure: "BVo0fQBwUqqSXR8spzf34/8aAf3zz460yvGgOBy26UeodArIycNeS7irPRz415yFAMuglO+TX31LEpaPD0eCVLcrH1C3MO6J0v2aS5OypCySQFXUT6Kncb+6tiakRZzqtop7J8Kt0LpKS6MbEud1XpmnxINsxTzmBFhrTYK2zSM="
+script:
+- echo "ok"
+after_success:
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION"
+  --data "token=$TOKEN"'
