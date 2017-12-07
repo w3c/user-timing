@@ -122,41 +122,23 @@
       <p>The following script shows how a developer can use the interfaces defined in this document
   	to obtain timing data related to developer scripts.
       </p>
-      <pre class="example highlight">
-      &lt;!doctype html&gt;
-      &lt;html&gt;
-        &lt;head&gt;
-          &lt;title&gt;User Timing example&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body onload="init()"&gt;
-          &lt;script&gt;
-             function init()
-             {
-                  performance.mark("startTask1");
-                  doTask1(); // Some developer code
-                  performance.mark("endTask1");
+      <pre class="example">
+	async function run() {
+	  performance.mark("startTask1");
+	  await doTask1(); // Some developer code
+	  performance.mark("endTask1");
 
-                  performance.mark("startTask2");
-                  doTask2(); // Some developer code
-                  performance.mark("endTask2");
+	  performance.mark("startTask2");
+	  await doTask2(); // Some developer code
+	  performance.mark("endTask2");
 
-                  measurePerf();
-             }
-
-             function measurePerf()
-             {
-                 var perfEntries = performance.getEntriesByType("mark");
-                 for (var i = 0; i &lt; perfEntries.length; i++)
-                 {
-                       if (window.console) console.log("Name: "        + perfEntries[i].name      +
-                                                       " Entry Type: " + perfEntries[i].entryType +
-                                                       " Start Time: " + perfEntries[i].startTime +
-                                                       " Duration: "   + perfEntries[i].duration  + "\n");
-                 }
-             }
-          &lt;/script&gt;
-        &lt;/body&gt;
-      &lt;/html&gt;
+	  // Log them out
+	  const entries = performance.getEntriesByType("mark");
+	  for (const entry of entries) {
+	    console.table(entry.toJSON());
+	  }
+	}
+	run();
       </pre>
       <p class="note">[[PERFORMANCE-TIMELINE-2]] defines two mechanisms that
       can be used to retrieve recorded metrics: <code>getEntries()</code>
