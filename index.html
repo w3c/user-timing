@@ -262,6 +262,7 @@
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
       <p>To compute a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
       <ol>
+        <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
         <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
         <li>Let <var>startTime</var> be the value of <code>navigationStart</code> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
         <li>Let <var>endTime</var> be the value of <var>name</var> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
