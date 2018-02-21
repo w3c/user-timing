@@ -189,9 +189,9 @@
         </ol>
       </section>
     </section>
-    <section id="performancemark">
-      <h2> The <code>PerformanceMark</code> Interface</h2>
-      <p>The <dfn>PerformanceMark</dfn> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
+    <section id="performancemark" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">
+      <h2>The <dfn>PerformanceMark</dfn> Interface</h2>
+      <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMark : PerformanceEntry {
@@ -204,9 +204,9 @@
       <p>The <code>startTime</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
       <p>The <code>duration</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
     </section>
-    <section id="performancemeasure">
-      <h2>The <code>PerformanceMeasure</code> Interface</h2>
-      <p>The <dfn>PerformanceMeasure</dfn> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#sec-performance-timeline">Performance Timeline</a>.</p>
+    <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
+      <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
+      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#sec-performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
