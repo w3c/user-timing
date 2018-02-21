@@ -9,82 +9,52 @@
     // (this is to make tidy happy)
     // See http://www.w3.org/respec/ for ReSpec documentation.
     var respecConfig = {
-        specStatus: 'ED',
-        shortName: 'user-timing-2',
-        edDraftURI: 'https://w3c.github.io/user-timing/',
-        editors: [{
-            name: 'Ilya Grigorik',
-            url: 'https://www.igvita.com/',
-            mailto: 'igrigorik@gmail.com',
-            company: 'Google',
-            companyURL: 'https://google.com/',
-            w3cid: '56102'
-          },
-          {
-            name: 'Jatinder Mann',
-            company: 'Microsoft Corp.',
-            note: 'Until February 2014',
-            email: 'jmann@microsoft.com',
-            w3cid: '44357'
-          },
-          {
-            name: 'Zhiheng Wang',
-            company: 'Google Inc.',
-            note: 'Until July 2013',
-            w3cid: '43685'
-          },
-          {
-            name: 'Anderson Quach',
-            company: 'Microsoft Corp.',
-            note: 'until March 2011',
-            w3cid: '45288'
-          }
-        ],
-
-        wg: 'Web Performance Working Group',
-        wgURI: 'https://www.w3.org/webperf/',
-        license: 'w3c-software-doc',
-        wgPublicList: 'public-web-perf',
-        subjectPrefix: '[UserTiming]',
-
-        // This is important for Rec-track documents, do not copy a patent URI
-        // from a random document unless you know what you're doing. If in
-        // doubt ask your friendly neighbourhood Team Contact.
-        wgPatentURI:  'https://www.w3.org/2004/01/pp-impl/45211/status',
-
-        noLegacyStyle: true,
-
-        otherLinks: [{
-           key: 'Repository',
-           data: [{
-             value: 'We are on GitHub',
-             href: 'https://github.com/w3c/user-timing/'
-           }, {
-             value: 'Commit history',
-             href: 'https://github.com/w3c/user-timing/commits/gh-pages/index.html'
-           }, {
-             value: 'File a bug',
-             href: 'https://github.com/w3c/user-timing/issues?q=milestone:%22Level%202%22'
-           }]
-         },{
-           key: 'Mailing list',
-           data: [{
-             value: 'public-web-perf@w3.org',
-             href: 'https://lists.w3.org/Archives/Public/public-web-perf/'
-           }]
-         },{
-           key: 'Implementation',
-           data: [{
-             value: 'Can I use User Timing?',
-             href: 'http://caniuse.com/#feat=user-timing'
-           }, {
-             value: 'Test Suite',
-             href: 'http://w3c-test.org/user-timing/'
-           }, {
-             value: 'Test Suite repository',
-             href: 'https://github.com/w3c/web-platform-tests/tree/master/user-timing'
-           }]
-         }]
+      specStatus: 'ED',
+      shortName: 'user-timing-2',
+      editors: [{
+        name: 'Ilya Grigorik',
+        url: 'https://www.igvita.com/',
+        mailto: 'igrigorik@gmail.com',
+        company: 'Google',
+        companyURL: 'https://google.com/',
+        w3cid: '56102'
+      },
+      {
+        name: 'Jatinder Mann',
+        company: 'Microsoft Corp.',
+        note: 'Until February 2014',
+        email: 'jmann@microsoft.com',
+        w3cid: '44357'
+      },
+      {
+        name: 'Zhiheng Wang',
+        company: 'Google Inc.',
+        note: 'Until July 2013',
+        w3cid: '43685'
+      },
+      {
+        name: 'Anderson Quach',
+        company: 'Microsoft Corp.',
+        note: 'until March 2011',
+        w3cid: '45288'
+      }],
+      wg: 'Web Performance Working Group',
+      wgURI: 'https://www.w3.org/webperf/',
+      wgPublicList: 'public-web-perf',
+      subjectPrefix: '[UserTiming]',
+      testSuiteURI: "https://w3c-test.org/navigation-timing/",
+      github: "https://github.com/w3c/user-timing/",
+      otherLinks: [{
+        key: 'Implementation',
+        data: [{
+          value: 'Can I use User Timing?',
+          href: 'http://caniuse.com/#feat=user-timing'
+        }]
+      }],
+      // This is important for Rec-track documents, do not copy a patent URI
+      // from a random document unless you know what you're doing. If in
+      // doubt ask your friendly neighbourhood Team Contact.
+      wgPatentURI:  'https://www.w3.org/2004/01/pp-impl/45211/status'
     };
   </script>
 </head>
@@ -161,14 +131,14 @@
         <h2><dfn>mark()</dfn> method</h2>
         <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
         <ol>
-          <li>Run the <a href="#ensure-name-is-valid">ensure name is valid</a> algorithm with <var>name</var> set to <var>markName</var>.</li>
-          <li>Create a new <a>PerformanceMark</a> object.</li>
-          <li>Set <code>name</code> to <var>markName</var>.</li>
-          <li>Set <code>entryType</code> to <code>DOMString "mark"</code>.</li>
-          <li>Set <code>startTime</code> to be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
-          <li>Set <code>duration</code> to <code>0</code>.</li>
-          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> the <a>PerformanceMark</a> object.</li>
-          <li id="stored_mark">Add the <code>PerformanceMark</code> object to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Run the <a>ensure name is valid</a> algorithm with <var>name</var> set to <var>markName</var>.</li>
+          <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
+          <li>Set <var>entry</var>'s <code>name</code> property to <var>markName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> property to <code>DOMString "mark"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> property to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+          <li>Set <var>entry</var>'s <code>duration</code> property to <code>0</code>.</li>
+          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
+          <li id="stored_mark">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
@@ -185,11 +155,11 @@
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>Run the <a href="#ensure-name-is-valid">ensure name is valid</a> algorithm with <var>name</var> set to <var>measureName</var>.</li>
+          <li>Run the <a>ensure name is valid</a> algorithm with <var>name</var> set to <var>measureName</var>.</li>
           <li>Let <var>end time</var> be <code>0</code>.</li>
           <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method. Otherwise:
             <ol>
-              <li>If <var>endMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value return by running the <a href="#convert-a-name-to-a-timestamp">convert name to a timestamp</a> algorithm with <var>name</var> set to <var>endMark</var>.</li>
+              <li>If <var>endMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a href="#convert-a-name-to-a-timestamp">convert name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>endMark</var>.</li>
               <li>Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>endMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
             </ol>
           </li>
@@ -199,13 +169,13 @@
               <li>Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>startMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
             </ol>
           </li>
-          <li>Create a new <a>PerformanceMeasure</a> object.</li>
-          <li>Set <code>name</code> to <var>measureName</var>.</li>
-          <li>Set <code>entryType</code> to <code>DOMString "measure"</code>.</li>
-          <li>Set <code>startTime</code> to <var>start time</var>.</li>
-          <li>Set <code>duration</code> to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
-          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> the <a>PerformanceMeasure</a> object.</li>
-          <li id="stored_measure">Add the <code>PerformanceMeasure</code> object to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
+          <li>Set <var>entry</var>'s <code>name</code> property to <var>measureName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> property to <code>DOMString "measure"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> property to <var>start time</var>.</li>
+          <li>Set <var>entry</var>'s <code>duration</code> property to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
+          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
+          <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
@@ -253,7 +223,7 @@
     <h2>Processing</h2>
     <section>
       <h2>Ensure <var>name</var> is valid</h2>
-      <p>To ensure the given mark or measure <var>name</var> is valid, run these steps:</p>
+      <p>To <dfn>ensure name is valid</dfn> for a given mark or measure <var>name</var>, run these steps:</p>
       <ol>
         <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>name</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
       </ol>
