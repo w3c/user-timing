@@ -159,13 +159,13 @@
           <li>Let <var>end time</var> be <code>0</code>.</li>
           <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method. Otherwise:
             <ol>
-              <li>If <var>endMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a href="#convert-a-name-to-a-timestamp">convert name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>endMark</var>.</li>
+              <li>If <var>endMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>endMark</var>.</li>
               <li>Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>endMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
             </ol>
           </li>
           <li>If <var>startMark</var> is omitted, let <var>start time</var> be <code>0</code>. Otherwise:
             <ol>
-              <li>If <var>startMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>start time</var> be the value return by running the <a href="#convert-a-name-to-a-timestamp">convert name to a timestamp</a> algorithm with <var>name</var> set to <var>startMark</var>.</li>
+              <li>If <var>startMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>start time</var> be the value return by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to <var>startMark</var>.</li>
               <li>Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>startMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
             </ol>
           </li>
@@ -230,7 +230,7 @@
     </section>
     <section>
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
-      <p>To compute a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
+      <p>To <dfn>convert a name to a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
       <ol>
         <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
         <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
@@ -240,6 +240,11 @@
         <li>Return result of subtracting <var>startTime</var> from <var>endTime</var>.</li>
       </ol>
     </section>
+
+    <p class="note">
+      The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING#PerformanceNavigationTiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
+    </p>
+
   </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
