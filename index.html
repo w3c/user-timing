@@ -133,10 +133,10 @@
         <ol>
           <li>Run the <a>ensure name is valid</a> algorithm with <var>name</var> set to <var>markName</var>.</li>
           <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
-          <li>Set <var>entry</var>'s <code>name</code> property to <var>markName</var>.</li>
-          <li>Set <var>entry</var>'s <code>entryType</code> property to <code>DOMString "mark"</code>.</li>
-          <li>Set <var>entry</var>'s <code>startTime</code> property to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
-          <li>Set <var>entry</var>'s <code>duration</code> property to <code>0</code>.</li>
+          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> attribute to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+          <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
           <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_mark">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <strong>undefined</strong>.</li>
@@ -170,10 +170,10 @@
             </ol>
           </li>
           <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
-          <li>Set <var>entry</var>'s <code>name</code> property to <var>measureName</var>.</li>
-          <li>Set <var>entry</var>'s <code>entryType</code> property to <code>DOMString "measure"</code>.</li>
-          <li>Set <var>entry</var>'s <code>startTime</code> property to <var>start time</var>.</li>
-          <li>Set <var>entry</var>'s <code>duration</code> property to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
+          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
+          <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
           <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <strong>undefined</strong>.</li>
