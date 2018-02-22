@@ -131,7 +131,7 @@
         <h2><dfn>mark()</dfn> method</h2>
         <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
         <ol>
-          <li>Run the <a>ensure name is valid</a> algorithm with <var>name</var> set to <var>markName</var>.</li>
+          <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
           <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
           <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
@@ -222,13 +222,6 @@
   <section>
     <h2>Processing</h2>
     <section>
-      <h2>Ensure <var>name</var> is valid</h2>
-      <p>To <dfn>ensure name is valid</dfn> for a given mark or measure <var>name</var>, run these steps:</p>
-      <ol>
-        <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>name</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-      </ol>
-    </section>
-    <section>
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
       <p>To <dfn>convert a name to a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
       <ol>
@@ -239,12 +232,10 @@
         <li>If <var>endTime</var> is <code>0</code>, <a data-cite="!WEBIDL#dfn-throw">throw</a> an <a data-cite="!WEBIDL#invalidaccesserror"><code>InvalidAccessError</code></a>.</li>
         <li>Return result of subtracting <var>startTime</var> from <var>endTime</var>.</li>
       </ol>
+      <p class="note">
+        The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING#PerformanceNavigationTiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
+      </p>
     </section>
-
-    <p class="note">
-      The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING#PerformanceNavigationTiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
-    </p>
-
   </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
