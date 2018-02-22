@@ -155,7 +155,6 @@
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>Run the <a>ensure name is valid</a> algorithm with <var>name</var> set to <var>measureName</var>.</li>
           <li>Let <var>end time</var> be <code>0</code>.</li>
           <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method. Otherwise:
             <ol>
@@ -165,7 +164,7 @@
           </li>
           <li>If <var>startMark</var> is omitted, let <var>start time</var> be <code>0</code>. Otherwise:
             <ol>
-              <li>If <var>startMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>start time</var> be the value return by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to <var>startMark</var>.</li>
+              <li>If <var>startMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>start time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to <var>startMark</var>.</li>
               <li>Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>startMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
             </ol>
           </li>
@@ -199,10 +198,10 @@
       </pre>
       <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#performanceentry">PerformanceEntry</a>
       interface:</p>
-      <p>The <code>name</code> attribute will return the mark's name.</p>
-      <p>The <code>entryType</code> attribute will return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
-      <p>The <code>startTime</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
-      <p>The <code>duration</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
+      <p>The <code>name</code> attribute must return the mark's name.</p>
+      <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
+      <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
+      <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
@@ -213,10 +212,10 @@
         };
       </pre>
       <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#performanceentry">PerformanceEntry</a> interface:</p>
-      <p>The <code>name</code> attribute will return the measure's name.</p>
-      <p>The <code>entryType</code> attribute will return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
-      <p>The <code>startTime</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
-      <p>The <code>duration</code> attribute will return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
+      <p>The <code>name</code> attribute must return the measure's name.</p>
+      <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
+      <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
+      <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
     </section>
   </section>
   <section>
