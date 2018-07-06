@@ -65,7 +65,7 @@
     to high precision timestamps.</p>
   </section>
   <section id="sotd">
-    <p>User Timing Level 2 replaces the first version of [[USER-TIMING]] and includes:</p>
+    <p>User Timing Level 2 is intended to supersede the first version of [[USER-TIMING]] and includes:</p>
     <ul>
       <li>Support for <a>PerformanceMark</a> and <a>PerformanceMeasure</a> in Web Workers [[!WORKERS]] via integration with [[HR-TIME-2]];
       <li>Processing clarifications for mark names that reference <code>PerformanceTiming</code> interface defined in [[NAVIGATION-TIMING]].</li>
@@ -73,7 +73,7 @@
   </section>
   <section class="informative" id="introduction">
     <h2>Introduction</h2>
-    <p>Web developers need the ability to assess and understand the performance characteristics of their applications. While JavaScript <a href="#ECMA262">[ECMA262]</a> provides a mechanism to measure application latency (retrieving the current timestamp from the <code>Date.now()</code> method), the precision of this timestamp varies between user agents.</p>
+    <p>Web developers need the ability to assess and understand the performance characteristics of their applications. While JavaScript [[ECMA-262]] provides a mechanism to measure application latency (retrieving the current timestamp from the <code>Date.now()</code> method), the precision of this timestamp varies between user agents.</p>
     <p>This document defines the <a>PerformanceMark</a> and <a>PerformanceMeasure</a> interfaces, and extensions to the <a href="#extensions-performance-interface"><code>Performance</code></a> interface, which expose a high precision, monotonically increasing timestamp so they can better measure the performance characteristics of their applications.</p>
     <div class="informative">
       <p>The following script shows how a developer can use the interfaces defined in this document to obtain timing data related to developer scripts.</p>
@@ -117,7 +117,7 @@
   <section>
     <h2><dfn>User Timing</dfn></h2>
     <section id="extensions-performance-interface" data-dfn-for="Performance" data-link-for="Performance">
-      <h2>Extensions to the <code><dfn data-cite="!HR-TIME-2#the-performance-interface">Performance</dfn></code> interface</h2>
+      <h2>Extensions to the <code><dfn data-cite="!HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
       <p>The <a>Performance</a> interface is defined in [[!HR-TIME-2]].</p>
       <pre class="idl">
         partial interface Performance {
@@ -196,7 +196,7 @@
         interface PerformanceMark : PerformanceEntry {
         };
       </pre>
-      <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#performanceentry">PerformanceEntry</a>
+      <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a>
       interface:</p>
       <p>The <code>name</code> attribute must return the mark's name.</p>
       <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
@@ -205,13 +205,13 @@
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
-      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#sec-performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
         };
       </pre>
-      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#performanceentry">PerformanceEntry</a> interface:</p>
+      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a> interface:</p>
       <p>The <code>name</code> attribute must return the measure's name.</p>
       <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
       <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
@@ -232,7 +232,7 @@
         <li>Return result of subtracting <var>startTime</var> from <var>endTime</var>.</li>
       </ol>
       <p class="note">
-        The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING#PerformanceNavigationTiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
+        The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
       </p>
     </section>
   </section>
