@@ -1,6 +1,10 @@
 {
-  "group":     45211
-, "contacts":  ["plehegar", "siusin"]
-, "shortName": "user-timing-2"
-, "policy":    "open"
+  "group": 45211,
+  "contacts": [
+    "plehegar",
+    "siusin"
+  ],
+  "shortName": "user-timing-2",
+  "policy": "open",
+  "repo-type": "rec-track"
 }
