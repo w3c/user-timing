@@ -224,6 +224,11 @@
   </section>
   <section>
     <h2>Processing</h2>
+    <p>A user agent implementing the User Timing API must perform the following steps:</p>
+    <ol>
+      <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"mark"</code> as input.</li>
+      <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"measure"</code> as input.</li>
+    </ol>
     <section>
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
       <p>To <dfn>convert a name to a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
