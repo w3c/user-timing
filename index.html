@@ -107,6 +107,29 @@
       single point in time, and the latter is optimized for cases where you
       may want to receive notifications of new metrics as they become
       available.</p>
+      <p>As another example, suppose that there is an element which, when
+      clicked, fetches some new content and indicates that it has been fetched.
+      We'd like to report the time from when the user clicked to when the fetch
+      was complete. We can't mark the time the click handler executes since that
+      will miss latency to process the event, so instead we use the event
+      hardware timestamp. We also want to know the name of the component to have
+      more detailed analytics.</p>
+      <pre class="example">
+        element.addEventListener("click", e => {
+          const component = getComponent(element);
+          fetch(component.url).then(() => {
+            element.setTextContent("Updated");
+            const updateMark = performance.mark("update_component", {
+              detail: {component: component.name},
+            });
+            performance.measure("click_to_update_component", {
+              detail: {component: component.name},
+              start: e.timeStamp,
+              end: updateMark.startTime,
+            });
+          });
+        });
+      </pre>
     </div>
   </section>
   <section id="conformance">
@@ -124,14 +147,26 @@
       <h2>Extensions to the <code><dfn data-cite="!HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
       <p>The <a>Performance</a> interface is defined in [[!HR-TIME-2]].</p>
       <pre class="idl">
+        dictionary PerformanceMarkOptions {
+            any detail = null;
+            DOMHighResTimeStamp startTime;
+        };
+
+        dictionary PerformanceMeasureOptions {
+            any detail = null;
+            (DOMString or DOMHighResTimeStamp) startTime;
+            DOMHighResTimeStamp duration;
+            (DOMString or DOMHighResTimeStamp) endTime;
+        };
+
         partial interface Performance {
-            void mark(DOMString markName);
+            PerformanceMark mark(DOMString markName, optional (DOMHighResTimeStamp or PerformanceMarkOptions) startOrPerformanceMarkOptions);
             void clearMarks(optional DOMString markName);
-            void measure(DOMString measureName, optional DOMString startMark, optional DOMString endMark);
+            PerformanceMeasure measure(DOMString measureName, optional (DOMString or DOMHighResTimeStamp or PerformanceMeasureOptions)? startOrPerformanceMeasureOptions, optional (DOMString or DOMHighResTimeStamp)? endMark);
             void clearMeasures(optional DOMString measureName);
         };
       </pre>
-      <section>
+      <section data-link-for="PerformanceMarkOptions">
         <h2><dfn>mark()</dfn> method</h2>
         <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
         <ol>
@@ -139,12 +174,36 @@
           <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
           <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
           <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
-          <li>Set <var>entry</var>'s <code>startTime</code> attribute to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+          <li>
+            Set <var>entry</var>'s <code>startTime</code> attribute as follows:
+            <ol>
+              <li>If <var>startOrPerformanceMarkOptions</var> is a <code>DOMHighResTimeStamp</code>, set it to <var>startOrPerformanceMarkOptions</var>.</li>
+              <li>Otherwise, if <var>startOrPerformanceMarkOptions</var> is a <a>PerformanceMarkOptions</a> and it contains <a>startTime</a>, set it to the value of <var>startOrPerformanceMarkOptions</var>'s <a>startTime</a>.</li>
+              <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+            </ol>
+          </li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
+          <li>
+            Set <var>entry</var>'s <code>detail</code> attribute as follows:
+            <ol>
+              <li>If <var>startOrPerformanceMarkOptions</var> is a <a>PerformanceMarkOptions</a>, set it to <var>startOrPerformanceMarkOptions</var>'s <a>detail</a>.</li>
+              <li>Otherwise, set it to <code>null</code>.</li>
+            </ol>
+          </li>
           <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_mark">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Return <strong>undefined</strong>.</li>
+          <li>Return <var>entry</var>.</li>
         </ol>
+        <section data-dfn-for="PerformanceMarkOptions">
+          <h2><dfn>PerformanceMarkOptions</dfn> dictionary</h2>
+          <dl>
+            <dt><dfn>detail</dfn></dt>
+            <dd>Metadata to be included in the mark.</dd>
+            <dt><dfn>startTime</dfn></dt>
+            <dd>Timestamp to be used as the mark time.</dd>
+          </dl>
+          <dl>
+        </section>
       </section>
       <section>
         <h2><dfn>clearMarks()</dfn> method</h2>
@@ -155,21 +214,42 @@
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
-      <section>
+      <section data-link-for="PerformanceMeasureOptions">
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>Let <var>end time</var> be <code>0</code>.</li>
-          <li>If <var>endMark</var> is omitted, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method. Otherwise:
+          <li>If <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and <var>endMark</var> is present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and its <a>startTime</a>, <a>duration</a>, and <a>endTime</a> are all present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>
+            Compute <var>end time</var> as follows:
             <ol>
-              <li>If <var>endMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>endMark</var>.</li>
-              <li>Otherwise let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>endMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+              <li>If <var>endMark</var> is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
+              <li>Otherwise, if <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and its <a>endTime</a> is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrPerformanceMeasureOptions</var>'s <a>endTime</a>.</li>
+              <li>
+                Otherwise, if <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and its <a>startTime</a> and <a>duration</a> are both present:
+                <ol>
+                  <li>Let <var>start</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>startTime</a>.</li>
+                  <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
+                  <li>Let <var>end time</var> be <var>start</var> plus <var>duration</var>.</li>
+                </ol>
+              </li>
+              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
             </ol>
           </li>
-          <li>If <var>startMark</var> is omitted, let <var>start time</var> be <code>0</code>. Otherwise:
+          <li>
+            Compute <var>start time</var> as follows:
             <ol>
-              <li>If <var>startMark</var> has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>start time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to <var>startMark</var>.</li>
-              <li>Otherwise let <var>start time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>startMark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+              <li>If <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and its <a>startTime</a> is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrPerformanceMeasureOptions</var>'s <a>startTime</a>.</li>
+              <li>
+                Otherwise, if <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> and its <a>duration</a> and <a>endTime</a> are both present:
+                <ol>
+                  <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
+                  <li>Let <var>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>endTime</a>.</li>
+                  <li>Let <var>start time</var> be <var>end</var> minus <var>duration</var>.</li>
+                </ol>
+              </li>
+              <li>Otherwise, if <var>startOrPerformanceMeasureOptions</var> is a <code>DOMString</code> or a <code>DOMHighResTimeStamp</code>, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrPerformanceMeasureOptions</var>.</li>
+              <li>Otherwise, let <var>start time</var> be <code>0</code>.</li>
             </ol>
           </li>
           <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
@@ -177,10 +257,31 @@
           <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
           <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
+          <li>
+            Set <var>entry</var>'s <code>detail</code> attribute as follows:
+            <ol>
+              <li>If <var>startOrPerformanceMeasureOptions</var> is a <a>PerformanceMeasureOptions</a>, set it to <var>startOrPerformanceMeasureOptions</var>'s <a>detail</a>.</li>
+              <li>Otherwise, set it to <code>null</code>.</li>
+            </ol>
+          </li>
           <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Return <strong>undefined</strong>.</li>
+          <li>Return <var>entry</var>.</li>
         </ol>
+        <section data-dfn-for="PerformanceMeasureOptions">
+          <h2><dfn>PerformanceMeasureOptions</dfn> dictionary</h2>
+          <dl>
+            <dt><dfn>detail</dfn></dt>
+            <dd>Metadata to be included in the measure.</dd>
+            <dt><dfn>startTime</dfn></dt>
+            <dd>Timestamp to be used as the mark time.</dd>
+            <dt><dfn>duration</dfn></dt>
+            <dd>Timestamp to be used as the mark time.</dd>
+            <dt><dfn>endTime</dfn></dt>
+            <dd>Timestamp to be used as the mark time.</dd>
+          </dl>
+          <dl>
+        </section>
       </section>
       <section>
         <h2><dfn>clearMeasures()</dfn> method</h2>
@@ -198,6 +299,7 @@
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMark : PerformanceEntry {
+          readonly attribute any detail;
         };
       </pre>
       <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a>
@@ -206,6 +308,8 @@
       <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
       <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
       <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
+      <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
+      <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
@@ -213,6 +317,7 @@
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
+          readonly attribute any detail;
         };
       </pre>
       <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a> interface:</p>
@@ -220,6 +325,8 @@
       <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
       <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
       <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
+      <p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
+      <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
     </section>
   </section>
   <section>
@@ -229,6 +336,15 @@
       <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"mark"</code> as input.</li>
       <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"measure"</code> as input.</li>
     </ol>
+    <section>
+      <h2>Convert a <var>mark</var> to a <var>timestamp</var></h2>
+      <p>To <dfn>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or <code>DOMHighResTimeStamp</code> run these steps:
+        <ol>
+          <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
+          <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>mark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>, let <var>end time</var> be <var>mark</var>.</li>
+        </ol>
+    </section>
     <section>
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
       <p>To <dfn>convert a name to a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
