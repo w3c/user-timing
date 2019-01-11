@@ -170,25 +170,7 @@
         <h2><dfn>mark()</dfn> method</h2>
         <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
         <ol>
-          <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-          <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
-          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
-          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
-          <li>
-            Set <var>entry</var>'s <code>startTime</code> attribute as follows:
-            <ol>
-              <li>If <var>markOptions</var> is present and its <a>startTime</a> member is present, then set it to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
-              <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
-            </ol>
-          </li>
-          <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
-          <li>
-            Set <var>entry</var>'s <code>detail</code> attribute as follows:
-            <ol>
-              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
-              <li>Otherwise, set it to <code>null</code>.</li>
-            </ol>
-          </li>
+          <li>Run the <a>PerformanceMark constructor</a> and let <var>entry</var> be the newly created object.</li>
           <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_mark">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <var>entry</var>.</li>
@@ -297,7 +279,8 @@
       <h2>The <dfn>PerformanceMark</dfn> Interface</h2>
       <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
-        [Exposed=(Window,Worker)]
+        [Exposed=(Window,Worker),
+         Constructor(DOMString markName, optional PerformanceMarkOptions markOptions)]
         interface PerformanceMark : PerformanceEntry {
           readonly attribute any detail;
         };
@@ -310,6 +293,31 @@
       <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
       <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
       <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
+      <section data-link-for="PerformanceMarkOptions">
+        <h3>The <dfn><a>PerformanceMark</a> Constructor</dfn></h3>
+        <p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
+        <ol>
+          <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
+          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
+          <li>
+            Set <var>entry</var>'s <code>startTime</code> attribute as follows:
+            <ol>
+              <li>If <var>markOptions</var> is present and its <a>startTime</a> member is present, then set it to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
+              <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+            </ol>
+          </li>
+          <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
+          <li>
+            Set <var>entry</var>'s <code>detail</code> attribute as follows:
+            <ol>
+              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+              <li>Otherwise, set it to <code>null</code>.</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
