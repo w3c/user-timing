@@ -122,7 +122,7 @@
             const updateMark = performance.mark("update_component", {
               detail: {component: component.name},
             });
-            performance.measure("click_to_update_component", {
+            performance.measureWithOptions("click_to_update_component", {
               detail: {component: component.name},
               start: e.timeStamp,
               end: updateMark.startTime,
@@ -162,7 +162,8 @@
         partial interface Performance {
             PerformanceMark mark(DOMString markName, optional PerformanceMarkOptions markOptions);
             void clearMarks(optional DOMString markName);
-            PerformanceMeasure measure(DOMString measureName, optional (DOMString or PerformanceMeasureOptions) startOrMeasureOptions, optional DOMString endMark);
+            PerformanceMeasure measure(DOMString measureName, optional DOMString startMark, optional DOMString endMark);
+            PerformanceMeasure measureWithOptions(DOMString measureName, PerformanceMeasureOptions measureOptions);
             void clearMeasures(optional DOMString measureName);
         };
       </pre>
@@ -199,16 +200,36 @@
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if <var>endMark</var> is present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-          <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>startTime</a> and <a>endTime</a> members are both omitted, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-          <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>startTime</a>, <a>duration</a>, and <a>endTime</a> members are all present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>
             Compute <var>end time</var> as follows:
             <ol>
               <li>If <var>endMark</var> is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
-              <li>Otherwise, if <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>endTime</a> member is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>endTime</a>.</li>
+              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+            </ol>
+          </li>
+          <li>
+            Compute <var>start time</var> as follows:
+            <ol>
+              <li>If <var>startMark</var> is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startMark</var>.</li>
+              <li>Otherwise, let <var>start time</var> be 0.</li>
+            </ol>
+          </li>
+          <li>Let <var>entry</var> be the output of the <a>create a new measure</a> algorithm, passing in <var>measureName</var>, <var>start time</var>, and <var>end time</var>.
+          <li>Return <var>entry</var>.</li>
+        </ol>
+      </section>
+      <section data-link-for="PerformanceMeasureOptions">
+        <h2><dfn>measureWithOptions()</dfn> method</h2>
+        <p>Similar to <a data-link-for="Performance">measure()</a>, but taking in a dictionary for its parameters. It MUST run these steps:</p>
+        <ol>
+          <li>If <var>measureOptions</var>'s <a>startTime</a> and <a>endTime</a> members are both omitted, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If <var>measureOptions</var>'s <a>startTime</a>, <a>duration</a>, and <a>endTime</a> members are all present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>
+            Compute <var>end time</var> as follows:
+            <ol>
+              <li>If <var>measureOptions</var>'s <a>endTime</a> member is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>measureOptions</var>'s <a>endTime</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>startTime</a> and <a>duration</a> members are both present:
+                Otherwise, if <var>measureOptions</var>'s <a>startTime</a> and <a>duration</a> members are both present:
                 <ol>
                   <li>Let <var>start</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>startTime</a>.</li>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
@@ -221,33 +242,19 @@
           <li>
             Compute <var>start time</var> as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>startTime</a> member is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>startTime</a>.</li>
+              <li>If <var>measureOptions</var>'s <a>startTime</a> member is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>measureOptions</var>'s <a>startTime</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a>, and if its <a>duration</a> and <a>endTime</a> members are both present:
+                Otherwise, if <var>measureOptions</var>'s <a>duration</a> and <a>endTime</a> members are both present:
                 <ol>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
                   <li>Let <var>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>endTime</a>.</li>
                   <li>Let <var>start time</var> be <var>end</var> minus <var>duration</var>.</li>
                 </ol>
               </li>
-              <li>Otherwise, if <var>startOrMeasureOptions</var> is present and is a <code>DOMString</code>, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>.</li>
               <li>Otherwise, let <var>start time</var> be <code>0</code>.</li>
             </ol>
           </li>
-          <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
-          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>
-          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
-          <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
-          <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
-          <li>
-            Set <var>entry</var>'s <code>detail</code> attribute as follows:
-            <ol>
-              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
-              <li>Otherwise, set it to <code>null</code>.</li>
-            </ol>
-          </li>
-          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
-          <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Let <var>entry</var> be the output of the <a>create a new measure</a> algorithm, passing in <var>measureName</var>, <var>start time</var>, and <var>end time</var>.
           <li>Return <var>entry</var>.</li>
         </ol>
         <section data-dfn-for="PerformanceMeasureOptions">
@@ -321,7 +328,7 @@
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
-      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> and <a>performance.measureWithOptions</a> methods to the <a data-cite="!PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
@@ -367,6 +374,27 @@
       <p class="note">
         The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
       </p>
+    </section>
+    <section data-link-for="PerformanceMeasureOptions">
+      <h2><dfn>Create a new measure</dfn></h2>
+        <p>When asked to <a>create a new measure</a>, run the following steps:</p>
+        <ol>
+          <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
+          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
+          <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
+          <li>
+            Set <var>entry</var>'s <code>detail</code> attribute as follows:
+            <ol>
+              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
+              <li>Otherwise, set it to <code>null</code>.</li>
+            </ol>
+          </li>
+          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
+          <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Return <var>entry</var>.</li>
+        </ol>
     </section>
   </section>
   <section id="privacy-security" class="informative">
