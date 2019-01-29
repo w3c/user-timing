@@ -144,7 +144,7 @@
   <section>
     <h2><dfn>User Timing</dfn></h2>
     <section id="extensions-performance-interface" data-dfn-for="Performance" data-link-for="Performance">
-      <h2>Extensions to the <code><dfn data-cite="!HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
+      <h2>Extensions to the <code><dfn data-cite="HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
       <p>The <a>Performance</a> interface is defined in [[!HR-TIME-2]].</p>
       <pre class="idl">
         dictionary PerformanceMarkOptions {
@@ -172,8 +172,8 @@
         <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
         <ol>
           <li>Run the <a>PerformanceMark constructor</a> and let <var>entry</var> be the newly created object.</li>
-          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
-          <li id="stored_mark">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li><a data-cite="PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
+          <li id="stored_mark">Add <var>entry</var> to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <var>entry</var>.</li>
         </ol>
         <section data-dfn-for="PerformanceMarkOptions">
@@ -191,8 +191,8 @@
         <h2><dfn>clearMarks()</dfn> method</h2>
         <p>Removes the stored timestamp with the associated name. It MUST run these steps:</p>
         <ol>
-          <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <var>name</var> matches<var>markName</var>.</li>
+          <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <var>name</var> matches<var>markName</var>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
@@ -204,7 +204,7 @@
             Compute <var>end time</var> as follows:
             <ol>
               <li>If <var>endMark</var> is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
-              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <a>Performance</a> object's <a data-cite="HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
             </ol>
           </li>
           <li>
@@ -222,8 +222,8 @@
         <h2><dfn>measureWithOptions()</dfn> method</h2>
         <p>Similar to <a data-link-for="Performance">measure()</a>, but taking in a dictionary for its parameters. It MUST run these steps:</p>
         <ol>
-          <li>If <var>measureOptions</var>'s <a>startTime</a> and <a>endTime</a> members are both omitted, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-          <li>If <var>measureOptions</var>'s <a>startTime</a>, <a>duration</a>, and <a>endTime</a> members are all present, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If <var>measureOptions</var>'s <a>startTime</a> and <a>endTime</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If <var>measureOptions</var>'s <a>startTime</a>, <a>duration</a>, and <a>endTime</a> members are all present, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>
             Compute <var>end time</var> as follows:
             <ol>
@@ -236,7 +236,7 @@
                   <li>Let <var>end time</var> be <var>start</var> plus <var>duration</var>.</li>
                 </ol>
               </li>
-              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+              <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a data-cite="HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
             </ol>
           </li>
           <li>
@@ -276,15 +276,15 @@
         <h2><dfn>clearMeasures()</dfn> method</h2>
         <p>Removes stored timestamp with the associated name. It MUST run these steps:</p>
         <ol>
-          <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches <var>measureName</var>.</li>
+          <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches <var>measureName</var>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
     </section>
     <section id="performancemark" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">
       <h2>The <dfn>PerformanceMark</dfn> Interface</h2>
-      <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker),
          Constructor(DOMString markName, optional PerformanceMarkOptions markOptions)]
@@ -292,19 +292,19 @@
           readonly attribute any detail;
         };
       </pre>
-      <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a>
+      <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a>
       interface:</p>
       <p>The <code>name</code> attribute must return the mark's name.</p>
-      <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
-      <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
-      <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
+      <p>The <code>entryType</code> attribute must return the <a data-cite="WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
+      <p>The <code>startTime</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
+      <p>The <code>duration</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
       <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
       <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
       <section data-link-for="PerformanceMarkOptions">
         <h3>The <dfn><a>PerformanceMark</a> Constructor</dfn></h3>
         <p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
         <ol>
-          <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If the <a data-cite="HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
           <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
           <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
@@ -312,14 +312,14 @@
             Set <var>entry</var>'s <code>startTime</code> attribute as follows:
             <ol>
               <li>If <var>markOptions</var> is present and its <a>startTime</a> member is present, then set it to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
-              <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="!HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
+              <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
             </ol>
           </li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:
             <ol>
-              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
               <li>Otherwise, set it to <code>null</code>.</li>
             </ol>
           </li>
@@ -328,18 +328,18 @@
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
-      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> and <a>performance.measureWithOptions</a> methods to the <a data-cite="!PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> and <a>performance.measureWithOptions</a> methods to the <a data-cite="PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
           readonly attribute any detail;
         };
       </pre>
-      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="!PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a> interface:</p>
+      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a> interface:</p>
       <p>The <code>name</code> attribute must return the measure's name.</p>
-      <p>The <code>entryType</code> attribute must return the <a data-cite="!WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
-      <p>The <code>startTime</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
-      <p>The <code>duration</code> attribute must return a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
+      <p>The <code>entryType</code> attribute must return the <a data-cite="WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
+      <p>The <code>startTime</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
+      <p>The <code>duration</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
       <p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
       <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
     </section>
@@ -348,31 +348,31 @@
     <h2>Processing</h2>
     <p>A user agent implementing the User Timing API must perform the following steps:</p>
     <ol>
-      <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"mark"</code> as input.</li>
-      <li>Run the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"measure"</code> as input.</li>
+      <li>Run the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"mark"</code> as input.</li>
+      <li>Run the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-register-a-performance-entry-type">register a performance entry type</a> algorithm with <code>"measure"</code> as input.</li>
     </ol>
     <section>
       <h2>Convert a <var>mark</var> to a <var>timestamp</var></h2>
       <p>To <dfn>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or <code>DOMHighResTimeStamp</code> run these steps:
         <ol>
-          <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
-          <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>mark</var>. If no matching entry is found, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
+          <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>mark</var>. If no matching entry is found, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>, let <var>end time</var> be <var>mark</var>.</li>
         </ol>
     </section>
     <section>
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
-      <p>To <dfn>convert a name to a <a data-cite="!HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="!WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
+      <p>To <dfn>convert a name to a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
       <ol>
-        <li>If the <a data-cite="!HTML51/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="!WEBIDL#dfn-throw">throw</a> a <a data-cite="!WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+        <li>If the <a data-cite="HTML51/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
         <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
-        <li>Let <var>startTime</var> be the value of <code>navigationStart</code> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
-        <li>Let <var>endTime</var> be the value of <var>name</var> in the <code><a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
-        <li>If <var>endTime</var> is <code>0</code>, <a data-cite="!WEBIDL#dfn-throw">throw</a> an <a data-cite="!WEBIDL#invalidaccesserror"><code>InvalidAccessError</code></a>.</li>
+        <li>Let <var>startTime</var> be the value of <code>navigationStart</code> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
+        <li>Let <var>endTime</var> be the value of <var>name</var> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
+        <li>If <var>endTime</var> is <code>0</code>, <a data-cite="WEBIDL#dfn-throw">throw</a> an <a data-cite="WEBIDL#invalidaccesserror"><code>InvalidAccessError</code></a>.</li>
         <li>Return result of subtracting <var>startTime</var> from <var>endTime</var>.</li>
       </ol>
       <p class="note">
-        The <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="!NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="!NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
+        The <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
       </p>
     </section>
     <section data-link-for="PerformanceMeasureOptions">
@@ -387,12 +387,12 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="!HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
+              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
               <li>Otherwise, set it to <code>null</code>.</li>
             </ol>
           </li>
-          <li><a data-cite="!PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
-          <li id="stored_measure">Add <var>entry</var> to the <a data-cite="!PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
+          <li><a data-cite="PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
+          <li id="stored_measure">Add <var>entry</var> to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <var>entry</var>.</li>
         </ol>
     </section>
