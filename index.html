@@ -311,7 +311,13 @@
           <li>
             Set <var>entry</var>'s <code>startTime</code> attribute as follows:
             <ol>
-              <li>If <var>markOptions</var> is present and its <a>startTime</a> member is present, then set it to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
+              <li>
+                If <var>markOptions</var> is present and its <a>startTime</a> member is present, then:
+                <ol>
+                  <li>If <var>markOptions</var>'s <a>startTime</a> is negative, throw a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+                  <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
+                </ol>
+              </li>
               <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a data-cite="HR-TIME-2#dom-performance-now"><code>now()</code></a> method.</li>
             </ol>
           </li>
@@ -357,7 +363,13 @@
         <ol>
           <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
           <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>mark</var>. If no matching entry is found, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
-          <li>Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>, let <var>end time</var> be <var>mark</var>.</li>
+          <li>
+            Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>:
+            <ol>
+              <li>If <var>mark</var> is negative, throw a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+              <li>Otherwise, let <var>end time</var> be <var>mark</var>.</li>
+            </ol>
+          </li>
         </ol>
     </section>
     <section>
