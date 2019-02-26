@@ -223,7 +223,7 @@
             <ol>
               <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> member is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>start</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a>, and if its <a>duration</a> and <a>end</a> members are both present:
+                Otherwise, if <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, and if its <a>duration</a> and <a>end</a> members are both present:
                 <ol>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
                   <li>Let <var>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>end</a>.</li>
@@ -242,7 +242,7 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:  
             <ol>  
-              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li> 
+              <li>If <var>startOrMeasureOptions</var> is present and is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li> 
               <li>Otherwise, set it to <code>null</code>.</li>  
             </ol> 
           </li> 
@@ -297,7 +297,7 @@
         <h3>The <dfn><a>PerformanceMark</a> Constructor</dfn></h3>
         <p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
         <ol>
-          <li>If the <a data-cite="HTML51/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>If the <a data-cite="HTML/webappapis.html#global-object">global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>).</li>
           <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
           <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
@@ -318,7 +318,7 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:
             <ol>
-              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="HTML52/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+              <li>If <var>markOptions</var> is present, set it to the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
               <li>Otherwise, set it to <code>null</code>.</li>
             </ol>
           </li>
@@ -369,7 +369,7 @@
       <h2>Convert a <var>name</var> to a <var>timestamp</var></h2>
       <p>To <dfn>convert a name to a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp">timestamp</a></dfn> given a <var>name</var> that is a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, run these steps:<p>
       <ol>
-        <li>If the <a data-cite="HTML51/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+        <li>If the <a data-cite="HTML/webappapis.html#global-object">global object</a> is not a <code>Window</code> object, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
         <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
         <li>Let <var>startTime</var> be the value of <code>navigationStart</code> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
         <li>Let <var>endTime</var> be the value of <var>name</var> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface.</li>
