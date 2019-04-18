@@ -208,16 +208,16 @@
             <ol>
               <li>If <var>endMark</var> is given, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li> 
               <li>If <var>startOrMeasureOptions</var>'s <a>start</a> and <a>end</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>  
-              <li>If <var>startOrMeasureOptions</var>'s <a>start</a>, <a>duration</a>, and <a>end</a> members are all present, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
+              <li>If <var>startOrMeasureOptions</var>'s <a>start</a>, <a>duration</a>, and <a>end</a> members are all <a data-cite="WEBIDL#dfn-present">present</a>, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
             </ol>
           </li>
           <li>
             Compute <var>end time</var> as follows:
             <ol>
               <li>If <var>endMark</var> is given, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
-              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member is present, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li> 
+              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li> 
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> and <a>duration</a> members are both present:
+                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> and <a>duration</a> members are both <a data-cite="WEBIDL#dfn-present">present</a>:
                 <ol>
                   <li>Let <var>start</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>start</a>.</li>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
@@ -230,9 +230,9 @@
           <li>
             Compute <var>start time</var> as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> member is present, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>start</a>.</li>
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>start</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>duration</a> and <a>end</a> members are both present:
+                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>duration</a> and <a>end</a> members are both <a data-cite="WEBIDL#dfn-present">present</a>:
                 <ol>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
                   <li>Let <var>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>end</a>.</li>
@@ -314,7 +314,7 @@
             Set <var>entry</var>'s <code>startTime</code> attribute as follows:
             <ol>
               <li>
-                If <var>markOptions</var>'s <a>startTime</a> member is present, then:
+                If <var>markOptions</var>'s <a>startTime</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, then:
                 <ol>
                   <li>If <var>markOptions</var>'s <a>startTime</a> is negative, throw a <a data-cite="WEBIDL#exceptiondef-rangeerror"><code>RangeError</code></a>.</li>
                   <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
