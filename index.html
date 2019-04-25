@@ -316,7 +316,7 @@
               <li>
                 If <var>markOptions</var>'s <a>startTime</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, then:
                 <ol>
-                  <li>If <var>markOptions</var>'s <a>startTime</a> is negative, throw a <a data-cite="WEBIDL#exceptiondef-rangeerror"><code>RangeError</code></a>.</li>
+                  <li>If <var>markOptions</var>'s <a>startTime</a> is negative, throw a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
                   <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
                 </ol>
               </li>
@@ -362,7 +362,7 @@
           <li>
             Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>:
             <ol>
-              <li>If <var>mark</var> is negative, throw a <a data-cite="WEBIDL#exceptiondef-rangeerror"><code>RangeError</code></a>.</li>
+              <li>If <var>mark</var> is negative, throw a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
               <li>Otherwise, let <var>end time</var> be <var>mark</var>.</li>
             </ol>
           </li>
