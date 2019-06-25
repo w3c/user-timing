@@ -251,7 +251,11 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:  
             <ol>  
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, set it to the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li> 
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object:</li>
+                <ol>
+                  <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
+                  <li>Set <var>entry</var>'s <a data-link-for=PerformanceMeasure>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
+                </ol>
               <li>Otherwise, set it to <code>null</code>.</li>  
             </ol> 
           </li> 
@@ -324,7 +328,8 @@
             </ol>
           </li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
-          <li>Set <var>entry</var>'s <code>detail</code> attribute to the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+          <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+          <li>Set <var>entry</var>'s <a data-link-for=PerformanceMark>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
         </ol>
       </section>
     </section>
