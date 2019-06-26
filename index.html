@@ -244,22 +244,23 @@
             </ol>
           </li>
           <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>).</li>
-          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>  
-          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li> 
-          <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>  
+          <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>
+          <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
+          <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
           <li>
-            Set <var>entry</var>'s <code>detail</code> attribute as follows:  
-            <ol>  
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object:</li>
+            Set <var>entry</var>'s <code>detail</code> attribute as follows:
+            <ol>
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object:
                 <ol>
                   <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
                   <li>Set <var>entry</var>'s <a data-link-for=PerformanceMeasure>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
                 </ol>
-              <li>Otherwise, set it to <code>null</code>.</li>  
-            </ol> 
-          </li> 
-          <li><a data-cite="PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>  
+              </li>
+              <li>Otherwise, set it to <code>null</code>.</li>
+            </ol>
+          </li>
+          <li><a data-cite="PERFORMANCE-TIMELINE-2#dfn-queue-a-performanceentry">Queue</a> <var>entry</var>.</li>
           <li id="stored_measure">Add <var>entry</var> to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
           <li>Return <var>entry</var>.</li>
         </ol>
