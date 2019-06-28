@@ -63,7 +63,8 @@
       // This is important for Rec-track documents, do not copy a patent URI
       // from a random document unless you know what you're doing. If in
       // doubt ask your friendly neighbourhood Team Contact.
-      wgPatentURI: 'https://www.w3.org/2004/01/pp-impl/45211/status'
+      wgPatentURI: 'https://www.w3.org/2004/01/pp-impl/45211/status',
+      xref: true,
     };
   </script>
 </head>
@@ -144,13 +145,15 @@
 
     <p>The IDL fragments in this specification MUST be interpreted as
     required for conforming IDL fragments, as described in the Web IDL
-    specification. [[!WEBIDL]]</p>
+    specification. [[WEBIDL]]</p>
   </section>
   <section>
     <h2><dfn>User Timing</dfn></h2>
     <section id="extensions-performance-interface" data-dfn-for="Performance" data-link-for="Performance">
       <h2>Extensions to the <code><dfn data-cite="HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
-      <p>The <a>Performance</a> interface is defined in [[!HR-TIME-2]].</p>
+      <p>The <a>Performance</a> interface and <dfn data-cite="hr-time-2#dom-domhighrestimestamp">DOMHighResTimeStamp</dfn> are defined in [[HR-TIME-2]].
+        The <dfn data-cite="PERFORMANCE-TIMELINE-2/#dom-performanceentry">PerformanceEntry</dfn> interface is defined in [[PERFORMANCE-TIMELINE-2]].
+      </p>
       <pre class="idl">
         dictionary PerformanceMarkOptions {
             any detail;
@@ -202,7 +205,7 @@
       </section>
       <section data-link-for="PerformanceMeasureOptions">
         <h2><dfn>measure()</dfn> method</h2>
-        <p>Stores the <code>DOMHighResTimeStamp</code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
+        <p>Stores the {{DOMHighResTimeStamp}} duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
           <li>If <var>startOrMeasureOptions</var> is a non-<a data-cite="INFRA#map-is-empty">empty</a> <a>PerformanceMeasureOptions</a> object, run the following checks:
             <ol>
@@ -299,12 +302,12 @@
           readonly attribute any detail;
         };
       </pre>
-      <p>The <a>PerformanceMark</a> interface extends the following attributes of the <a data-cite="PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a>
+      <p>The <a>PerformanceMark</a> interface extends the following attributes of the {{PerformanceEntry}}
       interface:</p>
       <p>The <code>name</code> attribute must return the mark's name.</p>
       <p>The <code>entryType</code> attribute must return the <a data-cite="WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"mark"</code>.</p>
-      <p>The <code>startTime</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the mark's time value.</p>
-      <p>The <code>duration</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> of value <code>0</code>.</p>
+      <p>The <code>startTime</code> attribute must return a {{DOMHighResTimeStamp}} with the mark's time value.</p>
+      <p>The <code>duration</code> attribute must return a {{DOMHighResTimeStamp}} of value <code>0</code>.</p>
       <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
       <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
       <section data-link-for="PerformanceMarkOptions">
@@ -343,11 +346,11 @@
           readonly attribute any detail;
         };
       </pre>
-      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the <a data-cite="PERFORMANCE-TIMELINE-2#dom-performanceentry">PerformanceEntry</a> interface:</p>
+      <p>The <a>PerformanceMeasure</a> interface extends the following attributes of the {{PerformanceEntry}} interface:</p>
       <p>The <code>name</code> attribute must return the measure's name.</p>
       <p>The <code>entryType</code> attribute must return the <a data-cite="WEBIDL#idl-DOMString"><code>DOMString</code></a> <code>"measure"</code>.</p>
-      <p>The <code>startTime</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the measure's start mark.</p>
-      <p>The <code>duration</code> attribute must return a <a data-cite="HR-TIME-2#idl-def-domhighrestimestamp"><code>DOMHighResTimeStamp</code></a> with the duration of the measure.</p>
+      <p>The <code>startTime</code> attribute must return a {{DOMHighResTimeStamp}} with the measure's start mark.</p>
+      <p>The <code>duration</code> attribute must return a {{DOMHighResTimeStamp}} with the duration of the measure.</p>
       <p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
       <p>The <dfn>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
     </section>
@@ -359,12 +362,12 @@
       supportedEntryTypes</a>. This allows developers to detect support for User Timing.</p>
     <section>
       <h2>Convert a <var>mark</var> to a <var>timestamp</var></h2>
-      <p>To <dfn>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or <code>DOMHighResTimeStamp</code> run these steps:
+      <p>To <dfn>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or {{DOMHighResTimeStamp}} run these steps:
         <ol>
           <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
           <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> matches the value of <var>mark</var>. If no matching entry is found, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>
-            Otherwise, if <var>mark</var> is a <code>DOMHighResTimeStamp</code>:
+            Otherwise, if <var>mark</var> is a {{DOMHighResTimeStamp}}:
             <ol>
               <li>If <var>mark</var> is negative, throw a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
               <li>Otherwise, let <var>end time</var> be <var>mark</var>.</li>
