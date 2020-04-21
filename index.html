@@ -294,7 +294,7 @@
     </section>
     <section id="performancemark" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">
       <h2>The <dfn>PerformanceMark</dfn> Interface</h2>
-      <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>performance.mark</a> method to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMark</a> interface also exposes marks created via the {{Performance}} interface's {{Performance/mark()}} method to the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMark : PerformanceEntry {
@@ -339,7 +339,7 @@
     </section>
     <section id="performancemeasure" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">
       <h2>The <dfn>PerformanceMeasure</dfn> Interface</h2>
-      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>performance.measure</a> method to the <a data-cite="PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
+      <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the {{Performance}} interface's {{Performance/measure()}} method to the <a data-cite="PERFORMANCE-TIMELINE-2#performance-timeline">Performance Timeline</a>.</p>
       <pre class="idl">
         [Exposed=(Window,Worker)]
         interface PerformanceMeasure : PerformanceEntry {
