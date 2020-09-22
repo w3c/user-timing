@@ -209,8 +209,8 @@
         <ol>
           <li>If <var>startOrMeasureOptions</var> is a non-<a data-cite="INFRA#map-is-empty">empty</a> <a>PerformanceMeasureOptions</a> object, run the following checks:
             <ol>
-              <li>If <var>endMark</var> is given, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li> 
-              <li>If <var>startOrMeasureOptions</var>'s <a>start</a> and <a>end</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>  
+              <li>If <var>endMark</var> is given, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
+              <li>If <var>startOrMeasureOptions</var>'s <a>start</a> and <a>end</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
               <li>If <var>startOrMeasureOptions</var>'s <a>start</a>, <a>duration</a>, and <a>end</a> members are all <a data-cite="WEBIDL#dfn-present">present</a>, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
             </ol>
           </li>
@@ -218,7 +218,7 @@
             Compute <var>end time</var> as follows:
             <ol>
               <li>If <var>endMark</var> is given, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
-              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li> 
+              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li>
               <li>
                 Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> and <a>duration</a> members are both <a data-cite="WEBIDL#dfn-present">present</a>:
                 <ol>
@@ -254,7 +254,7 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object:
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and <var>startOrMeasureOptions</var>'s <a>detail</a> member is <a data-cite="WEBIDL#dfn-present">present</a>:
                 <ol>
                   <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
                   <li>Set <var>entry</var>'s <a data-link-for=PerformanceMeasure>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
