@@ -3,13 +3,12 @@ User Timing
 
 This specifications defines an interface to help web developers measure the
 performance of their applications by giving them access to high precision
-timestamps.
+timestamps and enable them to do comparisons between them.
 
 * Read the latest draft: https://w3c.github.io/user-timing/
 * Discuss on [public-webperf](http://www.w3.org/Search/Mail/Public/search?keywords=%5BUserTiming%5D&hdr-1-name=subject&hdr-1-query=&index-grp=Public_FULL&index-type=t&type-index=public-web-perf)
 
 See also [Web performance README](https://github.com/w3c/web-performance/blob/gh-pages/README.md)
-
 
 ## PerformanceMark
 
@@ -112,3 +111,35 @@ This is the analogue to `performance.clearMarks()` for `PerformanceMeasure` clea
 * `performance.clearMeasures()` clears all `PerformanceMeasure` objects.
 * `performance.clearMeasures('measure1')` clears `PerformanceMeasure` objects whose `name`
 is 'measure1'.
+
+## Relationship with hr-time
+
+A developer can obtain a high resolution timestamp directly via `performance.now()`, as
+defined in [hr-time](https://w3c.github.io/hr-time/#now-method). However, User Timing enables
+tracking timestamps that may happen in very different parts of the page by enabling the
+developer to use names to identify these timestamps. For instance, the the following could
+be used to track the time it takes for a user from the time a cart is created to the time that
+the user completes their order, assuming a Single-Page-App architecture:
+
+```js
+// Called when the user first clicks the "Add to cart" button.
+function onBeginCart() {
+  const initialDetail = // Compute some initial metadata about the user.
+  performance.mark('beginCart');
+}
+
+// Called after the user clicks on "Complete transaction" button in checkout.
+function onCompleteTransaction() {
+  const finalDetail = // Compute some final metadata about the user and the transaction.
+  performance.measure('transaction', {start: 'beginCart', detail: finalDetail});
+}
+
+// Called when the site is sending analytics data.
+function sendAnalytics() {
+  // Get entries associated with times when the user started a cart. 
+  const beginCarts = performance.getEntriesByName('beginCart', 'mark');
+  // Get entries associated with completed transactions.
+  const completedTransactions = performance.getEntriesByName('transaction', 'measure');
+  // Aggregate the information, and send the relevant bits to the server.
+}
+```
