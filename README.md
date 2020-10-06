@@ -58,7 +58,7 @@ it may query existing entries via `performance.getEntriesByType('measure')` or v
 The following examples illustrate usage of `performance.measure()` with various
 parameters:
 
-* `performance.measure('measure1')`: Creates a `PerformanceMeasure` whose name is
+* `performance.measure('measure1')`: Creates a `PerformanceMeasure` whose `name` is
 'measure1', whose `startTime` is 0, and whose `duration` is the current high
 resolution time.
 * `performance.measure('measure2', 'requestStart')`: Creates a
@@ -77,7 +77,7 @@ with such a `name`, the latest one is used.
 whose `name` is 'measure3', whose `startTime` is the `startTime` of the latest
 `PerformanceMark` with `name` 'startMark', and whose end-time is the `startTime` of the
 latest `PerformanceMark` with `name` 'endMark'.
-* `performance.measure('measure4', 'startMark', 'domInteractive'`: Creates a
+* `performance.measure('measure4', 'startMark', 'domInteractive')`: Creates a
 `PerformanceMeasure` whose `name` is 'measure4', `startTime` is as in the above example,
 and end-time is `performance.timing.domInteractive - performance.timing.navigationStart`.
 * `performance.measure('measure5', {start: 6.0, detail: det})`: Creates a
