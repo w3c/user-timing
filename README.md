@@ -123,9 +123,9 @@ providers that have User Timing support as well as in the developer tooling of b
 support exposing these timings. This kind of automatic surfacing is not possible directly via
 HR-Time.
 
-For instance, the the following could
-be used to track the time it takes for a user from the time a cart is created to the time that
-the user completes their order, assuming a Single-Page-App architecture:
+For instance, the following could be used to track the time it takes for a user from the time a
+cart is created to the time that the user completes their order, assuming a Single-Page-App
+architecture:
 
 ```js
 // Called when the user first clicks the "Add to cart" button.
