@@ -117,7 +117,13 @@ is 'measure1'.
 A developer can obtain a high resolution timestamp directly via `performance.now()`, as
 defined in [hr-time](https://w3c.github.io/hr-time/#now-method). However, User Timing enables
 tracking timestamps that may happen in very different parts of the page by enabling the
-developer to use names to identify these timestamps. For instance, the the following could
+developer to use names to identify these timestamps. Using User Timing instead of variables
+containing `performance.now()` enables the data to be surfaced automatically by analytics
+providers that have User Timing support as well as in the developer tooling of browsers that
+support exposing these timings. This kind of automatic surfacing is not possible directly via
+HR-Time.
+
+For instance, the the following could
 be used to track the time it takes for a user from the time a cart is created to the time that
 the user completes their order, assuming a Single-Page-App architecture:
 
@@ -133,13 +139,9 @@ function onCompleteTransaction() {
   const finalDetail = // Compute some final metadata about the user and the transaction.
   performance.measure('transaction', {start: 'beginCart', detail: finalDetail});
 }
-
-// Called when the site is sending analytics data.
-function sendAnalytics() {
-  // Get entries associated with times when the user started a cart. 
-  const beginCarts = performance.getEntriesByName('beginCart', 'mark');
-  // Get entries associated with completed transactions.
-  const completedTransactions = performance.getEntriesByName('transaction', 'measure');
-  // Aggregate the information, and send the relevant bits to the server.
-}
 ```
+
+Analytics will then be automatically aggregated or these calls because they use UserTiming.
+Additionally, someone looking at the page using certain kinds of developer tools will be able
+to see this data without requiring any JavaScript usage nor knowing the conventions used by
+the developer of the page.
