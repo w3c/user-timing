@@ -141,7 +141,7 @@ function onCompleteTransaction() {
 }
 ```
 
-Analytics will then be automatically aggregated or these calls because they use UserTiming.
-Additionally, someone looking at the page using certain kinds of developer tools will be able
-to see this data without requiring any JavaScript usage nor knowing the conventions used by
-the developer of the page.
+While developers could calculate those time measurements using `performance.now()`, using User
+Timing enables both better ergonomics and standardized collection of the results. The latter
+enables Analytics providers and developer tools to collect and report site-specific measurements,
+without requiring any knowledge of the site or its conventions.
