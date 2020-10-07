@@ -3,13 +3,12 @@ User Timing
 
 This specifications defines an interface to help web developers measure the
 performance of their applications by giving them access to high precision
-timestamps.
+timestamps and enable them to do comparisons between them.
 
 * Read the latest draft: https://w3c.github.io/user-timing/
 * Discuss on [public-webperf](http://www.w3.org/Search/Mail/Public/search?keywords=%5BUserTiming%5D&hdr-1-name=subject&hdr-1-query=&index-grp=Public_FULL&index-type=t&type-index=public-web-perf)
 
 See also [Web performance README](https://github.com/w3c/web-performance/blob/gh-pages/README.md)
-
 
 ## PerformanceMark
 
@@ -112,3 +111,37 @@ This is the analogue to `performance.clearMarks()` for `PerformanceMeasure` clea
 * `performance.clearMeasures()` clears all `PerformanceMeasure` objects.
 * `performance.clearMeasures('measure1')` clears `PerformanceMeasure` objects whose `name`
 is 'measure1'.
+
+## Relationship with hr-time
+
+A developer can obtain a high resolution timestamp directly via `performance.now()`, as
+defined in [hr-time](https://w3c.github.io/hr-time/#now-method). However, User Timing enables
+tracking timestamps that may happen in very different parts of the page by enabling the
+developer to use names to identify these timestamps. Using User Timing instead of variables
+containing `performance.now()` enables the data to be surfaced automatically by analytics
+providers that have User Timing support as well as in the developer tooling of browsers that
+support exposing these timings. This kind of automatic surfacing is not possible directly via
+HR-Time.
+
+For instance, the following could be used to track the time it takes for a user from the time a
+cart is created to the time that the user completes their order, assuming a Single-Page-App
+architecture:
+
+```js
+// Called when the user first clicks the "Add to cart" button.
+function onBeginCart() {
+  const initialDetail = // Compute some initial metadata about the user.
+  performance.mark('beginCart');
+}
+
+// Called after the user clicks on "Complete transaction" button in checkout.
+function onCompleteTransaction() {
+  const finalDetail = // Compute some final metadata about the user and the transaction.
+  performance.measure('transaction', {start: 'beginCart', detail: finalDetail});
+}
+```
+
+While developers could calculate those time measurements using `performance.now()`, using User
+Timing enables both better ergonomics and standardized collection of the results. The latter
+enables Analytics providers and developer tools to collect and report site-specific measurements,
+without requiring any knowledge of the site or its conventions.
