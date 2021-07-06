@@ -63,7 +63,9 @@
       // This is important for Rec-track documents, do not copy a patent URI
       // from a random document unless you know what you're doing. If in
       // doubt ask your friendly neighbourhood Team Contact.
-      xref: true,
+      xref: {
+        specs: ['infra']
+      },
     };
   </script>
 </head>
@@ -198,7 +200,7 @@
         <p>Removes the stored timestamp with the associated name. It MUST run these steps:</p>
         <ol>
           <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <var>name</var> is <var>markName</var>.</li>
+          <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <var>name</var> [=string/is=] <var>markName</var>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
@@ -286,7 +288,7 @@
         <p>Removes stored timestamp with the associated name. It MUST run these steps:</p>
         <ol>
           <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a>.</li>
-          <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> is <var>measureName</var>.</li>
+          <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> [=string/is=] <var>measureName</var>.</li>
           <li>Return <strong>undefined</strong>.</li>
         </ol>
       </section>
@@ -364,7 +366,7 @@
       <p>To <dfn>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or {{DOMHighResTimeStamp}} run these steps:
         <ol>
           <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a data-cite="WEBIDL#dfn-read-only">read only attribute</a> in the <code><a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.</li>
-          <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> is <var>mark</var>. If no matching entry is found, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
+          <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a data-cite="PERFORMANCE-TIMELINE-2#dfn-performance-entry-buffer">performance entry buffer</a> whose <code>name</code> [=string/is=] <var>mark</var>. If no matching entry is found, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#syntaxerror"><code>SyntaxError</code></a>.</li>
           <li>
             Otherwise, if <var>mark</var> is a {{DOMHighResTimeStamp}}:
             <ol>
