@@ -333,8 +333,13 @@
             </ol>
           </li>
           <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
-          <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
-          <li>Set <var>entry</var>'s <a data-link-for=PerformanceMark>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
+          <li>If <var>markOptions</var>'s <a>detail</a> is null, set <var>entry</var>'s <a data-link-for=PerformanceMark>detail</a> to null.</li>
+          <li>Otherwise:
+            <ol>
+              <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a>detail</a>.</li>
+              <li>Set <var>entry</var>'s <a data-link-for=PerformanceMark>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
+            </ol>
+          </li>
         </ol>
       </section>
     </section>
