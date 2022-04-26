@@ -208,7 +208,7 @@
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the {{DOMHighResTimeStamp}} duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, run the following checks:
+          <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and at least one of <a>start</a>, <a>end</a>, <a>duration</a>, and <a>detail</a> are <a data-cite="WEBIDL#dfn-present">present</a>, run the following checks:
             <ol>
               <li>If <var>endMark</var> is given, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
               <li>If <var>startOrMeasureOptions</var>'s <a>start</a> and <a>end</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
