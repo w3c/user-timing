@@ -16,4 +16,4 @@ jobs:
           W3C_BUILD_OVERRIDE: |
              shortName: user-timing-3
              specStatus: WD
-             historyURI: https://www.w3.org/standards/history/user-timing
+             historyURI: "https://www.w3.org/standards/history/user-timing"
