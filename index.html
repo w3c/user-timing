@@ -21,7 +21,6 @@
       formerEditors: [{
         name: 'Ilya Grigorik',
         url: 'https://www.igvita.com/',
-        mailto: 'igrigorik@gmail.com',
         company: 'Google',
         companyURL: 'https://google.com/',
         w3cid: '56102'
@@ -149,7 +148,7 @@
     specification. [[WEBIDL]]</p>
   </section>
   <section>
-    <h2><dfn>User Timing</dfn></h2>
+    <h2>User Timing</h2>
     <section id="extensions-performance-interface" data-dfn-for="Performance" data-link-for="Performance">
       <h2>Extensions to the <code><dfn data-cite="HR-TIME-2#dfn-performance">Performance</dfn></code> interface</h2>
       <p>The <a>Performance</a> interface and <dfn data-cite="hr-time-2#dom-domhighrestimestamp">DOMHighResTimeStamp</dfn> are defined in [[HR-TIME-2]].
@@ -208,20 +207,20 @@
         <h2><dfn>measure()</dfn> method</h2>
         <p>Stores the {{DOMHighResTimeStamp}} duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
         <ol>
-          <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and at least one of <a>start</a>, <a>end</a>, <a>duration</a>, and <a>detail</a> are <a data-cite="WEBIDL#dfn-present">present</a>, run the following checks:
+          <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and at least one of <a>start</a>, <a>end</a>, <a>duration</a>, and <a>detail</a> [=map/exist=], run the following checks:
             <ol>
               <li>If <var>endMark</var> is given, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
               <li>If <var>startOrMeasureOptions</var>'s <a>start</a> and <a>end</a> members are both omitted, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
-              <li>If <var>startOrMeasureOptions</var>'s <a>start</a>, <a>duration</a>, and <a>end</a> members are all <a data-cite="WEBIDL#dfn-present">present</a>, <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
+              <li>If <var>startOrMeasureOptions</var>'s <a>start</a>, <a>duration</a>, and <a>end</a> members all [=map/exist=], <a data-cite="WEBIDL#dfn-throw">throw</a> a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
             </ol>
           </li>
           <li>
             Compute <var>end time</var> as follows:
             <ol>
               <li>If <var>endMark</var> is given, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
-              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li>
+              <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>end</a> member [=map/exists=], let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>end</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> and <a>duration</a> members are both <a data-cite="WEBIDL#dfn-present">present</a>:
+                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> and <a>duration</a> members both [=map/exist=]:
                 <ol>
                   <li>Let <var>start</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>start</a>.</li>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
@@ -234,9 +233,9 @@
           <li>
             Compute <var>start time</var> as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>start</a>.</li>
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>start</a> member [=map/exists=], let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a>start</a>.</li>
               <li>
-                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>duration</a> and <a>end</a> members are both <a data-cite="WEBIDL#dfn-present">present</a>:
+                Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a>duration</a> and <a>end</a> members both [=map/exist=]:
                 <ol>
                   <li>Let <var>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>duration</a>.</li>
                   <li>Let <var>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a>end</a>.</li>
@@ -255,7 +254,7 @@
           <li>
             Set <var>entry</var>'s <code>detail</code> attribute as follows:
             <ol>
-              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and <var>startOrMeasureOptions</var>'s <a>detail</a> member is <a data-cite="WEBIDL#dfn-present">present</a>:
+              <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and <var>startOrMeasureOptions</var>'s <a>detail</a> member [=map/exists=]:
                 <ol>
                   <li>Let <var>record</var> be the result of calling the <a data-cite="HTML/infrastructure.html#structuredserialize">StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a>detail</a>.</li>
                   <li>Set <var>entry</var>'s <a data-link-for=PerformanceMeasure>detail</a> to the result of calling the <a data-cite="HTML/infrastructure.html#structureddeserialize">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-cite="HTML/webappapis.html#concept-current-everything">current realm</a>.</li>
@@ -323,7 +322,7 @@
             Set <var>entry</var>'s <code>startTime</code> attribute as follows:
             <ol>
               <li>
-                If <var>markOptions</var>'s <a>startTime</a> member is <a data-cite="WEBIDL#dfn-present">present</a>, then:
+                If <var>markOptions</var>'s <a>startTime</a> member [=map/exists=], then:
                 <ol>
                   <li>If <var>markOptions</var>'s <a>startTime</a> is negative, throw a <a data-cite="WEBIDL#exceptiondef-typeerror"><code>TypeError</code></a>.</li>
                   <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a>startTime</a>.</li>
