@@ -395,6 +395,25 @@
         The <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
       </p>
     </section>
+  </section><section id="recommended-mark-names" class="informative">
+    <h2>Recommended Mark Names</h2>
+    <p>Developers are encouraged to use the following Recommended Mark Names to
+      mark common timings. The user agent is responsible for storing a new
+      timestamp under the specified mark name for Recommended Mark Names, just
+      like any user-specified mark name. The user agent does not validate that the
+      usage of the Recommended Mark Name is appropriate or consistent with its
+      description.</p>
+    <dl>
+      <dt>"mark_fully_loaded"</dt>
+      <dd>The time when the page is considered fully loaded as marked by the
+        developer in their application.</dd>
+      <dt>"mark_fully_visible"</dt>
+      <dd>The time when the page is considered completely visible to an end-user
+        as marked by the developer in their application.</dd>
+      <dt>"mark_interactive"</dt>
+      <dd>The time when the page is considered fully interactive to an end-user
+        as marked by the developer in their application.</dd>
+    </dl>
   </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
@@ -409,26 +428,6 @@
     recording or retrieval of recorded timing information - i.e. a user timing
     mark or measure recorded by any script included on the page can be read by
     any other script running on the same page, regardless of origin.</p>
-  </section>
-  <section id="recommended-mark-names" class="informative">
-    <h2>Recommended Mark Names</h2>
-    <p>Developers are encouraged to use the following Recommended Mark Names to
-    mark common timings. The user agent is responsible for storing a new
-    timestamp under the specified mark name for Recommended Mark Names, just
-    like any user specified mark name. The user agent does not validate that the
-    usage of the Recommended Mark Name is appropriate or consistent with its
-    description.</p>
-    <dl>
-      <dt>"mark_fully_loaded"</dt>
-      <dd>The time when the page is considered fully loaded as marked by the
-      developer in their application.</dd>
-      <dt>"mark_fully_visible"</dt>
-      <dd>The time when the page is considered completely visible to an end-user
-      as marked by the developer in their application.</dd>
-      <dt>"mark_interactive"</dt>
-      <dd>The time when the page is considered fully interactive to an end-user
-      as marked by the developer in their application.</dd>
-    </dl>
   </section>
   <section class="appendix">
     <h2>Acknowledgments</h2>
