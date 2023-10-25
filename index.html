@@ -395,15 +395,14 @@
         The <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a data-cite="NAVIGATION-TIMING#performancetiming">PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a data-cite="NAVIGATION-TIMING-2#dom-performancenavigationtiming">PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
       </p>
     </section>
-  </section><section id="recommended-mark-names" class="informative">
+  </section><section id="recommended-mark-names">
     <h2>Recommended mark names</h2>
     <p>Developers are encouraged to use the following recommended mark names to
     mark common timings. The user agent does not validate that the usage of
-    the recommended mark name is appropriate or consistent with its
-    description.</p>
+    these names is appropriate or consistent with its description.</p>
     <p class="note">Adding such recommended mark names can help performance
     tools tailor guidance to a site. These mark names can also help real user
-    monitoring providers and browsers collect web developer signals regarding
+    monitoring providers and user agents collect web developer signals regarding
     their application's performance at scale, and surface this information to
     developers without requiring any site-specific work.</p>
     <dl>
@@ -411,11 +410,11 @@
       <dd>The time when the page is considered fully loaded as marked by the
         developer in their application.</dd>
       <dt>"mark_fully_visible"</dt>
-      <dd>The time when the page is considered completely visible to an end-user
+      <dd>The time when the page is considered fully visible to an end-user
         as marked by the developer in their application.</dd>
       <dt>"mark_interactive"</dt>
-      <dd>The time when the page is considered fully interactive to an end-user
-        as marked by the developer in their application.</dd>
+      <dd>The time when the page is considered interactive to an end-user as
+        marked by the developer in their application.</dd>
     </dl>
   </section>
   <section id="privacy-security" class="informative">
