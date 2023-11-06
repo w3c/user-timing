@@ -396,6 +396,45 @@
       </p>
     </section>
   </section>
+  <section id="recommended-mark-names">
+    <h2>Recommended mark names</h2>
+    <p>Developers are encouraged to use the following recommended mark names to
+    mark common timings. The <a>user agent</a> does not validate that the usage of
+    these names is appropriate or consistent with its description.</p>
+    <p class="note">Adding such recommended mark names can help performance
+    tools tailor guidance to a site. These mark names can also help real user
+    monitoring providers and user agents collect web developer signals regarding
+    their application's performance at scale, and surface this information to
+    developers without requiring any site-specific work.</p>
+    <dl>
+      <dt>"<dfn class="export">mark_fully_loaded</dfn>"</dt>
+      <dd>The time when the page is considered fully loaded as marked by the
+        developer in their application.</dd>
+      <dt>"<dfn class="export">mark_fully_visible</dfn>"</dt>
+      <dd>The time when the page is considered fully visible to an end-user
+        as marked by the developer in their application.</dd>
+      <dt>"<dfn class="export">mark_interactive</dfn>"</dt>
+      <dd>The time when the page is considered interactive to an end-user as
+        marked by the developer in their application.</dd>
+    </dl>
+    <div class="note">
+      <p>In this example, the page asynchonously initializes a chat widget, a
+      searchbox, and a newsfeed upon loading. When finished, the
+      "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
+      providers to automatically show the timing.
+      </p>
+      <pre class="example">
+        window.addEventListener("load", (event) => {
+          Promise.all([
+            loadChatWidget(),
+            initializeSearchAutocomplete(),
+            initializeNewsfeed()]).then(() => {
+              performance.mark('mark_fully_loaded');
+          });
+        });
+      </pre>
+    </div>
+  </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
     <p>The interfaces defined in this specification expose potentially
