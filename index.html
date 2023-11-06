@@ -398,7 +398,7 @@
   </section><section id="recommended-mark-names">
     <h2>Recommended mark names</h2>
     <p>Developers are encouraged to use the following recommended mark names to
-    mark common timings. The user agent does not validate that the usage of
+    mark common timings. The <a href="https://infra.spec.whatwg.org/#user-agent">user agent</a> does not validate that the usage of
     these names is appropriate or consistent with its description.</p>
     <p class="note">Adding such recommended mark names can help performance
     tools tailor guidance to a site. These mark names can also help real user
@@ -416,21 +416,23 @@
       <dd>The time when the page is considered interactive to an end-user as
         marked by the developer in their application.</dd>
     </dl>
-    <p>In this example, the page asynchonously initializes a chat widget, a
-    searchbox, and a newsfeed upon loading. When finished, the
-    "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
-    providers to automatically show the timing.
-    </p>
-    <pre class="example">
-      window.addEventListener("load", (event) => {
-        Promise.all([
-          loadChatWidget(),
-          initializeSearchAutocomplete(),
-          initializeNewsfeed()]).then(() => {
-            performance.mark('mark_fully_loaded');
+    <div class="note">
+      <p>In this example, the page asynchonously initializes a chat widget, a
+      searchbox, and a newsfeed upon loading. When finished, the
+      "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
+      providers to automatically show the timing.
+      </p>
+      <pre class="example">
+        window.addEventListener("load", (event) => {
+          Promise.all([
+            loadChatWidget(),
+            initializeSearchAutocomplete(),
+            initializeNewsfeed()]).then(() => {
+              performance.mark('mark_fully_loaded');
+          });
         });
-      });
-    </pre>
+      </pre>
+    </div>
   </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
