@@ -437,7 +437,15 @@
       <dt>"<dfn class="export">mark_use_counter</dfn>"</dt>
       <dd>Mark the usage of a feature which may impact performance so that
         tooling and analytics can take it into account. The <a data-link-for="PerformanceMark">detail</a>
-        metadata should contain information about which feature is used.
+        metadata can contain any useful information about the feature, including:
+        <dl>
+          <dt><dfn class="export">feature</dfn></dt>
+          <dd>The name of the feature used.</dd>
+          <dt><dfn class="export">framework</dfn></dt>
+          <dd>If applicable, the underlying framework the feature is intended
+            for, such as a JavaScript framework, content management system, or
+            ecommerce platform.</dd>
+        </dl>
         <div class="note">
           <p>In this example, the ImageOptimizationComponent for FancyJavaScriptFramework
             is used to size images for optimal performance. The code notes
