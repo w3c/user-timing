@@ -409,31 +409,60 @@
     <dl>
       <dt>"<dfn class="export">mark_fully_loaded</dfn>"</dt>
       <dd>The time when the page is considered fully loaded as marked by the
-        developer in their application.</dd>
+        developer in their application.
+        <div class="note">
+          <p>In this example, the page asynchonously initializes a chat widget, a
+            searchbox, and a newsfeed upon loading. When finished, the
+            "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
+            providers to automatically show the timing.
+          </p>
+          <pre class="example">
+                window.addEventListener("load", (event) => {
+                  Promise.all([
+                    loadChatWidget(),
+                    initializeSearchAutocomplete(),
+                    initializeNewsfeed()]).then(() => {
+                      performance.mark('mark_fully_loaded');
+                  });
+                });
+              </pre>
+        </div>
+      </dd>
       <dt>"<dfn class="export">mark_fully_visible</dfn>"</dt>
       <dd>The time when the page is considered fully visible to an end-user
         as marked by the developer in their application.</dd>
       <dt>"<dfn class="export">mark_interactive</dfn>"</dt>
       <dd>The time when the page is considered interactive to an end-user as
         marked by the developer in their application.</dd>
+      <dt>"<dfn class="export">mark_use_counter</dfn>"</dt>
+      <dd>Mark the usage of a feature which may impact performance so that
+        tooling and analytics can take it into account. The <a data-link-for="PerformanceMark">detail</a>
+        metadata can contain any useful information about the feature, including:
+        <dl>
+          <dt><dfn class="export">feature</dfn></dt>
+          <dd>The name of the feature used.</dd>
+          <dt><dfn class="export">framework</dfn></dt>
+          <dd>If applicable, the underlying framework the feature is intended
+            for, such as a JavaScript framework, content management system, or
+            e-commerce platform.</dd>
+        </dl>
+        <div class="note">
+          <p>In this example, the ImageOptimizationComponent for FancyJavaScriptFramework
+            is used to size images for optimal performance. The code notes
+            this feature's usage so that lab tools and analytics can measure
+            whether it helped improve performance.
+          </p>
+          <pre class="example">
+            performance.mark('mark_use_counter', {
+              'detail': {
+                'feature': 'ImageOptimizationComponent',
+                'framework': 'FancyJavaScriptFramework'
+              }
+            })
+          </pre>
+        </div>
+      </dd>
     </dl>
-    <div class="note">
-      <p>In this example, the page asynchonously initializes a chat widget, a
-      searchbox, and a newsfeed upon loading. When finished, the
-      "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
-      providers to automatically show the timing.
-      </p>
-      <pre class="example">
-        window.addEventListener("load", (event) => {
-          Promise.all([
-            loadChatWidget(),
-            initializeSearchAutocomplete(),
-            initializeNewsfeed()]).then(() => {
-              performance.mark('mark_fully_loaded');
-          });
-        });
-      </pre>
-    </div>
   </section>
   <section id="privacy-security" class="informative">
     <h2>Privacy and Security</h2>
