@@ -434,7 +434,7 @@
       <dt>"<dfn class="export">mark_interactive</dfn>"</dt>
       <dd>The time when the page is considered interactive to an end-user as
         marked by the developer in their application.</dd>
-      <dt>"<dfn class="export">mark_use_counter</dfn>"</dt>
+      <dt>"<dfn class="export">mark_feature_usage</dfn>"</dt>
       <dd>Mark the usage of a feature which may impact performance so that
         tooling and analytics can take it into account. The <a data-link-for="PerformanceMark">detail</a>
         metadata can contain any useful information about the feature, including:
@@ -453,7 +453,7 @@
             whether it helped improve performance.
           </p>
           <pre class="example">
-            performance.mark('mark_use_counter', {
+            performance.mark('mark_feature_usage', {
               'detail': {
                 'feature': 'ImageOptimizationComponent',
                 'framework': 'FancyJavaScriptFramework'
