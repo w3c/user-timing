@@ -34,6 +34,9 @@ A track is like a mini performance timeline, with the following characteristics:
 ```js
 const track = new PerformanceTrack("framework");
 
+// This buffers new entries for not-yet-created LoAF/event observers.
+track.startConditionalBuffering({entryType: "long-animation-frame"});
+
 // At some point, add a mark. This mark does not appear in the performance timeline
 track.mark(name);
 
