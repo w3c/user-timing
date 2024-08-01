@@ -56,8 +56,6 @@ const observer = new PerformanceObserver(entries => {
       for (const trackEntry of loaf.trackEntries) {
         // report or use the track entry for attribution
       }
-
-      
       
       // This will have now also include functions captured with track.bind
       loaf.scripts
@@ -77,7 +75,7 @@ We use an object rather than something like `performance.trace` for the followin
 - It allows adding detailed annotations without having to create a dictionary during performance critical execution.
 - It creates a natural namespace: both the reporter and the observer have to access the same object, rather than rely on (leaky) strings
 - From an ergonomic perspective, adding a global `performance.*` function might be confusing as the result doesn't end up in the performance timeline directly.
-
-
+- Using the `bind` function doesn't guarantee attribution, because it doesn't include microtasks (unlike script entry points). This needs to be handled with care when using it for "blame"
+- It might look confusing to mix web-facing and `console` APIs in the same function, however it's intentional as devtools is an "augmentation" here.
 
   
