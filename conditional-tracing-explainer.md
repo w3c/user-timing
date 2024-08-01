@@ -11,7 +11,7 @@ and also creates faux attribution: the wrapper function is "blamed" for slowness
 A similar issue exists for event timing, where the provided timing attributes don't always capture the whole story, and don't always coincide with a more attributable long animation frame.
 
 ## Annotated user timing in devtools
-Context: #111. 
+Context: w3c/user-timing#111. 
 
 Chromium devtools already provides a way to annotate user timing entries by adding details to the user timing `detail` attribute.
 Apart from the desire to make those web-exposed annotations somewhat interoperable/standard (kind of like the `console` APIs), a question was raised about the efficiency of user timing entries for the purpose of tracing at high granularity.
