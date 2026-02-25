@@ -86,7 +86,7 @@ observer.observe({entryType: "long-animation-frame"});
 // This adds "tracks" to the LoAF entries observed by `observer`.
 observer.attachTrack(track);
 
-/* Assuming we have a LoAF and the mark and measure points are executed once.  The output would be:
+/* Assuming we have a LoAF, during which the mark and measure points are executed once. The output would be:
 "mark", "mark1"
 "mark", "mark2"
 "measure", "myMeasure"
