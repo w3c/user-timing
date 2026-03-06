@@ -45,13 +45,19 @@ PerformanceTrack.measure(Name, startMark/*optional*/, endMark/*optional*/)
 ```
 Apart from the entry name, all other annotations are per-track rather than per-entry, to avoid overhead.
 
-Unlike the User Timing API, neither `mark` nor `measure` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF. In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
+Unlike the User Timing API, neither `mark` nor `measure` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
+
+
+**To be Considered:** In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
 
 ```js
 PerformanceObserver.attachTrack(track);
 ```
+(An alternative: let `startConditionalBuffering({entryType: "long-animation-frame"})` automatically apply `this` track to all LoaF PerformanceEntries, and remove `attachTrack()`.)
 
-A new field, `trackEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `PerformanceMark` and `PerformanceMeasure` entries that occurs during a LoAF. The `detail` field in these `PerformanceMark` and `PerformanceMeasure` entries is always empty.
+We report the tracing points with `TrackMark` and `TrackMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field. Instead it has an additional `trackName` field to indicate which track the tracing point is from.
+
+A new field, `trackEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `TrackMark` and `TrackMeasure` entries that occurs during a LoAF.
 
 
 ### Sample code
@@ -77,7 +83,7 @@ const observer = new PerformanceObserver(entries => {
     for (const loaf : entries.getEntriesByType("long-animation-frame") {
       // This will have all the marks & measures from the attached tracks
       for (const trackEntry of loaf.trackEntries) {
-        console.log(trackEntry.entryType, trackEntry.name)
+        console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name)
       }
     }
 });
@@ -87,9 +93,9 @@ observer.observe({entryType: "long-animation-frame"});
 observer.attachTrack(track);
 
 /* Assuming we have a LoAF, during which the mark and measure points are executed once. The output would be:
-"mark", "mark1"
-"mark", "mark2"
-"measure", "myMeasure"
+"TrackMark", "frameWork", "mark1"
+"TrackMark", "frameWork", "mark2"
+"TrackMeasure", "frameWork", "myMeasure"
 */
 ```
 ### Notes on the API design
