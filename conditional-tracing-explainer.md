@@ -63,39 +63,58 @@ A new field, `trackEntries` is added to `PerformanceLongAnimationFrameTiming` in
 ### Sample code
 
 ```js
-const track = new PerformanceTrack("framework");
+const track0 = new PerformanceTrack("framework0");
+const track1 = new PerformanceTrack("framework1");
 
 // This buffers new entries for not-yet-created LoAF observers.
-track.startConditionalBuffering({entryType: "long-animation-frame"});
+track0.startConditionalBuffering({entryType: "long-animation-frame"});
+track1.startConditionalBuffering({entryType: "long-animation-frame"});
 
 // At some point, add a mark. This mark does not appear in the performance timeline
-track.mark("mark1");
-
+track0.mark("mark1");   // at time t1
 // At some other point, add another mark
-track.mark("mark2");
-
+track0.mark("mark2");   // at time t2
 // Combines mark->mark as a single entry with duration. This measure does not appear in the performance timeline.
-track.measure("myMeasure", "mark1", "mark2");
+track0.measure("myMeasure", "mark1", "mark2");
 
-// Observe long animation frame entries, and print out the conditional tracing
-// results.
+// Same with the other track.
+// The mark and measure points are on |track1|, not the ones on
+// |track0|.
+track1.mark("mark1");    // at time t3
+//...
+track1.mark("mark2");    // at time t4
+//...
+track1.measure("myMeasure", "mark1", "mark2");
+
+// Observe long animation frame entries, and print out the
+// conditional tracing results.
 const observer = new PerformanceObserver(entries => {
     for (const loaf : entries.getEntriesByType("long-animation-frame") {
-      // This will have all the marks & measures from the attached tracks
+      // This will have all the marks & measures from the attached tracks that occurs during LoAF.
       for (const trackEntry of loaf.trackEntries) {
-        console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name)
+        if( trackEntry.entryType === "mark"){
+          console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name, trackEntry.startTime);
+        }
+        else if ( trackEntry.entryType == "measure"){
+          console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name, trackEntry.duration);
+        }
       }
     }
 });
 observer.observe({entryType: "long-animation-frame"});
 
 // This adds "tracks" to the LoAF entries observed by `observer`.
-observer.attachTrack(track);
+observer.attachTrack(track0);
+observer.attachTrack(track1);
 
-/* Assuming we have a LoAF, during which the mark and measure points are executed once. The output would be:
-"TrackMark", "frameWork", "mark1"
-"TrackMark", "frameWork", "mark2"
-"TrackMeasure", "frameWork", "myMeasure"
+/* Assuming we have a LoAF, during which all the mark and measure points are executed once
+at the time indicated in the comment, The output would be:
+"TrackMark", "frameWork0", "mark1", t1
+"TrackMark", "frameWork0", "mark2", t2
+"TrackMeasure", "frameWork0", "myMeasure", t2-t1
+"TrackMark", "frameWork1", "mark1", t3
+"TrackMark", "frameWork1", "mark2", t4
+"TrackMeasure", "frameWork1", "myMeasure", t4-t3
 */
 ```
 ### Notes on the API design
