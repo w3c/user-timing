@@ -37,7 +37,7 @@ A track is like a mini performance timeline. The entries on a track are not buff
 PerformanceTrack.startConditionalBuffering({entryType: ...});
 ```
 
-The Performancetrack can add markers and measure the time between them, similar to the user timing API. The difference is that the track doesn't take the dictionary-type parameters like `detail`, `markOptions` and `measureOptions`.
+The `PerformanceTrack` can add markers and measure the time between them, similar to the user timing API. The difference is that the track doesn't take the dictionary-type parameters like `detail`, `markOptions` and `measureOptions`.
 
 ```js
 PerformanceTrack.mark(Name);
