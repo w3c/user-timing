@@ -1,0 +1,489 @@
+<pre class='metadata'>
+Title: User Timing
+Shortname: user-timing
+Status: ED
+Group: webperf
+URL: https://w3c.github.io/user-timing/
+TR: https://www.w3.org/TR/user-timing/
+Editor: Nicolás Peña Moreno, Google https://google.com/, https://github.com/npm1, w3cid 103755
+Former Editor: Ilya Grigorik, Google https://google.com/, https://www.igvita.com/, w3cid 56102
+Former Editor: Jatinder Mann, Microsoft Corp., jmann@microsoft.com, w3cid 44357
+Former Editor: Zhiheng Wang, Google Inc., w3cid 43685
+Former Editor: Anderson Quach, Microsoft Corp., w3cid 45288
+Repository: w3c/user-timing
+Mailing List: public-web-perf@w3.org
+Mailing List Archives: https://lists.w3.org/Archives/Public/public-web-perf/
+Test Suite: https://wpt.fyi/results/user-timing
+Include Can I Use Panels: yes
+Can I Use URL: https://caniuse.com/user-timing
+Abstract: This specification defines an interface to help web developers measure the performance of their applications by giving them access to high precision timestamps.
+Status Text: This User Timing specification is intended to supersede [[USER-TIMING-2]] and includes:
+    <ul>
+      <li>Ability to execute marks and measures across arbitrary timestamps.</li>
+      <li>Support for reporting arbitrary metadata along with marks and measures.</li>
+    </ul>
+Level: none
+Complain About: accidental-2119 yes
+Markup Shorthands: markdown no
+</pre>
+
+<pre class=link-defaults>
+spec:html; type:dfn; for:/; text:global object
+spec:infra; type:dfn; text:user agent
+spec:hr-time-3; type:dfn; for:/; text:performance
+</pre>
+
+<pre class=anchors>
+urlPrefix: https://www.w3.org/TR/performance-timeline/; spec: PERFORMANCE-TIMELINE-2; type: dfn
+    text: performance entry buffer; url: #dfn-performance-entry-buffer
+    text: Queue a PerformanceEntry; url: #dfn-queue-a-performanceentry
+    text: Performance Timeline; url: #performance-timeline
+    text: supportedEntryTypes; url: #supportedentrytypes-attribute
+urlPrefix: https://www.w3.org/TR/hr-time-2/; spec: HR-TIME-2; type: interface
+    text: Performance; url: #dfn-performance
+urlPrefix: https://www.w3.org/TR/navigation-timing/; spec: NAVIGATION-TIMING; type: interface
+    text: PerformanceTiming; url: #performancetiming
+urlPrefix: https://www.w3.org/TR/navigation-timing-2/; spec: NAVIGATION-TIMING-2; type: interface
+    text: PerformanceNavigationTiming; url: #dom-performancenavigationtiming
+urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
+    type: dfn
+        urlPrefix: webappapis.html
+            text: current global object; url: #current-global-object
+            text: relevant realm; url: #concept-relevant-realm
+            text: realm; url: #concept-global-object-realm
+            text: current realm; url: #concept-current-everything
+        urlPrefix: infrastructure.html
+            text: StructuredSerialize; url: #structuredserialize
+            text: StructuredDeserialize; url: #structureddeserialize
+</pre>
+
+<style>
+.note:not(.no-marker)::before {
+  content: "Note";
+}
+</style>
+
+<h2 class='informative' id="introduction">Introduction</h2>
+
+<em>This section is non-normative.</em>
+
+<p>Web developers need the ability to assess and understand the performance characteristics of their applications. While JavaScript [[ECMA-262]] provides a mechanism to measure application latency (retrieving the current timestamp from the <code>Date.now()</code> method), the precision of this timestamp varies between user agents.</p>
+
+<p>This document defines the <a>PerformanceMark</a> and <a>PerformanceMeasure</a> interfaces, and extensions to the <a href="#extensions-performance-interface"><code>Performance</code></a> interface, which expose a high precision, monotonically increasing timestamp so that developers can better measure the performance characteristics of their applications.</p>
+
+<div class="informative">
+  <p>The following script shows how a developer can use the interfaces defined in this document to obtain timing data related to developer scripts.</p>
+  <pre class="example" id="example-basic-marks" highlight="js">
+    async function run() {
+      performance.mark("startTask1");
+      await doTask1(); // Some developer code
+      performance.mark("endTask1");
+
+      performance.mark("startTask2");
+      await doTask2(); // Some developer code
+      performance.mark("endTask2");
+
+      // Log them out
+      const entries = performance.getEntriesByType("mark");
+      for (const entry of entries) {
+        console.table(entry.toJSON());
+      }
+    }
+    run();
+  </pre>
+  <p class="note">[[PERFORMANCE-TIMELINE-2]] defines two mechanisms that
+  can be used to retrieve recorded metrics: <code>getEntries()</code>
+  and <code>getEntriesByType()</code> methods, and the
+  <code>PerformanceObserver</code> interface. The former is best suited
+  for cases where you want to retrieve a particular metric by name at a
+  single point in time, and the latter is optimized for cases where you
+  <span class="allow-2119">may</span> want to receive notifications of new metrics as they become
+  available.</p>
+  <p>As another example, suppose that there is an element which, when
+  clicked, fetches some new content and indicates that it has been fetched.
+  We'd like to report the time from when the user clicked to when the fetch
+  was complete. We can't mark the time the click handler executes since that
+  will miss latency to process the event, so instead we use the event
+  hardware timestamp. We also want to know the name of the component to have
+  more detailed analytics.</p>
+  <pre class="example" id="example-click-measure" highlight="js">
+    element.addEventListener("click", e => {
+      const component = getComponent(element);
+      fetch(component.url).then(() => {
+        element.textContent = "Updated";
+        const updateMark = performance.mark("update_component", {
+          detail: {component: component.name},
+        });
+        performance.measure("click_to_update_component", {
+          detail: {component: component.name},
+          start: e.timeStamp,
+          end: updateMark.startTime,
+        });
+      });
+    });
+  </pre>
+</div>
+
+<h2 id="user-timing">User Timing</h2>
+
+<h3 id="extensions-performance-interface" data-dfn-for="Performance">Extensions to the <code><a for="/">Performance</a></code> interface</h3>
+
+<p>The <a>Performance</a> interface and {{DOMHighResTimeStamp}} are defined in [[HR-TIME-2]].
+  The {{PerformanceEntry}} interface is defined in [[PERFORMANCE-TIMELINE-2]].
+</p>
+
+<pre class="idl">
+  dictionary PerformanceMarkOptions {
+      any detail;
+      DOMHighResTimeStamp startTime;
+  };
+
+  dictionary PerformanceMeasureOptions {
+      any detail;
+      (DOMString or DOMHighResTimeStamp) start;
+      DOMHighResTimeStamp duration;
+      (DOMString or DOMHighResTimeStamp) end;
+  };
+
+  partial interface Performance {
+      PerformanceMark mark(DOMString markName, optional PerformanceMarkOptions markOptions = {});
+      undefined clearMarks(optional DOMString markName);
+      PerformanceMeasure measure(DOMString measureName, optional (DOMString or PerformanceMeasureOptions) startOrMeasureOptions = {}, optional DOMString endMark);
+      undefined clearMeasures(optional DOMString measureName);
+  };
+</pre>
+
+<h4 id="mark-method" data-link-for="PerformanceMarkOptions"><dfn data-dfn-for="Performance" data-export>mark()</dfn> method</h4>
+
+<p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
+<ol>
+  <li>Run the <a>PerformanceMark constructor</a> and let <var>entry</var> be the newly created object.</li>
+  <li><a>Queue a PerformanceEntry</a> <var>entry</var>.</li>
+  <li id="stored_mark">Add <var>entry</var> to the <a>performance entry buffer</a>.</li>
+  <li>Return <var>entry</var>.</li>
+</ol>
+
+<h5 id="performancemarkoptions-dictionary" data-dfn-for="PerformanceMarkOptions"><dfn>PerformanceMarkOptions</dfn> dictionary</h5>
+
+<dl data-dfn-for="PerformanceMarkOptions">
+  <dt><dfn>detail</dfn></dt>
+  <dd>Metadata to be included in the mark.</dd>
+  <dt><dfn>startTime</dfn></dt>
+  <dd>Timestamp to be used as the mark time.</dd>
+</dl>
+
+<h4 id="clearmarks-method"><dfn data-dfn-for="Performance" data-export>clearMarks()</dfn> method</h4>
+
+<p>Removes the stored timestamp with the associated name. It MUST run these steps:</p>
+<ol>
+  <li>If <var>markName</var> is omitted, remove all <a>PerformanceMark</a> objects from the <a>performance entry buffer</a>.</li>
+  <li>Otherwise, remove all <a>PerformanceMark</a> objects listed in the <a>performance entry buffer</a> whose <var ignore>name</var> [=string/is=] <var>markName</var>.</li>
+  <li>Return <strong>undefined</strong>.</li>
+</ol>
+
+<h4 id="measure-method" data-link-for="PerformanceMeasureOptions"><dfn data-dfn-for="Performance" data-export>measure()</dfn> method</h4>
+
+<p>Stores the {{DOMHighResTimeStamp}} duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
+<ol>
+  <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and at least one of <a for="PerformanceMeasureOptions">start</a>, <a for="PerformanceMeasureOptions">end</a>, <a for="PerformanceMeasureOptions">duration</a>, and <a for="PerformanceMeasureOptions">detail</a> [=map/exist=], run the following checks:
+    <ol>
+      <li>If <var>endMark</var> is given, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a {{TypeError}}.</li>
+      <li>If <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">start</a> and <a for="PerformanceMeasureOptions">end</a> members are both omitted, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a {{TypeError}}.</li>
+      <li>If <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">start</a>, <a for="PerformanceMeasureOptions">duration</a>, and <a for="PerformanceMeasureOptions">end</a> members all [=map/exist=], <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a {{TypeError}}.</li>
+    </ol>
+  </li>
+  <li>
+    Compute <var>end time</var> as follows:
+    <ol>
+      <li>If <var>endMark</var> is given, let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>endMark</var>.</li>
+      <li>Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a for="PerformanceMeasureOptions">end</a> member [=map/exists=], let <var>end time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">end</a>.</li>
+      <li>
+        Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a for="PerformanceMeasureOptions">start</a> and <a for="PerformanceMeasureOptions">duration</a> members both [=map/exist=]:
+        <ol>
+          <li>Let <var ignore>start</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a for="PerformanceMeasureOptions">start</a>.</li>
+          <li>Let <var ignore>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a for="PerformanceMeasureOptions">duration</a>.</li>
+          <li>Let <var>end time</var> be <var ignore>start</var> plus <var ignore>duration</var>.</li>
+        </ol>
+      </li>
+      <li>Otherwise, let <var>end time</var> be the value that would be returned by the <code>Performance</code> object's <a href="https://www.w3.org/TR/hr-time-2/#dom-performance-now"><code>now()</code></a> method.</li>
+    </ol>
+  </li>
+  <li>
+    Compute <var>start time</var> as follows:
+    <ol>
+      <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a for="PerformanceMeasureOptions">start</a> member [=map/exists=], let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">start</a>.</li>
+      <li>
+        Otherwise, if <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object, and if its <a for="PerformanceMeasureOptions">duration</a> and <a for="PerformanceMeasureOptions">end</a> members both [=map/exist=]:
+        <ol>
+          <li>Let <var ignore>duration</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a for="PerformanceMeasureOptions">duration</a>.</li>
+          <li>Let <var ignore>end</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <a for="PerformanceMeasureOptions">end</a>.</li>
+          <li>Let <var>start time</var> be <var ignore>end</var> minus <var ignore>duration</var>.</li>
+        </ol>
+      </li>
+      <li>Otherwise, if <var>startOrMeasureOptions</var> is a <code>DOMString</code>, let <var>start time</var> be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>startOrMeasureOptions</var>.</li>
+      <li>Otherwise, let <var>start time</var> be <code>0</code>.</li>
+    </ol>
+  </li>
+  <li>Create a new <a>PerformanceMeasure</a> object (<var>entry</var>) with <a href="https://webidl.spec.whatwg.org/#this">this</a>'s <a>relevant realm</a>.</li>
+  <li>Set <var>entry</var>'s <code>name</code> attribute to <var>measureName</var>.</li>
+  <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "measure"</code>.</li>
+  <li>Set <var>entry</var>'s <code>startTime</code> attribute to <var>start time</var>.</li>
+  <li>Set <var>entry</var>'s <code>duration</code> attribute to the duration from <var>start time</var> to <var>end time</var>. The resulting duration value MAY be negative.</li>
+  <li>
+    Set <var>entry</var>'s <code>detail</code> attribute as follows:
+    <ol>
+      <li>If <var>startOrMeasureOptions</var> is a <a>PerformanceMeasureOptions</a> object and <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">detail</a> member [=map/exists=]:
+        <ol>
+          <li>Let <var>record</var> be the result of calling the <a>StructuredSerialize</a> algorithm on <var>startOrMeasureOptions</var>'s <a for="PerformanceMeasureOptions">detail</a>.</li>
+          <li>Set <var>entry</var>'s <a href="#dom-performancemeasure-detail">detail</a> to the result of calling the <a>StructuredDeserialize</a> algorithm on <var>record</var> and the <a>current realm</a>.</li>
+        </ol>
+      </li>
+      <li>Otherwise, set it to <code>null</code>.</li>
+    </ol>
+  </li>
+  <li><a>Queue a PerformanceEntry</a> <var>entry</var>.</li>
+  <li id="stored_measure">Add <var>entry</var> to the <a>performance entry buffer</a>.</li>
+  <li>Return <var>entry</var>.</li>
+</ol>
+
+<h5 id="performancemeasureoptions-dictionary" data-dfn-for="PerformanceMeasureOptions"><dfn>PerformanceMeasureOptions</dfn> dictionary</h5>
+
+<dl data-dfn-for="PerformanceMeasureOptions">
+  <dt><dfn>detail</dfn></dt>
+  <dd>Metadata to be included in the measure.</dd>
+  <dt><dfn>start</dfn></dt>
+  <dd>Timestamp to be used as the start time or string to be used as start mark.</dd>
+  <dt><dfn>duration</dfn></dt>
+  <dd>Duration between the start and end times.</dd>
+  <dt><dfn>end</dfn></dt>
+  <dd>Timestamp to be used as the end time or string to be used as end mark.</dd>
+</dl>
+
+<h4 id="clearmeasures-method"><dfn data-dfn-for="Performance" data-export>clearMeasures()</dfn> method</h4>
+
+<p>Removes stored timestamp with the associated name. It MUST run these steps:</p>
+<ol>
+  <li>If <var>measureName</var> is omitted, remove all <a>PerformanceMeasure</a> objects in the <a>performance entry buffer</a>.</li>
+  <li>Otherwise remove all <a>PerformanceMeasure</a> objects listed in the <a>performance entry buffer</a> whose <code>name</code> [=string/is=] <var>measureName</var>.</li>
+  <li>Return <strong>undefined</strong>.</li>
+</ol>
+
+<h3 id="the-performancemark-interface" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">The <dfn>PerformanceMark</dfn> Interface</h3>
+
+<p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>Performance</a> interface's {{Performance/mark()}} method to the <a>Performance Timeline</a>.</p>
+
+<pre class="idl">
+  [Exposed=(Window,Worker)]
+  interface PerformanceMark : PerformanceEntry {
+    constructor(DOMString markName, optional PerformanceMarkOptions markOptions = {});
+    readonly attribute any detail;
+  };
+</pre>
+
+<p>The <a>PerformanceMark</a> interface extends the following attributes of the {{PerformanceEntry}}
+interface:</p>
+
+<p>The <code>name</code> attribute must return the mark's name.</p>
+
+<p>The <code>entryType</code> attribute must return the {{DOMString}} <code>"mark"</code>.</p>
+
+<p>The <code>startTime</code> attribute must return a {{DOMHighResTimeStamp}} with the mark's time value.</p>
+
+<p>The <code>duration</code> attribute must return a {{DOMHighResTimeStamp}} of value <code>0</code>.</p>
+
+<p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
+
+<p>The <dfn data-dfn-for="PerformanceMark" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
+
+<h4 id="the-performancemark-constructor">The <dfn id="dom-performancemark-constructor" data-lt="PerformanceMark constructor"><a>PerformanceMark</a> Constructor</dfn></h4>
+
+<p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
+<ol>
+  <li>If the <a>current global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.</li>
+  <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>) with the <a>current global object</a>'s <a>realm</a>.</li>
+  <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
+  <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
+  <li>
+    Set <var>entry</var>'s <code>startTime</code> attribute as follows:
+    <ol>
+      <li>
+        If <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a> member [=map/exists=], then:
+        <ol>
+          <li>If <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a> is negative, throw a {{TypeError}}.</li>
+          <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a>.</li>
+        </ol>
+      </li>
+      <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a href="https://www.w3.org/TR/hr-time-2/#dom-performance-now"><code>now()</code></a> method.</li>
+    </ol>
+  </li>
+  <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
+  <li>If <var>markOptions</var>'s <a for="PerformanceMarkOptions">detail</a> is null, set <var>entry</var>'s <a href="#dom-performancemark-detail">detail</a> to null.</li>
+  <li>Otherwise:
+    <ol>
+      <li>Let <var>record</var> be the result of calling the <a>StructuredSerialize</a> algorithm on <var>markOptions</var>'s <a for="PerformanceMarkOptions">detail</a>.</li>
+      <li>Set <var>entry</var>'s <a href="#dom-performancemark-detail">detail</a> to the result of calling the <a>StructuredDeserialize</a> algorithm on <var>record</var> and the <a>current realm</a>.</li>
+    </ol>
+  </li>
+</ol>
+
+<h3 id="the-performancemeasure-interface" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">The <dfn>PerformanceMeasure</dfn> Interface</h3>
+
+<p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>Performance</a> interface's {{Performance/measure()}} method to the <a>Performance Timeline</a>.</p>
+
+<pre class="idl">
+  [Exposed=(Window,Worker)]
+  interface PerformanceMeasure : PerformanceEntry {
+    readonly attribute any detail;
+  };
+</pre>
+
+<p>The <a>PerformanceMeasure</a> interface extends the following attributes of the {{PerformanceEntry}} interface:</p>
+
+<p>The <code>name</code> attribute must return the measure's name.</p>
+
+<p>The <code>entryType</code> attribute must return the {{DOMString}} <code>"measure"</code>.</p>
+
+<p>The <code>startTime</code> attribute must return a {{DOMHighResTimeStamp}} with the measure's start mark.</p>
+
+<p>The <code>duration</code> attribute must return a {{DOMHighResTimeStamp}} with the duration of the measure.</p>
+
+<p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
+
+<p>The <dfn data-dfn-for="PerformanceMeasure" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
+
+<h2 id="processing">Processing</h2>
+
+<p class='note'>A user agent implementing the User Timing API would need to include <code>"mark"</code> and
+  <code>"measure"</code> in <a>supportedEntryTypes</a>. This allows developers to detect support for User Timing.</p>
+
+<h3 id="convert-mark-to-timestamp">Convert a <var ignore>mark</var> to a <var ignore>timestamp</var></h3>
+
+<p>To <dfn id="convert-a-mark-to-a-timestamp" data-export>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or {{DOMHighResTimeStamp}} run these steps:</p>
+<ol>
+  <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var ignore>name</var> set to the value of <var>mark</var>.</li>
+  <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a>performance entry buffer</a> whose <code>name</code> [=string/is=] <var>mark</var>. If no matching entry is found, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.</li>
+  <li>
+    Otherwise, if <var>mark</var> is a {{DOMHighResTimeStamp}}:
+    <ol>
+      <li>If <var>mark</var> is negative, throw a {{TypeError}}.</li>
+      <li>Otherwise, let <var>end time</var> be <var>mark</var>.</li>
+    </ol>
+  </li>
+</ol>
+
+<h3 id="convert-name-to-timestamp">Convert a <var ignore>name</var> to a <var ignore>timestamp</var></h3>
+
+<p>To <dfn id="convert-a-name-to-a-timestamp">convert a name to a timestamp</dfn> given a <var>name</var> that is a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, run these steps:</p>
+<ol>
+  <li>If the <a>global object</a> is not a <code>Window</code> object, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a {{TypeError}}.</li>
+  <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
+  <li>Let <var>startTime</var> be the value of <code>navigationStart</code> in the <code><a>PerformanceTiming</a></code> interface.</li>
+  <li>Let <var>endTime</var> be the value of <var>name</var> in the <code><a>PerformanceTiming</a></code> interface.</li>
+  <li>If <var>endTime</var> is <code>0</code>, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.</li>
+  <li>Return result of subtracting <var>startTime</var> from <var>endTime</var>.</li>
+</ol>
+
+<p class="note">
+  The <a>PerformanceTiming</a> interface was defined in [[NAVIGATION-TIMING]] and is now considered obsolete. The use of names from the <a>PerformanceTiming</a> interface is supported to remain backwards compatible, but there are no plans to extend this functionality to names in the <a>PerformanceNavigationTiming</a> interface defined in [[NAVIGATION-TIMING-2]] (or other interfaces) in the future.
+</p>
+
+<h2 id="recommended-mark-names">Recommended mark names</h2>
+
+<p>Developers are encouraged to use the following recommended mark names to
+mark common timings. The [=user agent=] does not validate that the usage of
+these names is appropriate or consistent with its description.</p>
+
+<p class="note">Adding such <span class="allow-2119">recommended</span> mark names <span class="allow-2119">can</span> help performance
+tools tailor guidance to a site. These mark names <span class="allow-2119">can</span> also help real user
+monitoring providers and user agents collect web developer signals regarding
+their application's performance at scale, and surface this information to
+developers without requiring any site-specific work.</p>
+
+<dl>
+  <dt>"<dfn data-export>mark_fully_loaded</dfn>"</dt>
+  <dd>The time when the page is considered fully loaded as marked by the
+    developer in their application.
+    <div class="note no-marker">
+      <p>In this example, the page asynchonously initializes a chat widget, a
+        searchbox, and a newsfeed upon loading. When finished, the
+        "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
+        providers to automatically show the timing.
+      </p>
+      <pre class="example" id="example-mark-fully-loaded" highlight="js">
+            window.addEventListener("load", (event) => {
+              Promise.all([
+                loadChatWidget(),
+                initializeSearchAutocomplete(),
+                initializeNewsfeed()]).then(() => {
+                  performance.mark('mark_fully_loaded');
+              });
+            });
+          </pre>
+    </div>
+  </dd>
+  <dt>"<dfn data-export>mark_fully_visible</dfn>"</dt>
+  <dd>The time when the page is considered fully visible to an end-user
+    as marked by the developer in their application.</dd>
+  <dt>"<dfn data-export>mark_interactive</dfn>"</dt>
+  <dd>The time when the page is considered interactive to an end-user as
+    marked by the developer in their application.</dd>
+  <dt>"<dfn data-export>mark_feature_usage</dfn>"</dt>
+  <dd>Mark the usage of a feature which may impact performance so that
+    tooling and analytics can take it into account. The <a href="#dom-performancemark-detail">detail</a>
+    metadata can contain any useful information about the feature, including:
+    <dl>
+      <dt><dfn data-export>feature</dfn></dt>
+      <dd>The name of the feature used.</dd>
+      <dt><dfn data-export>framework</dfn></dt>
+      <dd>If applicable, the underlying framework the feature is intended
+        for, such as a JavaScript framework, content management system, or
+        e-commerce platform.</dd>
+    </dl>
+    <div class="note no-marker">
+      <p>In this example, the ImageOptimizationComponent for FancyJavaScriptFramework
+        is used to size images for optimal performance. The code notes
+        this feature's usage so that lab tools and analytics can measure
+        whether it helped improve performance.
+      </p>
+      <pre class="example" id="example-mark-feature-usage" highlight="js">
+        performance.mark('mark_feature_usage', {
+          'detail': {
+            'feature': 'ImageOptimizationComponent',
+            'framework': 'FancyJavaScriptFramework'
+          }
+        })
+      </pre>
+    </div>
+  </dd>
+</dl>
+
+<h2 class='informative' id="privacy-security">Privacy and Security</h2>
+
+<em>This section is non-normative.</em>
+
+<p>The interfaces defined in this specification expose potentially
+sensitive timing information on specific JavaScript activity of a page.
+Please refer to [[HR-TIME-2]] for privacy and security considerations of
+exposing high-resolution timing information.</p>
+
+<p>Because the web platform has been designed with the invariant that any
+script included on a page has the same access as any other script included
+on the same page, regardless of the origin of either scripts, the
+interfaces defined by this specification do not place any restrictions on
+recording or retrieval of recorded timing information - i.e. a user timing
+mark or measure recorded by any script included on the page can be read by
+any other script running on the same page, regardless of origin.</p>
+
+<h2 class="no-num" id="acknowledgments">Acknowledgments</h2>
+
+<p>Thanks to
+James Simonsen,
+Jason Weber,
+Nic Jansma,
+Philippe Le Hegaret,
+Karen Anderson,
+Steve Souders,
+Sigbjorn Vik,
+Todd Reifsteck, and
+Tony Gentilcore
+for their contributions to this work.</p>
