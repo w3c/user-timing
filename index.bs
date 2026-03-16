@@ -293,7 +293,7 @@ interface:</p>
 
 <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
 
-<p>The <dfn data-dfn-for="PerformanceMark" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
+<p>The <dfn attribute data-dfn-for="PerformanceMark" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
 
 <h4 id="the-performancemark-constructor">The <dfn id="dom-performancemark-constructor" data-lt="PerformanceMark constructor"><a>PerformanceMark</a> Constructor</dfn></h4>
 
@@ -349,7 +349,7 @@ interface:</p>
 
 <p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
 
-<p>The <dfn data-dfn-for="PerformanceMeasure" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
+<p>The <dfn attribute data-dfn-for="PerformanceMeasure" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
 
 <h2 id="processing">Processing</h2>
 
