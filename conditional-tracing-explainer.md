@@ -48,11 +48,12 @@ Apart from the entry name, all other annotations are per-track rather than per-e
 Unlike the User Timing API, neither `mark` nor `measure` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
 
 
-In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
+**To be Considered:** In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
 
 ```js
 PerformanceObserver.attachTrack(track);
 ```
+(An alternative: let `startConditionalBuffering({entryType: "long-animation-frame"})` automatically apply `this` track to all LoaF PerformanceEntries, and remove `attachTrack()`.)
 
 We report the tracing points with `TrackMark` and `TrackMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field. Instead it has an additional `trackName` field to indicate which track the tracing point is from.
 
