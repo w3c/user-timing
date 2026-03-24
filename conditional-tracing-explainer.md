@@ -75,7 +75,7 @@ observer_bar.attachTrack(track_bar);
 /* won't get entries from |track_foo| */
 ```
 
-Con: This feature seems unprecedented for PerformanceEntries. And add considerable complexty
+Con: This feature seems unprecedented for PerformanceEntries. And add considerable complexity
 to both implementation and web app. May not be worth it?
 
 ### Sample code
@@ -121,7 +121,7 @@ const observer = new PerformanceObserver(entries => {
 });
 observer.observe({entryType: "long-animation-frame"});
 
-// Optional: instead of automatically attach aThis adds "tracks" to the LoAF entries observed by `observer`.
+// Optional: add "tracks" to the LoAF entries observed by `observer`, if they are not automatically attached.
 observer.attachTrack(track0);
 observer.attachTrack(track1);
 
