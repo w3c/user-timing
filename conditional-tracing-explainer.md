@@ -53,16 +53,16 @@ Conditional markers and measures do not appear in the global timeline.
 ```js
 
 // Add a mark. This mark does not appear in the performance timeline, but for LoAF purpose only.
-performance.markConditional("mark1", {"long-animation-frame"});  // at time t1
+performance.markConditional("mark1", ["long-animation-frame"]);  // at time t1
 // ...  later ...
 // Add another mark.
-performance.markConditional("mark2", {"long-animation-frame"});   // at time t2
+performance.markConditional("mark2", ["long-animation-frame"]);   // at time t2
 
 // This mark is never refered to by conditional measures, because it's not conditional.
 performance.mark("mark1");  // at time tx
 
 // Combines mark->mark as a single entry with duration.
-performance.measureConditional("myMeasure", {"long-animation-frame"}, "mark1", "mark2");
+performance.measureConditional("myMeasure", ["long-animation-frame"], "mark1", "mark2");
 
 // Observe long animation frame entries, and print out the
 // conditional tracing results.
