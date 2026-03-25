@@ -46,6 +46,8 @@ We report the tracing points with `ConditionalMark` and `ConditionalMeasure` ent
 
 A new field, `userTimingEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `ConditionalMark` and `ConditionalMeasure` entries that occurs during a LoAF.
 
+Conditional markers and measures do not appear in the global timeline.
+
 ### Sample code
 
 ```js
