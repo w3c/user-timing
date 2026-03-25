@@ -29,99 +29,71 @@ This document proposes a lightweight User Timing API extension specifically desi
 
 ## API Changes and Example Code
 
-This proposal introduces a new type of object that represents a "track"- a namespace of sorts for low-overhead user measurements.
-
-A track is like a mini performance timeline. The entries on a track are not buffered in the regular performance timeline. Instead, they are buffered and reported by a relevant performance entry type specified by the following:
+This proposal introduces a variation of creating markers and measurements:
 
 ```js
-PerformanceTrack.startConditionalBuffering({entryType: ...});
+performance.markConditional(markName, conditions);
+performance.measureConditional(measureName, conditions, startMark/*optional*/, endMark /*optional*/);
 ```
 
-The `PerformanceTrack` can add markers and measure the time between them, similar to the user timing API. The difference is that the track doesn't take the dictionary-type parameters like `detail`, `markOptions` and `measureOptions`.
+In comparison to `performance.mark()` and `performance.measure()`, these don't have the arguments `markOptions` and `measureOptions`. Instead, it has an argument `conditions`, a non-empty list of strings. `conditions` indicates what PerformanceEntry type such conditional "mark" and "measure" are relevant to. Currently, the only condition supported is "long-animation-frame".
 
-```js
-PerformanceTrack.mark(Name);
-PerformanceTrack.measure(Name, startMark/*optional*/, endMark/*optional*/)
-```
-Apart from the entry name, all other annotations are per-track rather than per-entry, to avoid overhead.
+The `startMark` and `endMark` refers to the conditional mark points with same `condition` that occurs during the time interval for the next relevant PerformanceEntry only.
 
-Unlike the User Timing API, neither `mark` nor `measure` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
+Unlike the User Timing API, neither `markConditional` nor `measureConditional` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These conditional `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
 
+We report the tracing points with `ConditionalMark` and `ConditionalMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field.
 
-**To be Considered:** In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
+A new field, `userTimingEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `ConditionalMark` and `ConditionalMeasure` entries that occurs during a LoAF.
 
-```js
-PerformanceObserver.attachTrack(track);
-```
-(An alternative: let `startConditionalBuffering({entryType: "long-animation-frame"})` automatically apply `this` track to all LoaF PerformanceEntries, and remove `attachTrack()`.)
-
-We report the tracing points with `TrackMark` and `TrackMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field. Instead it has an additional `trackName` field to indicate which track the tracing point is from.
-
-A new field, `trackEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `TrackMark` and `TrackMeasure` entries that occurs during a LoAF.
-
+Conditional markers and measures do not appear in the global timeline.
 
 ### Sample code
 
 ```js
-const track0 = new PerformanceTrack("framework0");
-const track1 = new PerformanceTrack("framework1");
 
-// This buffers new entries for not-yet-created LoAF observers.
-track0.startConditionalBuffering({entryType: "long-animation-frame"});
-track1.startConditionalBuffering({entryType: "long-animation-frame"});
+// Add a mark. This mark does not appear in the performance timeline, but for LoAF purpose only.
+performance.markConditional("mark1", ["long-animation-frame"]);  // at time t1
+// ...  later ...
+// Add another mark.
+performance.markConditional("mark2", ["long-animation-frame"]);   // at time t2
 
-// At some point, add a mark. This mark does not appear in the performance timeline
-track0.mark("mark1");   // at time t1
-// At some other point, add another mark
-track0.mark("mark2");   // at time t2
-// Combines mark->mark as a single entry with duration. This measure does not appear in the performance timeline.
-track0.measure("myMeasure", "mark1", "mark2");
+// This mark is never refered to by conditional measures, because it's not conditional.
+performance.mark("mark1");  // at time tx
 
-// Same with the other track.
-// The mark and measure points are on |track1|, not the ones on
-// |track0|.
-track1.mark("mark1");    // at time t3
-//...
-track1.mark("mark2");    // at time t4
-//...
-track1.measure("myMeasure", "mark1", "mark2");
+// Combines mark->mark as a single entry with duration.
+performance.measureConditional("myMeasure", ["long-animation-frame"], "mark1", "mark2");
 
 // Observe long animation frame entries, and print out the
 // conditional tracing results.
 const observer = new PerformanceObserver(entries => {
     for (const loaf : entries.getEntriesByType("long-animation-frame") {
-      // This will have all the marks & measures from the attached tracks that occurs during LoAF.
-      for (const trackEntry of loaf.trackEntries) {
-        if( trackEntry.entryType === "mark"){
-          console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name, trackEntry.startTime);
+      // This will print all the conditional marks & measures that occur during a LoAF.
+      for (const userTimingEntry of loaf.userTimingEntries) {
+        if( userTimingEntry.entryType === "conditionalMark"){
+          console.log(userTimingEntry.entryType,  userTimingEntry.name, userTimingEntry.startTime);
         }
-        else if ( trackEntry.entryType == "measure"){
-          console.log(trackEntry.entryType, trackEntry.trackName, trackEntry.name, trackEntry.duration);
+        else if ( userTimingEntry.entryType == "conditionalMeasure"){
+          console.log(userTimingEntry.entryType, userTimingEntry.name, userTimingEntry.duration);
         }
       }
     }
 });
 observer.observe({entryType: "long-animation-frame"});
 
-// This adds "tracks" to the LoAF entries observed by `observer`.
-observer.attachTrack(track0);
-observer.attachTrack(track1);
-
 /* Assuming we have a LoAF, during which all the mark and measure points are executed once
 at the time indicated in the comment, The output would be:
-"TrackMark", "frameWork0", "mark1", t1
-"TrackMark", "frameWork0", "mark2", t2
-"TrackMeasure", "frameWork0", "myMeasure", t2-t1
-"TrackMark", "frameWork1", "mark1", t3
-"TrackMark", "frameWork1", "mark2", t4
-"TrackMeasure", "frameWork1", "myMeasure", t4-t3
+"conditionalMark", "mark1", t1
+"conditionalMark",  "mark2", t2
+"conditionalMeasure", "myMeasure", t2-t1
+*/
+
+/* Assuming we have a LoAF, during which conditional mark "mark1"
+had never been reached, the output would be:
+"conditionalMark",  "mark2", t2
+"conditionalMeasure", "myMeasure", t2-0   ==> not t2-tx
 */
 ```
-### Notes on the API design
-We use an object rather than something like `performance.trace` for the following reasons:
-- It allows adding detailed annotations without having to create a dictionary during performance-critical execution.
-- It creates a natural namespace: both the reporter and the observer have to access the same object, rather than rely on (leaky) strings
-- From an ergonomic perspective, adding a global `performance.*` function might be confusing as the result doesn't end up in the performance timeline directly.
 
 ## Alternatives Considered
 
@@ -130,10 +102,6 @@ We use an object rather than something like `performance.trace` for the followin
 ## Future extention to this proposal
 
 We can apply the same enhancement to event timing in the future.
-
-```js
-track.startConditionalBuffering({entryType: "event"});
-```
 
 ## Stakeholder Feedback/Opposition
 TBD.
