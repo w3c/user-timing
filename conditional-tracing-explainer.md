@@ -58,8 +58,7 @@ performance.markConditional("mark1", {"long-animation-frame"});  // at time t1
 // Add another mark.
 performance.markConditional("mark2", {"long-animation-frame"});   // at time t2
 
-// This mark is never refered to by conditional measures, because
-// it's not conditional.
+// This mark is never refered to by conditional measures, because it's not conditional.
 performance.mark("mark1");  // at time tx
 
 // Combines mark->mark as a single entry with duration.
@@ -69,7 +68,7 @@ performance.measureConditional("myMeasure", {"long-animation-frame"}, "mark1", "
 // conditional tracing results.
 const observer = new PerformanceObserver(entries => {
     for (const loaf : entries.getEntriesByType("long-animation-frame") {
-      // This will have all the conditional marks & measures from the attached tracks that occurs during LoAF.
+      // This will print all the conditional marks & measures that occur during a LoAF.
       for (const userTimingEntry of loaf.userTimingEntries) {
         if( userTimingEntry.entryType === "conditionalMark"){
           console.log(userTimingEntry.entryType,  userTimingEntry.name, userTimingEntry.startTime);
