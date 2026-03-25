@@ -47,18 +47,36 @@ Apart from the entry name, all other annotations are per-track rather than per-e
 
 Unlike the User Timing API, neither `mark` nor `measure` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
 
-
-**To be Considered:** In addition, to include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
-
-```js
-PerformanceObserver.attachTrack(track);
-```
-(An alternative: let `startConditionalBuffering({entryType: "long-animation-frame"})` automatically apply `this` track to all LoaF PerformanceEntries, and remove `attachTrack()`.)
-
 We report the tracing points with `TrackMark` and `TrackMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field. Instead it has an additional `trackName` field to indicate which track the tracing point is from.
 
 A new field, `trackEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `TrackMark` and `TrackMeasure` entries that occurs during a LoAF.
 
+**Optional: use `attachTrack` to select tracks**
+
+To include these entries, the `PerformanceTrack` must be explicitly attached to the `PerformanceObserer` that observes the relevant Performance entries like this:
+
+```js
+PerformanceObserver.attachTrack(track);
+```
+
+Pro: allow app components limit tracks to include, and solve the problem that we
+don't guarantee all the tracks use unique track names.
+```js
+/* in lib_foo */
+const track_foo = new PerformanceTrack("woops_global_same_name");
+const observer_foo = new PerformanceObserver(...)
+observer_foo.attachTrack(track_foo);
+/* won't get entries from |track_bar| */
+
+/* in lib_bar */
+const track_bar = new PerformanceTrack("woops_global_same_name");
+const observer_bar = new PerformanceObserver(...)
+observer_bar.attachTrack(track_bar);
+/* won't get entries from |track_foo| */
+```
+
+Con: This feature seems unprecedented for PerformanceEntries. And add considerable complexity
+to both implementation and web app. May not be worth it?
 
 ### Sample code
 
@@ -103,7 +121,7 @@ const observer = new PerformanceObserver(entries => {
 });
 observer.observe({entryType: "long-animation-frame"});
 
-// This adds "tracks" to the LoAF entries observed by `observer`.
+// Optional: add "tracks" to the LoAF entries observed by `observer`, if they are not automatically attached.
 observer.attachTrack(track0);
 observer.attachTrack(track1);
 
