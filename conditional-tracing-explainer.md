@@ -32,13 +32,13 @@ This document proposes a lightweight User Timing API extension specifically desi
 This proposal introduces a variation of creating markers and measurements:
 
 ```js
-performance.markConditional(markName, conditions);
-performance.measureConditional(measureName, conditions, startMark/*optional*/, endMark /*optional*/);
+performance.markConditional(markName);
+performance.measureConditional(measureName, startMark/*optional*/, endMark /*optional*/);
 ```
 
-In comparison to `performance.mark()` and `performance.measure()`, these don't have the arguments `markOptions` and `measureOptions`. Instead, it has an argument `conditions`, a non-empty list of strings. `conditions` indicates what PerformanceEntry type such conditional "mark" and "measure" are relevant to. Currently, the only condition supported is "long-animation-frame".
+In comparison to `performance.mark()` and `performance.measure()`, these don't have the arguments `markOptions` and `measureOptions`.
 
-The `startMark` and `endMark` refers to the conditional mark points with same `condition` that occurs during the time interval for the next relevant PerformanceEntry only.
+The `startMark` and `endMark` refers to the conditional mark points that occur during the time interval for the current relevant PerformanceEntry only.
 
 Unlike the User Timing API, neither `markConditional` nor `measureConditional` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These conditional `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
 
@@ -53,16 +53,16 @@ Conditional markers and measures do not appear in the global timeline.
 ```js
 
 // Add a mark. This mark does not appear in the performance timeline, but for LoAF purpose only.
-performance.markConditional("mark1", ["long-animation-frame"]);  // at time t1
+performance.markConditional("mark1");  // at time t1
 // ...  later ...
 // Add another mark.
-performance.markConditional("mark2", ["long-animation-frame"]);   // at time t2
+performance.markConditional("mark2");   // at time t2
 
 // This mark is never refered to by conditional measures, because it's not conditional.
 performance.mark("mark1");  // at time tx
 
 // Combines mark->mark as a single entry with duration.
-performance.measureConditional("myMeasure", ["long-animation-frame"], "mark1", "mark2");
+performance.measureConditional("myMeasure", "mark1", "mark2");
 
 // Observe long animation frame entries, and print out the
 // conditional tracing results.
