@@ -1,3 +1,8 @@
+> [!NOTE]
+> The most up-to-date explainer is now located at:
+> https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ConditionalTracing/explainer-for-loaf.md
+
+
 # Lightweight and Conditional Tracing
 
 ## Contacts
@@ -16,13 +21,13 @@ This proposal introduces a lightweight and conditional tracing to facilitate inv
 
 A number of Performance APIs monitor web site performance, but the information provided by these APIs by themselves may not be sufficient to locate the root cause of performance problems.
 
-One example is the [wrapper problem](w3c/long-animation-frames#3) of the LoAF API. When application JavaScript execution causes a LoAF, the [script entry point](https://w3c.github.io/long-animation-frames/#create-script-entry-point) in the `PerformanceLongAnimationFrameTiming` exposes the responsible script entry point. Such a script entry point is often not granular enough, e.g. it can be a React callback that hides all the underlying slow functions, and also creates faux attribution: the wrapper function is "blamed" for slowness when it just passes the execution to an underlying function. A similar issue exists for event timing, where the provided timing attributes don't always capture the whole story, and don't always coincide with a more attributable long animation frame.
+One example is the [wrapper problem](https://github.com/w3c/long-animation-frames/issues/3) of the LoAF API. When application JavaScript execution causes a LoAF, the [script entry point](https://w3c.github.io/long-animation-frames/#create-script-entry-point) in the `PerformanceLongAnimationFrameTiming` exposes the responsible script entry point. Such a script entry point is often not granular enough, e.g. it can be a React callback that hides all the underlying slow functions, and also creates faux attribution: the wrapper function is "blamed" for slowness when it just passes the execution to an underlying function. A similar issue exists for event timing, where the provided timing attributes don't always capture the whole story, and don't always coincide with a more attributable long animation frame.
 
 The [performance User Timing API](https://www.w3.org/TR/user-timing/) can be used to diagnose performance problems further when additional information is needed to locate the root cause. However, it has some drawbacks:
 
-- The browser doesn't know the performance user timing points are set to diagnose a particular kind of performance incidents, so the browser cannot manage the coresponding data efficiently. The data cannot be filtered properly based on the the absence of performance incidents. Consequently the sites must process and upload more metric data back to the server than needed. This causes considerable performance overhead on the client.  
+- The browser doesn't know the performance user timing points are set to diagnose a particular kind of performance incidents, so the browser cannot manage the corresponding data efficiently. The data cannot be filtered properly based on the the absence of performance incidents. Consequently the sites must process and upload more metric data back to the server than needed. This causes considerable performance overhead on the client.
 
-- The data collected from performance User Timing API is separate from the data collected from perfornance monitoring APIs like LoAF, requiring developers to relate them after careful analysis.
+- The data collected from performance User Timing API is separate from the data collected from performance monitoring APIs like LoAF, requiring developers to relate them after careful analysis.
 
 This document proposes a lightweight User Timing API extension specifically designed to support LoAF. Compared to the standard User Timing API, this proposal offers lower runtime overhead and improved developer ergonomics. A similar enhancement could be applied to the Event Timing API in the future.
 
@@ -38,13 +43,13 @@ performance.measureConditional(measureName, startMark/*optional*/, endMark /*opt
 
 In comparison to `performance.mark()` and `performance.measure()`, these don't have the arguments `markOptions` and `measureOptions`.
 
-The `startMark` and `endMark` refers to the conditional mark points that occur during the time interval for the current relevant PerformanceEntry only.
+The `startMark` and `endMark` refer to the conditional mark points that occur during the time interval for the current relevant PerformanceEntry only.
 
 Unlike the User Timing API, neither `markConditional` nor `measureConditional` returns a `PerformanceMark` or a `PerformanceMeasure` entry. These conditional `mark`s and `measure`s are tracked for the relevant performance incidents(such as LoAF) only. Therefore they are only provided in the relevant PerformanceEntry(i.e., `PerformanceLongAnimationFrameTiming`) if they occur during a LoAF.
 
 We report the tracing points with `ConditionalMark` and `ConditionalMeasure` entries. They are similar to `PerformanceMark` and `PerformanceMeasure` entries. But they don't have a `detail` field.
 
-A new field, `userTimingEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `ConditionalMark` and `ConditionalMeasure` entries that occurs during a LoAF.
+A new field, `userTimingEntries` is added to `PerformanceLongAnimationFrameTiming` interface. It's an array consisting of relevant `ConditionalMark` and `ConditionalMeasure` entries that occur during a LoAF.
 
 Conditional markers and measures do not appear in the global timeline.
 
@@ -58,7 +63,7 @@ performance.markConditional("mark1");  // at time t1
 // Add another mark.
 performance.markConditional("mark2");   // at time t2
 
-// This mark is never refered to by conditional measures, because it's not conditional.
+// This mark is never referred to by conditional measures, because it's not conditional.
 performance.mark("mark1");  // at time tx
 
 // Combines mark->mark as a single entry with duration.
@@ -67,13 +72,13 @@ performance.measureConditional("myMeasure", "mark1", "mark2");
 // Observe long animation frame entries, and print out the
 // conditional tracing results.
 const observer = new PerformanceObserver(entries => {
-    for (const loaf : entries.getEntriesByType("long-animation-frame") {
+    for (const loaf of entries.getEntriesByType("long-animation-frame")) {
       // This will print all the conditional marks & measures that occur during a LoAF.
       for (const userTimingEntry of loaf.userTimingEntries) {
         if( userTimingEntry.entryType === "conditionalMark"){
           console.log(userTimingEntry.entryType,  userTimingEntry.name, userTimingEntry.startTime);
         }
-        else if ( userTimingEntry.entryType == "conditionalMeasure"){
+        else if ( userTimingEntry.entryType === "conditionalMeasure"){
           console.log(userTimingEntry.entryType, userTimingEntry.name, userTimingEntry.duration);
         }
       }
@@ -97,9 +102,9 @@ had never been reached, the output would be:
 
 ## Alternatives Considered
 
-[User-defined script entry point (UDSEP)](https://github.com/w3c/long-animation-frames/blob/main/user-defined-script-entry-point-explainer.md) is another way to annotate code for LoAF. UDSEP monitors script entry point enter and exit timing and keeps track of nesting entry points as well as time spent by microtasks that are not annotated but dispatched within UDSEP. This approach requires [an efficient V8 extension](https://docs.google.com/document/d/1wEXU0nv8DhzN7XpfmlfbRcbsJ2JNWjfAF-3J7qtWiEw/edit?usp=sharing) that allows Blink to be notified at the microtask enter and exit points. Due to the complexty involved, we prefer this conditional tracing approach.
+[User-defined script entry point (UDSEP)](https://github.com/w3c/long-animation-frames/blob/main/user-defined-script-entry-point-explainer.md) is another way to annotate code for LoAF. UDSEP monitors script entry point enter and exit timing and keeps track of nesting entry points as well as time spent by microtasks that are not annotated but dispatched within UDSEP. This approach requires [an efficient V8 extension](https://docs.google.com/document/d/1wEXU0nv8DhzN7XpfmlfbRcbsJ2JNWjfAF-3J7qtWiEw/edit?usp=sharing) that allows Blink to be notified at the microtask enter and exit points. Due to the complexity involved, we prefer this conditional tracing approach.
 
-## Future extention to this proposal
+## Future extension to this proposal
 
 We can apply the same enhancement to event timing in the future.
 
@@ -113,7 +118,7 @@ The information exposed by this API is similar to what the User Timing API expos
 
 >1.	What information does this feature expose, and for what purposes?
 
-This feature extends the existing performance User Timing API. The app can add `mark` and `measure` points in a similar fasion but the `PerformanceMark` and `PerformanceMeasure` entries can now be specified for a particular kind of performance incidents, so the UA filters out unrelevant entries and report the relevant ones in the corresponding `PerformanceEntry`.
+This feature extends the existing performance User Timing API. The app can add `mark` and `measure` points in a similar fashion but the `PerformanceMark` and `PerformanceMeasure` entries can now be specified for a particular kind of performance incidents, so the UA filters out irrelevant entries and reports the relevant ones in the corresponding `PerformanceEntry`.
 
 The purpose of this new feature is to improve the computational efficiency and ergonomics of the User Timing API when diagnosing the cause of LoAF.
 
@@ -126,7 +131,7 @@ No.
 >4.	How do the features in your specification deal with sensitive information?
 
 It does not deal with sensitive information.
->5.	Does data exposed by your specification carry related but distinct information that may not be obvious to users??
+>5.	Does data exposed by your specification carry related but distinct information that may not be obvious to users?
 
 No.
 >6.	Do the features in your specification introduce state that persists across browsing sessions?
