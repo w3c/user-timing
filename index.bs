@@ -299,23 +299,11 @@ interface:</p>
 
 <p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
 <ol>
-  <li>If the <a>current global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.</li>
+  <li>If <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a> member [=map/exists=], then let <var>start time</var> be the value be the value returned by running the <a>convert a mark to a timestamp</a> algorithm passing in <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a>.</li>
   <li>Create a new <a>PerformanceMark</a> object (<var>entry</var>) with the <a>current global object</a>'s <a>realm</a>.</li>
   <li>Set <var>entry</var>'s <code>name</code> attribute to <var>markName</var>.</li>
   <li>Set <var>entry</var>'s <code>entryType</code> attribute to <code>DOMString "mark"</code>.</li>
-  <li>
-    Set <var>entry</var>'s <code>startTime</code> attribute as follows:
-    <ol>
-      <li>
-        If <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a> member [=map/exists=], then:
-        <ol>
-          <li>If <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a> is negative, throw a {{TypeError}}.</li>
-          <li>Otherwise, set <var>entry</var>'s <code>startTime</code> to the value of <var>markOptions</var>'s <a for="PerformanceMarkOptions">startTime</a>.</li>
-        </ol>
-      </li>
-      <li>Otherwise, set it to the value that would be returned by the <code>Performance</code> object's <a href="https://www.w3.org/TR/hr-time-2/#dom-performance-now"><code>now()</code></a> method.</li>
-    </ol>
-  </li>
+  <li>Set <var>entry</var>'s <code>startTime</code> attribute <var>start time</var>. </li>
   <li>Set <var>entry</var>'s <code>duration</code> attribute to <code>0</code>.</li>
   <li>If <var>markOptions</var>'s <a for="PerformanceMarkOptions">detail</a> is null, set <var>entry</var>'s <a href="#dom-performancemark-detail">detail</a> to null.</li>
   <li>Otherwise:
