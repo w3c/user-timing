@@ -5,9 +5,9 @@
   <title>User Timing</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version ac92c2f0d, updated Fri Aug 21 16:01:29 2026 -0700" name="generator">
+  <meta content="Bikeshed version 49e9fdd4f, updated Tue Oct 13 14:27:53 2026 -0700" name="generator">
   <link href="https://www.w3.org/TR/user-timing/" rel="canonical">
-  <meta content="a449dbed90a1fdfc4c0524380099babfbe217fd6" name="revision">
+  <meta content="21f2f9d259532b99be053ec3f1de7d995d51225e" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -564,11 +564,10 @@ a[href].issue-return {
 	vertical-align: top;
 }
 .mdn-anno > .feature {
-	margin-top: 20px;
+	margin-top: 6px;
 }
 .mdn-anno > .feature:not(:first-of-type) {
 	border-top: 1px solid #999;
-	margin-top: 6px;
 	padding-top: 2px;
 }
 .mdn-anno > .feature > .less-than-two-engines-text {
@@ -959,7 +958,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </p>
    <h1 class="no-ref p-name" id="title">User Timing</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-09-01">1 September 2026</time></p>
+    <time class="dt-updated" datetime="2026-11-02">2 November 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1023,27 +1022,27 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <a href="#user-timing"><span class="secno">2</span> <span class="content">User Timing</span></a>
      <ol class="toc">
       <li>
-       <a href="#extensions-performance-interface"><span class="secno">2.1</span> <span class="content">Extensions to the <code><span>Performance</span></code> interface</span></a>
+       <a href="#extensions-performance-interface"><span class="secno">2.1</span> <span class="content">Extensions to the <code><u class="link-error" data-lt="Performance" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;performance&apos; with for=&apos;[&apos;/&apos;]&apos; in spec &apos;hr-time-3&apos;.">Performance</u></code> interface</span></a>
        <ol class="toc">
         <li>
          <a href="#mark-method"><span class="secno">2.1.1</span> <span class="content"><span>mark()</span> method</span></a>
          <ol class="toc">
-          <li><a href="#performancemarkoptions-dictionary"><span class="secno">2.1.1.1</span> <span class="content"><span>PerformanceMarkOptions</span> dictionary</span></a>
+          <li><a href="#performancemarkoptions-dictionary"><span class="secno">2.1.1.1</span> <span class="content"><span><span class="bs-old-id"></span><span class="bs-old-id"></span>PerformanceMarkOptions</span> dictionary</span></a>
          </ol>
-        <li><a href="#clearmarks-method"><span class="secno">2.1.2</span> <span class="content"><span>clearMarks()</span> method</span></a>
+        <li><a href="#clearmarks-method"><span class="secno">2.1.2</span> <span class="content"><span><span class="bs-old-id"></span>clearMarks()</span> method</span></a>
         <li>
          <a href="#measure-method"><span class="secno">2.1.3</span> <span class="content"><span>measure()</span> method</span></a>
          <ol class="toc">
-          <li><a href="#performancemeasureoptions-dictionary"><span class="secno">2.1.3.1</span> <span class="content"><span>PerformanceMeasureOptions</span> dictionary</span></a>
+          <li><a href="#performancemeasureoptions-dictionary"><span class="secno">2.1.3.1</span> <span class="content"><span><span class="bs-old-id"></span><span class="bs-old-id"></span>PerformanceMeasureOptions</span> dictionary</span></a>
          </ol>
-        <li><a href="#clearmeasures-method"><span class="secno">2.1.4</span> <span class="content"><span>clearMeasures()</span> method</span></a>
+        <li><a href="#clearmeasures-method"><span class="secno">2.1.4</span> <span class="content"><span><span class="bs-old-id"></span>clearMeasures()</span> method</span></a>
        </ol>
       <li>
-       <a href="#the-performancemark-interface"><span class="secno">2.2</span> <span class="content">The <span>PerformanceMark</span> Interface</span></a>
+       <a href="#the-performancemark-interface"><span class="secno">2.2</span> <span class="content">The <span><span class="bs-old-id"></span><span class="bs-old-id"></span>PerformanceMark</span> Interface</span></a>
        <ol class="toc">
-        <li><a href="#the-performancemark-constructor"><span class="secno">2.2.1</span> <span class="content">The <span><span>PerformanceMark</span> Constructor</span></span></a>
+        <li><a href="#the-performancemark-constructor"><span class="secno">2.2.1</span> <span class="content">The <span><span class="bs-old-id"></span><span>PerformanceMark</span> Constructor</span></span></a>
        </ol>
-      <li><a href="#the-performancemeasure-interface"><span class="secno">2.3</span> <span class="content">The <span>PerformanceMeasure</span> Interface</span></a>
+      <li><a href="#the-performancemeasure-interface"><span class="secno">2.3</span> <span class="content">The <span><span class="bs-old-id"></span><span class="bs-old-id"></span>PerformanceMeasure</span> Interface</span></a>
      </ol>
     <li>
      <a href="#processing"><span class="secno">3</span> <span class="content">Processing</span></a>
@@ -1082,7 +1081,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <p>This document defines the <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark">PerformanceMark</a> and <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure">PerformanceMeasure</a> interfaces, and extensions to the <a href="#extensions-performance-interface"><code>Performance</code></a> interface, which expose a high precision, monotonically increasing timestamp so that developers can better measure the performance characteristics of their applications.</p>
    <div class="informative">
     <p>The following script shows how a developer can use the interfaces defined in this document to obtain timing data related to developer scripts.</p>
-<pre class="example highlight" id="example-basic-marks"><a class="self-link" href="#example-basic-marks"></a><c- k>async</c-> <c- a>function</c-> run<c- p>()</c-> <c- p>{</c->
+<pre class="example highlight" id="example-basic-marks"><a class="self-link" href="#example-basic-marks"></a><span class="bs-old-id" id="example-1"></span><c- k>async</c-> <c- a>function</c-> run<c- p>()</c-> <c- p>{</c->
   performance<c- p>.</c->mark<c- p>(</c-><c- u>"startTask1"</c-><c- p>);</c->
   <c- k>await</c-> doTask1<c- p>();</c-> <c- c1>// Some developer code</c->
   performance<c- p>.</c->mark<c- p>(</c-><c- u>"endTask1"</c-><c- p>);</c->
@@ -1114,7 +1113,7 @@ run<c- p>();</c->
   will miss latency to process the event, so instead we use the event
   hardware timestamp. We also want to know the name of the component to have
   more detailed analytics.</p>
-<pre class="example highlight" id="example-click-measure"><a class="self-link" href="#example-click-measure"></a>element<c- p>.</c->addEventListener<c- p>(</c-><c- u>"click"</c-><c- p>,</c-> e <c- p>=></c-> <c- p>{</c->
+<pre class="example highlight" id="example-click-measure"><a class="self-link" href="#example-click-measure"></a><span class="bs-old-id" id="example-2"></span>element<c- p>.</c->addEventListener<c- p>(</c-><c- u>"click"</c-><c- p>,</c-> e <c- p>=></c-> <c- p>{</c->
   <c- a>const</c-> component <c- o>=</c-> getComponent<c- p>(</c->element<c- p>);</c->
   fetch<c- p>(</c->component<c- p>.</c->url<c- p>).</c->then<c- p>(()</c-> <c- p>=></c-> <c- p>{</c->
     element<c- p>.</c->textContent <c- o>=</c-> <c- u>"Updated"</c-><c- p>;</c->
@@ -1131,11 +1130,11 @@ run<c- p>();</c->
 </pre>
    </div>
    <h2 class="heading settled" data-level="2" id="user-timing"><span class="secno">2. </span><span class="content">User Timing</span><a class="self-link" href="#user-timing"></a></h2>
-   <h3 class="heading settled" data-dfn-for="Performance" data-level="2.1" id="extensions-performance-interface"><span class="secno">2.1. </span><span class="content">Extensions to the <code><a data-link-type="dfn" href="https://w3c.github.io/hr-time/#the-performance-attr" id="ref-for-the-performance-attr">Performance</a></code> interface</span><a class="self-link" href="#extensions-performance-interface"></a></h3>
-   <p>The <a data-link-type="dfn" href="https://w3c.github.io/hr-time/#the-performance-attr" id="ref-for-the-performance-attr①">Performance</a> interface and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp">DOMHighResTimeStamp</a></code> are defined in <a data-link-type="biblio" href="#biblio-hr-time-2" title="High Resolution Time Level 2">[HR-TIME-2]</a>.
-  The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/performance-timeline/#performanceentry" id="ref-for-performanceentry">PerformanceEntry</a></code> interface is defined in <a data-link-type="biblio" href="#biblio-performance-timeline-2" title="Performance Timeline">[PERFORMANCE-TIMELINE-2]</a>.
+   <h3 class="heading settled" data-dfn-for="Performance" data-level="2.1" id="extensions-performance-interface"><span class="secno">2.1. </span><span class="content">Extensions to the <code><u class="link-error" data-lt="Performance" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;performance&apos; with for=&apos;[&apos;/&apos;]&apos; in spec &apos;hr-time-3&apos;.">Performance</u></code> interface</span><a class="self-link" href="#extensions-performance-interface"></a></h3>
+   <p>The <u class="link-error" data-lt="Performance" id="dom-performance" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;performance&apos; with for=&apos;/&apos; in spec &apos;hr-time-3&apos;.">Performance</u> interface and <span id="dfn-domhighrestimestamp"><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp">DOMHighResTimeStamp</a></code></span> are defined in <a data-link-type="biblio" href="#biblio-hr-time-2" title="High Resolution Time Level 2">[HR-TIME-2]</a>.
+  The <span id="dfn-performanceentry"><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/performance-timeline/#performanceentry" id="ref-for-performanceentry">PerformanceEntry</a></code></span> interface is defined in <a data-link-type="biblio" href="#biblio-performance-timeline-2" title="Performance Timeline">[PERFORMANCE-TIMELINE-2]</a>.
 </p>
-<pre class="def highlight idl"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-performancemarkoptions"><code><c- g>PerformanceMarkOptions</c-></code></dfn> {
+<pre class="def highlight idl" id="idl-def-performance-partial-1"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-performancemarkoptions"><code><c- g>PerformanceMarkOptions</c-></code></dfn> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dict-member" data-export data-type="any" id="dom-performancemarkoptions-detail"><code><c- g>detail</c-></code></dfn>;
     <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp①"><c- n>DOMHighResTimeStamp</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dict-member" data-export data-type="DOMHighResTimeStamp" id="dom-performancemarkoptions-starttime"><code><c- g>startTime</c-></code></dfn>;
 };
@@ -1154,7 +1153,7 @@ run<c- p>();</c->
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Performance" data-dfn-type="method" data-export data-lt="clearMeasures(measureName)|clearMeasures()" id="dom-performance-clearmeasures"><code><c- g>clearMeasures</c-></code></dfn>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Performance/clearMeasures(measureName), Performance/clearMeasures()" data-dfn-type="argument" data-export id="dom-performance-clearmeasures-measurename-measurename"><code><c- g>measureName</c-></code></dfn>);
 };
 </pre>
-   <h4 class="heading settled" data-level="2.1.1" id="mark-method"><span class="secno">2.1.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-mark">mark()</dfn> method</span><a class="self-link" href="#mark-method"></a></h4>
+   <h4 class="heading settled" data-level="2.1.1" id="mark-method"><span class="secno">2.1.1. </span><span class="bs-old-id" id="idl-def-performance-mark-markname-markoptions"></span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-mark">mark()</dfn> method</span><a class="self-link" href="#mark-method"></a></h4>
    <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
    <ol>
     <li>Run the <a data-link-type="dfn" href="#dom-performancemark-constructor" id="ref-for-dom-performancemark-constructor">PerformanceMark constructor</a> and let <var>entry</var> be the newly created object.
@@ -1162,21 +1161,21 @@ run<c- p>();</c->
     <li id="stored_mark"><a class="self-link" href="#stored_mark"></a>Add <var>entry</var> to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer">performance entry buffer</a>.
     <li>Return <var>entry</var>.
    </ol>
-   <h5 class="heading settled" data-dfn-for="PerformanceMarkOptions" data-level="2.1.1.1" id="performancemarkoptions-dictionary"><span class="secno">2.1.1.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-performancemarkoptions">PerformanceMarkOptions</dfn> dictionary</span><a class="self-link" href="#performancemarkoptions-dictionary"></a></h5>
+   <h5 class="heading settled" data-dfn-for="PerformanceMarkOptions" data-level="2.1.1.1" id="performancemarkoptions-dictionary"><span class="secno">2.1.1.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-performancemarkoptions"><span class="bs-old-id" id="idl-def-performancemarkoptions"></span><span class="bs-old-id" id="dom-performancemarkoptions"></span>PerformanceMarkOptions</dfn> dictionary</span><a class="self-link" href="#performancemarkoptions-dictionary"></a></h5>
    <dl>
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-detail">detail</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-detail"><span class="bs-old-id" id="idl-def-performancemarkoptions-detail"></span>detail</dfn>
     <dd>Metadata to be included in the mark.
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-starttime">startTime</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMarkOptions" data-dfn-type="dfn" data-noexport id="performancemarkoptions-starttime"><span class="bs-old-id" id="idl-def-performancemarkoptions-starttime"></span>startTime</dfn>
     <dd>Timestamp to be used as the mark time.
    </dl>
-   <h4 class="heading settled" data-level="2.1.2" id="clearmarks-method"><span class="secno">2.1.2. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-clearmarks">clearMarks()</dfn> method</span><a class="self-link" href="#clearmarks-method"></a></h4>
+   <h4 class="heading settled" data-level="2.1.2" id="clearmarks-method"><span class="secno">2.1.2. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-clearmarks"><span class="bs-old-id" id="idl-def-performance-clearmarks-markname"></span>clearMarks()</dfn> method</span><a class="self-link" href="#clearmarks-method"></a></h4>
    <p>Removes the stored timestamp with the associated name. It MUST run these steps:</p>
    <ol>
     <li>If <var>markName</var> is omitted, remove all <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark①">PerformanceMark</a> objects from the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer①">performance entry buffer</a>.
     <li>Otherwise, remove all <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark②">PerformanceMark</a> objects listed in the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer②">performance entry buffer</a> whose <var>name</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string-is" id="ref-for-string-is">is</a> <var>markName</var>.
     <li>Return <strong>undefined</strong>.
    </ol>
-   <h4 class="heading settled" data-level="2.1.3" id="measure-method"><span class="secno">2.1.3. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-measure">measure()</dfn> method</span><a class="self-link" href="#measure-method"></a></h4>
+   <h4 class="heading settled" data-level="2.1.3" id="measure-method"><span class="secno">2.1.3. </span><span class="bs-old-id" id="idl-def-performance-measure-measurename-startormeasureoptions-endmark"></span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-measure">measure()</dfn> method</span><a class="self-link" href="#measure-method"></a></h4>
    <p>Stores the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑤">DOMHighResTimeStamp</a></code> duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
    <ol>
     <li>
@@ -1246,26 +1245,26 @@ run<c- p>();</c->
     <li id="stored_measure"><a class="self-link" href="#stored_measure"></a>Add <var>entry</var> to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer③">performance entry buffer</a>.
     <li>Return <var>entry</var>.
    </ol>
-   <h5 class="heading settled" data-dfn-for="PerformanceMeasureOptions" data-level="2.1.3.1" id="performancemeasureoptions-dictionary"><span class="secno">2.1.3.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-performancemeasureoptions">PerformanceMeasureOptions</dfn> dictionary</span><a class="self-link" href="#performancemeasureoptions-dictionary"></a></h5>
+   <h5 class="heading settled" data-dfn-for="PerformanceMeasureOptions" data-level="2.1.3.1" id="performancemeasureoptions-dictionary"><span class="secno">2.1.3.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-performancemeasureoptions"><span class="bs-old-id" id="idl-def-performancemeasureoptions"></span><span class="bs-old-id" id="dom-performancemeasureoptions"></span>PerformanceMeasureOptions</dfn> dictionary</span><a class="self-link" href="#performancemeasureoptions-dictionary"></a></h5>
    <dl>
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-detail">detail</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-detail"><span class="bs-old-id" id="idl-def-performancemeasureoptions-detail"></span>detail</dfn>
     <dd>Metadata to be included in the measure.
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-start">start</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-start"><span class="bs-old-id" id="idl-def-performancemeasureoptions-start"></span>start</dfn>
     <dd>Timestamp to be used as the start time or string to be used as start mark.
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-duration">duration</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-duration"><span class="bs-old-id" id="idl-def-performancemeasureoptions-duration"></span>duration</dfn>
     <dd>Duration between the start and end times.
-    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-end">end</dfn>
+    <dt><dfn class="dfn-paneled" data-dfn-for="PerformanceMeasureOptions" data-dfn-type="dfn" data-noexport id="performancemeasureoptions-end"><span class="bs-old-id" id="idl-def-performancemeasureoptions-end"></span>end</dfn>
     <dd>Timestamp to be used as the end time or string to be used as end mark.
    </dl>
-   <h4 class="heading settled" data-level="2.1.4" id="clearmeasures-method"><span class="secno">2.1.4. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-clearmeasures">clearMeasures()</dfn> method</span><a class="self-link" href="#clearmeasures-method"></a></h4>
+   <h4 class="heading settled" data-level="2.1.4" id="clearmeasures-method"><span class="secno">2.1.4. </span><span class="content"><dfn class="dfn-paneled" data-dfn-for="Performance" data-dfn-type="dfn" data-export id="performance-clearmeasures"><span class="bs-old-id" id="idl-def-performance-clearmeasures-measurename"></span>clearMeasures()</dfn> method</span><a class="self-link" href="#clearmeasures-method"></a></h4>
    <p>Removes stored timestamp with the associated name. It MUST run these steps:</p>
    <ol>
     <li>If <var>measureName</var> is omitted, remove all <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure②">PerformanceMeasure</a> objects in the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer④">performance entry buffer</a>.
     <li>Otherwise remove all <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure③">PerformanceMeasure</a> objects listed in the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer⑤">performance entry buffer</a> whose <code>name</code> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string-is" id="ref-for-string-is①">is</a> <var>measureName</var>.
     <li>Return <strong>undefined</strong>.
    </ol>
-   <h3 class="heading settled" data-dfn-for="PerformanceMark" data-level="2.2" id="the-performancemark-interface"><span class="secno">2.2. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-for="PerformanceMark" data-dfn-type="dfn" data-noexport id="performancemark-performancemark">PerformanceMark</dfn> Interface</span><a class="self-link" href="#the-performancemark-interface"></a></h3>
-   <p>The <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark③">PerformanceMark</a> interface also exposes marks created via the <a data-link-type="dfn" href="https://w3c.github.io/hr-time/#the-performance-attr" id="ref-for-the-performance-attr②">Performance</a> interface’s <code class="idl"><a data-link-type="idl" href="#dom-performance-mark" id="ref-for-dom-performance-mark">mark()</a></code> method to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#performance-timeline" id="ref-for-performance-timeline">Performance Timeline</a>.</p>
+   <h3 class="heading settled" data-dfn-for="PerformanceMark" data-level="2.2" id="the-performancemark-interface"><span class="secno">2.2. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-for="PerformanceMark" data-dfn-type="dfn" data-noexport id="performancemark-performancemark"><span class="bs-old-id" id="idl-def-performancemark"></span><span class="bs-old-id" id="dom-performancemark"></span>PerformanceMark</dfn> Interface</span><a class="self-link" href="#the-performancemark-interface"></a></h3>
+   <p>The <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark③">PerformanceMark</a> interface also exposes marks created via the <u class="link-error" data-lt="Performance" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;performance&apos; with for=&apos;/&apos; in spec &apos;hr-time-3&apos;.">Performance</u> interface’s <code class="idl"><a data-link-type="idl" href="#dom-performance-mark" id="ref-for-dom-performance-mark">mark()</a></code> method to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#performance-timeline" id="ref-for-performance-timeline">Performance Timeline</a>.</p>
 <pre class="def highlight idl">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="performancemark"><code><c- g>PerformanceMark</c-></code></dfn> : <a data-link-type="idl-name" href="https://w3c.github.io/performance-timeline/#performanceentry" id="ref-for-performanceentry①"><c- n>PerformanceEntry</c-></a> {
   <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMark" data-dfn-type="constructor" data-export data-lt="PerformanceMark(markName, markOptions)|constructor(markName, markOptions)|PerformanceMark(markName)|constructor(markName)" id="dom-performancemark-performancemark"><code><c- g>constructor</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMark/PerformanceMark(markName, markOptions), PerformanceMark/constructor(markName, markOptions), PerformanceMark/PerformanceMark(markName), PerformanceMark/constructor(markName)" data-dfn-type="argument" data-export id="dom-performancemark-performancemark-markname-markoptions-markname"><code><c- g>markName</c-></code></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-performancemarkoptions" id="ref-for-dictdef-performancemarkoptions①"><c- n>PerformanceMarkOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMark/PerformanceMark(markName, markOptions), PerformanceMark/constructor(markName, markOptions), PerformanceMark/PerformanceMark(markName), PerformanceMark/constructor(markName)" data-dfn-type="argument" data-export id="dom-performancemark-performancemark-markname-markoptions-markoptions"><code><c- g>markOptions</c-></code></dfn> = {});
@@ -1279,8 +1278,8 @@ interface:</p>
    <p>The <code>startTime</code> attribute must return a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑥">DOMHighResTimeStamp</a></code> with the mark’s time value.</p>
    <p>The <code>duration</code> attribute must return a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑦">DOMHighResTimeStamp</a></code> of value <code>0</code>.</p>
    <p>The <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark⑤">PerformanceMark</a> interface contains the following additional attribute:</p>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMark" data-dfn-type="attribute" data-export id="dom-performancemark-detail"><code>detail</code></dfn> attribute must return the value it is set to (it’s copied from the <a data-link-type="dfn" href="#performancemarkoptions-performancemarkoptions" id="ref-for-performancemarkoptions-performancemarkoptions">PerformanceMarkOptions</a> dictionary).</p>
-   <h4 class="heading settled" data-level="2.2.1" id="the-performancemark-constructor"><span class="secno">2.2.1. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="PerformanceMark constructor" data-noexport id="dom-performancemark-constructor"><a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark⑥">PerformanceMark</a> Constructor</dfn></span><a class="self-link" href="#the-performancemark-constructor"></a></h4>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMark" data-dfn-type="attribute" data-export id="dom-performancemark-detail"><code><span class="bs-old-id" id="idl-def-performancemark-detail"></span><code>detail</code></code></dfn> attribute must return the value it is set to (it’s copied from the <a data-link-type="dfn" href="#performancemarkoptions-performancemarkoptions" id="ref-for-performancemarkoptions-performancemarkoptions">PerformanceMarkOptions</a> dictionary).</p>
+   <h4 class="heading settled" data-level="2.2.1" id="the-performancemark-constructor"><span class="secno">2.2.1. </span><span class="bs-old-id" id="idl-def-performancemark-constructor-markname-markoptions"></span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="PerformanceMark constructor" data-noexport id="dom-performancemark-constructor"><span class="bs-old-id" id="dfn-performancemark-constructor"></span><a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark⑥">PerformanceMark</a> Constructor</dfn></span><a class="self-link" href="#the-performancemark-constructor"></a></h4>
    <p>The <a data-link-type="dfn" href="#dom-performancemark-constructor" id="ref-for-dom-performancemark-constructor①">PerformanceMark constructor</a> must run the following steps:</p>
    <ol>
     <li>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object" id="ref-for-current-global-object">current global object</a> is a <code>Window</code> object and <var>markName</var> uses the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a data-link-type="dfn" href="https://w3c.github.io/navigation-timing/#performancetiming-performancetiming" id="ref-for-performancetiming-performancetiming">PerformanceTiming</a></code> interface, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
@@ -1312,8 +1311,8 @@ interface:</p>
       <li>Set <var>entry</var>’s <a href="#dom-performancemark-detail" id="ref-for-dom-performancemark-detail②">detail</a> to the result of calling the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structureddeserialize" id="ref-for-structureddeserialize①">StructuredDeserialize</a> algorithm on <var>record</var> and the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-current-everything" id="ref-for-concept-current-everything①">current realm</a>.
      </ol>
    </ol>
-   <h3 class="heading settled" data-dfn-for="PerformanceMeasure" data-level="2.3" id="the-performancemeasure-interface"><span class="secno">2.3. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-for="PerformanceMeasure" data-dfn-type="dfn" data-noexport id="performancemeasure-performancemeasure">PerformanceMeasure</dfn> Interface</span><a class="self-link" href="#the-performancemeasure-interface"></a></h3>
-   <p>The <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure④">PerformanceMeasure</a> interface also exposes measures created via the <a data-link-type="dfn" href="https://w3c.github.io/hr-time/#the-performance-attr" id="ref-for-the-performance-attr③">Performance</a> interface’s <code class="idl"><a data-link-type="idl" href="#dom-performance-measure" id="ref-for-dom-performance-measure">measure()</a></code> method to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#performance-timeline" id="ref-for-performance-timeline①">Performance Timeline</a>.</p>
+   <h3 class="heading settled" data-dfn-for="PerformanceMeasure" data-level="2.3" id="the-performancemeasure-interface"><span class="secno">2.3. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-for="PerformanceMeasure" data-dfn-type="dfn" data-noexport id="performancemeasure-performancemeasure"><span class="bs-old-id" id="idl-def-performancemeasure"></span><span class="bs-old-id" id="dom-performancemeasure"></span>PerformanceMeasure</dfn> Interface</span><a class="self-link" href="#the-performancemeasure-interface"></a></h3>
+   <p>The <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure④">PerformanceMeasure</a> interface also exposes measures created via the <u class="link-error" data-lt="Performance" title="LINK ERROR: No &apos;dfn&apos; refs found for &apos;performance&apos; with for=&apos;/&apos; in spec &apos;hr-time-3&apos;.">Performance</u> interface’s <code class="idl"><a data-link-type="idl" href="#dom-performance-measure" id="ref-for-dom-performance-measure">measure()</a></code> method to the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#performance-timeline" id="ref-for-performance-timeline①">Performance Timeline</a>.</p>
 <pre class="def highlight idl">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="performancemeasure"><code><c- g>PerformanceMeasure</c-></code></dfn> : <a data-link-type="idl-name" href="https://w3c.github.io/performance-timeline/#performanceentry" id="ref-for-performanceentry③"><c- n>PerformanceEntry</c-></a> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any③"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-performancemeasure-detail" id="ref-for-dom-performancemeasure-detail①"><c- g>detail</c-></a>;
@@ -1325,12 +1324,12 @@ interface:</p>
    <p>The <code>startTime</code> attribute must return a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑧">DOMHighResTimeStamp</a></code> with the measure’s start mark.</p>
    <p>The <code>duration</code> attribute must return a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp⑨">DOMHighResTimeStamp</a></code> with the duration of the measure.</p>
    <p>The <a data-link-type="dfn" href="#performancemeasure-performancemeasure" id="ref-for-performancemeasure-performancemeasure⑥">PerformanceMeasure</a> interface contains the following additional attribute:</p>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMeasure" data-dfn-type="attribute" data-export id="dom-performancemeasure-detail"><code>detail</code></dfn> attribute must return the value it is set to (it’s copied from the <a data-link-type="dfn" href="#performancemeasureoptions-performancemeasureoptions" id="ref-for-performancemeasureoptions-performancemeasureoptions⑥">PerformanceMeasureOptions</a> dictionary).</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="PerformanceMeasure" data-dfn-type="attribute" data-export id="dom-performancemeasure-detail"><code><span class="bs-old-id" id="idl-def-performancemeasure-detail"></span><code>detail</code></code></dfn> attribute must return the value it is set to (it’s copied from the <a data-link-type="dfn" href="#performancemeasureoptions-performancemeasureoptions" id="ref-for-performancemeasureoptions-performancemeasureoptions⑥">PerformanceMeasureOptions</a> dictionary).</p>
    <h2 class="heading settled" data-level="3" id="processing"><span class="secno">3. </span><span class="content">Processing</span><a class="self-link" href="#processing"></a></h2>
    <p class="note" role="note">A user agent implementing the User Timing API would need to include <code>"mark"</code> and
   <code>"measure"</code> in <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#supportedentrytypes-attribute" id="ref-for-supportedentrytypes-attribute">supportedEntryTypes</a>. This allows developers to detect support for User Timing.</p>
    <h3 class="heading settled" data-level="3.1" id="convert-mark-to-timestamp"><span class="secno">3.1. </span><span class="content">Convert a <var>mark</var> to a <var>timestamp</var></span><a class="self-link" href="#convert-mark-to-timestamp"></a></h3>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="convert-a-mark-to-a-timestamp">convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp①⓪">DOMHighResTimeStamp</a></code> run these steps:</p>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="convert-a-mark-to-a-timestamp"><span class="bs-old-id" id="dfn-convert-a-mark-to-a-timestamp"></span>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp" id="ref-for-typedefdef-domhighrestimestamp①⓪">DOMHighResTimeStamp</a></code> run these steps:</p>
    <ol>
     <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a data-link-type="dfn" href="https://w3c.github.io/navigation-timing/#performancetiming-performancetiming" id="ref-for-performancetiming-performancetiming①">PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a data-link-type="dfn" href="#convert-a-name-to-a-timestamp" id="ref-for-convert-a-name-to-a-timestamp">convert a name to a timestamp</a> algorithm with <var>name</var> set to the value of <var>mark</var>.
     <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a data-link-type="dfn" href="#performancemark-performancemark" id="ref-for-performancemark-performancemark⑧">PerformanceMark</a> object in the <a data-link-type="dfn" href="https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer" id="ref-for-dfn-performance-entry-buffer⑥">performance entry buffer</a> whose <code>name</code> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string-is" id="ref-for-string-is②">is</a> <var>mark</var>. If no matching entry is found, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
@@ -1344,7 +1343,7 @@ interface:</p>
      </ol>
    </ol>
    <h3 class="heading settled" data-level="3.2" id="convert-name-to-timestamp"><span class="secno">3.2. </span><span class="content">Convert a <var>name</var> to a <var>timestamp</var></span><a class="self-link" href="#convert-name-to-timestamp"></a></h3>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="convert-a-name-to-a-timestamp">convert a name to a timestamp</dfn> given a <var>name</var> that is a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a data-link-type="dfn" href="https://w3c.github.io/navigation-timing/#performancetiming-performancetiming" id="ref-for-performancetiming-performancetiming②">PerformanceTiming</a></code> interface, run these steps:</p>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="convert-a-name-to-a-timestamp"><span class="bs-old-id" id="dfn-convert-a-name-to-a-timestamp"></span>convert a name to a timestamp</dfn> given a <var>name</var> that is a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a data-link-type="dfn" href="https://w3c.github.io/navigation-timing/#performancetiming-performancetiming" id="ref-for-performancetiming-performancetiming②">PerformanceTiming</a></code> interface, run these steps:</p>
    <ol>
     <li>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object">global object</a> is not a <code>Window</code> object, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑤">TypeError</a></code>.
     <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.
@@ -1366,7 +1365,7 @@ monitoring providers and user agents collect web developer signals regarding
 their application’s performance at scale, and surface this information to
 developers without requiring any site-specific work.</p>
    <dl>
-    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_fully_loaded">mark_fully_loaded</dfn>"
+    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_fully_loaded"><span class="bs-old-id" id="dfn-mark_fully_loaded"></span>mark_fully_loaded</dfn>"
     <dd>
      The time when the page is considered fully loaded as marked by the
     developer in their application.
@@ -1377,7 +1376,7 @@ developers without requiring any site-specific work.</p>
         "<a data-link-type="dfn" href="#mark_fully_loaded" id="ref-for-mark_fully_loaded">mark_fully_loaded</a>" mark name enables lab tools and analytics
         providers to automatically show the timing.
       </p>
-<pre class="example highlight" id="example-mark-fully-loaded"><a class="self-link" href="#example-mark-fully-loaded"></a>window<c- p>.</c->addEventListener<c- p>(</c-><c- u>"load"</c-><c- p>,</c-> <c- p>(</c->event<c- p>)</c-> <c- p>=></c-> <c- p>{</c->
+<pre class="example highlight" id="example-mark-fully-loaded"><a class="self-link" href="#example-mark-fully-loaded"></a><span class="bs-old-id" id="example-3"></span>window<c- p>.</c->addEventListener<c- p>(</c-><c- u>"load"</c-><c- p>,</c-> <c- p>(</c->event<c- p>)</c-> <c- p>=></c-> <c- p>{</c->
   Promise<c- p>.</c->all<c- p>([</c->
     loadChatWidget<c- p>(),</c->
     initializeSearchAutocomplete<c- p>(),</c->
@@ -1387,22 +1386,22 @@ developers without requiring any site-specific work.</p>
 <c- p>});</c->
 </pre>
      </div>
-    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_fully_visible">mark_fully_visible</dfn>"
+    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_fully_visible"><span class="bs-old-id" id="dfn-mark_fully_visible"></span>mark_fully_visible</dfn>"
     <dd>The time when the page is considered fully visible to an end-user
     as marked by the developer in their application.
-    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_interactive">mark_interactive</dfn>"
+    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_interactive"><span class="bs-old-id" id="dfn-mark_interactive"></span>mark_interactive</dfn>"
     <dd>The time when the page is considered interactive to an end-user as
     marked by the developer in their application.
-    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_feature_usage">mark_feature_usage</dfn>"
+    <dt>"<dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="mark_feature_usage"><span class="bs-old-id" id="dfn-mark_feature_usage"></span>mark_feature_usage</dfn>"
     <dd>
      Mark the usage of a feature which may impact performance so that
     tooling and analytics can take it into account. The <a href="#dom-performancemark-detail" id="ref-for-dom-performancemark-detail③">detail</a>
     metadata can contain any useful information about the feature, including:
     
      <dl>
-      <dt><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="feature">feature</dfn>
+      <dt><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="feature"><span class="bs-old-id" id="dfn-feature"></span>feature</dfn>
       <dd>The name of the feature used.
-      <dt><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="framework">framework</dfn>
+      <dt><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="framework"><span class="bs-old-id" id="dfn-framework"></span>framework</dfn>
       <dd>If applicable, the underlying framework the feature is intended
         for, such as a JavaScript framework, content management system, or
         e-commerce platform.
@@ -1413,7 +1412,7 @@ developers without requiring any site-specific work.</p>
         this feature’s usage so that lab tools and analytics can measure
         whether it helped improve performance.
       </p>
-<pre class="example highlight" id="example-mark-feature-usage"><a class="self-link" href="#example-mark-feature-usage"></a>performance<c- p>.</c->mark<c- p>(</c-><c- t>'mark_feature_usage'</c-><c- p>,</c-> <c- p>{</c->
+<pre class="example highlight" id="example-mark-feature-usage"><a class="self-link" href="#example-mark-feature-usage"></a><span class="bs-old-id" id="example-4"></span>performance<c- p>.</c->mark<c- p>(</c-><c- t>'mark_feature_usage'</c-><c- p>,</c-> <c- p>{</c->
   <c- t>'detail'</c-><c- o>:</c-> <c- p>{</c->
     <c- t>'feature'</c-><c- o>:</c-> <c- t>'ImageOptimizationComponent'</c-><c- p>,</c->
     <c- t>'framework'</c-><c- o>:</c-> <c- t>'FancyJavaScriptFramework'</c->
@@ -1447,6 +1446,7 @@ Sigbjorn Vik,
 Todd Reifsteck, and
 Tony Gentilcore
 for their contributions to this work.</p>
+   <div id="conformance"></div>
   </main>
   <div data-fill-with="conformance">
    <h2 class="heading no-num no-ref settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -1612,7 +1612,6 @@ for their contributions to this work.</p>
     <a data-link-type="biblio">[HR-TIME-3]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="00c8c5e6">DOMHighResTimeStamp</span>
-     <li><span class="dfn-paneled" id="9ac45c5e">performance</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -1718,185 +1717,35 @@ for their contributions to this work.</p>
 };
 
 </pre>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-clearmarks">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-clearmarks" data-mdn="v1|API/Performance/clearMarks|9|38,11,29,33,79,12,10,42,@!,@!,@!,@!,33,8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/clearMarks" title="The clearMarks() method removes all or specific PerformanceMark objects from the browser&apos;s performance timeline.">Performance/clearMarks</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>29+</span></span>
-     <hr>
-     <span class="opera yes"><span>Opera</span><span>33+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android yes"><span>Firefox for Android</span><span>42+</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>33+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>8.5.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-clearmeasures">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-clearmeasures" data-mdn="v1|API/Performance/clearMeasures|9|38,11,29,33,79,12,10,42,@!,@!,@!,@!,33,16.7.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/clearMeasures" title="The clearMeasures() method removes all or specific PerformanceMeasure objects from the browser&apos;s performance timeline.">Performance/clearMeasures</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>29+</span></span>
-     <hr>
-     <span class="opera yes"><span>Opera</span><span>33+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android yes"><span>Firefox for Android</span><span>42+</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>33+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>16.7.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-mark">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-mark" data-mdn="v1|API/Performance/mark|9|38,11,28,33,79,12,10,42,@!,@!,@!,@!,33,8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/mark" title="The mark() method creates a named PerformanceMark object representing a high resolution timestamp marker in the browser&apos;s performance timeline.">Performance/mark</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>28+</span></span>
-     <hr>
-     <span class="opera yes"><span>Opera</span><span>33+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android yes"><span>Firefox for Android</span><span>42+</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>33+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>8.5.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-measure">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performance-measure" data-mdn="v1|API/Performance/measure|9|38,11,28,33,79,12,10,42,@!,@!,@!,@!,33,8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/measure" title="The measure() method creates a named PerformanceMeasure object representing a time measurement between two marks in the browser&apos;s performance timeline.">Performance/measure</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>28+</span></span>
-     <hr>
-     <span class="opera yes"><span>Opera</span><span>33+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android yes"><span>Firefox for Android</span><span>42+</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>33+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>8.5.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="extensions-performance-interface">
+  <details class="mdn-anno unpositioned" data-anno-for="extensions-performance-interface" data-mdn="v1|API/Performance|9|7,8,6,@!,79,12,9,@!,9,@!,37,@!,@!,*8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance" title="The Performance interface provides access to performance-related information for the current page.">Performance</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>7+</span></span><span class="safari yes"><span>Safari</span><span>8+</span></span><span class="chrome yes"><span>Chrome</span><span>6+</span></span>
-     <hr>
-     <span class="no opera"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>9+</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios yes"><span>iOS Safari</span><span>9+</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android yes"><span>Android WebView</span><span>37+</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="no opera_android"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="no nodejs"><span>Node.js</span><span>None</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemark-constructor">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemark-constructor" data-mdn="v1|API/PerformanceMark/PerformanceMark|9|101,14.1,76,@!,79,@?,-,@!,@!,@!,79,@!,@!,16.0.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMark/PerformanceMark" title="The PerformanceMark() constructor creates a timestamp with the given name.">PerformanceMark/PerformanceMark</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>101+</span></span><span class="safari yes"><span>Safari</span><span>14.1+</span></span><span class="chrome yes"><span>Chrome</span><span>76+</span></span>
-     <hr>
-     <span class="no opera"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android yes"><span>Android WebView</span><span>79+</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="no opera_android"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>16.0.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemark-detail">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemark-detail" data-mdn="v1|API/PerformanceMark/detail|9|101,14.1,78,@!,79,@?,-,@!,@!,@!,79,@!,@!,16.0.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMark/detail" title="The read-only detail property returns arbitrary metadata that was included in the mark upon construction (either when using performance.mark() or the PerformanceMark() constructor).">PerformanceMark/detail</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>101+</span></span><span class="safari yes"><span>Safari</span><span>14.1+</span></span><span class="chrome yes"><span>Chrome</span><span>78+</span></span>
-     <hr>
-     <span class="no opera"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android yes"><span>Android WebView</span><span>79+</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="no opera_android"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>16.0.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="performancemark">
+  <details class="mdn-anno unpositioned" data-anno-for="performancemark" data-mdn="v1|API/PerformanceMark|9|38,11,28,@!,79,12,10,@!,@!,@!,@!,@!,14,8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMark" title="PerformanceMark is an interface for PerformanceEntry objects with an entryType of &quot;mark&quot;.">PerformanceMark</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>28+</span></span>
-     <hr>
-     <span class="no opera"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>14+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>8.5.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemeasure-detail">
+  <details class="mdn-anno unpositioned" data-anno-for="dom-performancemeasure-detail" data-mdn="v1|API/PerformanceMeasure/detail|9|103,14.1,78,@!,79,@?,-,@!,@!,@!,@!,@!,@!,16.0.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMeasure/detail" title="The read-only detail property returns arbitrary metadata that was included in the mark upon construction (when using performance.measure().">PerformanceMeasure/detail</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>103+</span></span><span class="safari yes"><span>Safari</span><span>14.1+</span></span><span class="chrome yes"><span>Chrome</span><span>78+</span></span>
-     <hr>
-     <span class="no opera"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="no opera_android"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>16.0.0+</span></span>
-    </div>
-   </div>
   </details>
-  <details class="mdn-anno unpositioned" data-anno-for="performancemeasure">
+  <details class="mdn-anno unpositioned" data-anno-for="performancemeasure" data-mdn="v1|API/PerformanceMeasure|9|38,11,25,33,79,12,10,@!,@!,@!,@!,@!,33,8.5.0">
    <summary><b class="all-engines-flag" title="This feature is in all current engines.">✔</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMeasure" title="PerformanceMeasure is an abstract interface for PerformanceEntry objects with an entryType of &quot;measure&quot;. Entries of this type are created by calling performance.measure() to add a named DOMHighResTimeStamp (the measure) between two marks to the browser&apos;s performance timeline.">PerformanceMeasure</a></p>
-    <p class="all-engines-text">In all current engines.</p>
-    <div class="support">
-     <span class="firefox yes"><span>Firefox</span><span>38+</span></span><span class="safari yes"><span>Safari</span><span>11+</span></span><span class="chrome yes"><span>Chrome</span><span>25+</span></span>
-     <hr>
-     <span class="opera yes"><span>Opera</span><span>33+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
-     <hr>
-     <span class="edge yes"><span>Edge (Legacy)</span><span>12+</span></span><span class="ie yes"><span>IE</span><span>10+</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="no safari_ios"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="no webview_android"><span>Android WebView</span><span>?</span></span><span class="no samsunginternet_android"><span>Samsung Internet</span><span>?</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>33+</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>8.5.0+</span></span>
-    </div>
-   </div>
   </details>
 <script>/* Boilerplate: script-dom-helper */
 "use strict";
@@ -2117,7 +1966,6 @@ let dfnPanelData = {
 "889e932f": {"dfnID":"889e932f","dfnText":"Exposed","external":true,"refSections":[{"refs":[{"id":"ref-for-Exposed"}],"title":"2.2. The PerformanceMark Interface"},{"refs":[{"id":"ref-for-Exposed\u2460"}],"title":"2.3. The PerformanceMeasure Interface"}],"url":"https://webidl.spec.whatwg.org/#Exposed"},
 "8a7f1e7f": {"dfnID":"8a7f1e7f","dfnText":"performance entry buffer","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-performance-entry-buffer"}],"title":"2.1.1. mark() method"},{"refs":[{"id":"ref-for-dfn-performance-entry-buffer\u2460"},{"id":"ref-for-dfn-performance-entry-buffer\u2461"}],"title":"2.1.2. clearMarks() method"},{"refs":[{"id":"ref-for-dfn-performance-entry-buffer\u2462"}],"title":"2.1.3. measure() method"},{"refs":[{"id":"ref-for-dfn-performance-entry-buffer\u2463"},{"id":"ref-for-dfn-performance-entry-buffer\u2464"}],"title":"2.1.4. clearMeasures() method"},{"refs":[{"id":"ref-for-dfn-performance-entry-buffer\u2465"}],"title":"3.1. Convert a mark to a timestamp"}],"url":"https://www.w3.org/TR/performance-timeline/#dfn-performance-entry-buffer"},
 "96434cdb": {"dfnID":"96434cdb","dfnText":"Performance","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-performance"}],"title":"2.1. Extensions to the Performance interface"}],"url":"https://www.w3.org/TR/hr-time-2/#dfn-performance"},
-"9ac45c5e": {"dfnID":"9ac45c5e","dfnText":"performance","external":true,"refSections":[{"refs":[{"id":"ref-for-the-performance-attr"},{"id":"ref-for-the-performance-attr\u2460"}],"title":"2.1. Extensions to the Performance interface"},{"refs":[{"id":"ref-for-the-performance-attr\u2461"}],"title":"2.2. The PerformanceMark Interface"},{"refs":[{"id":"ref-for-the-performance-attr\u2462"}],"title":"2.3. The PerformanceMeasure Interface"}],"url":"https://w3c.github.io/hr-time/#the-performance-attr"},
 "aa737754": {"dfnID":"aa737754","dfnText":"current realm","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-current-everything"}],"title":"2.1.3. measure() method"},{"refs":[{"id":"ref-for-concept-current-everything\u2460"}],"title":"2.2.1. The PerformanceMark Constructor"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-current-everything"},
 "b2b8a6f8": {"dfnID":"b2b8a6f8","dfnText":"Performance Timeline","external":true,"refSections":[{"refs":[{"id":"ref-for-performance-timeline"}],"title":"2.2. The PerformanceMark Interface"},{"refs":[{"id":"ref-for-performance-timeline\u2460"}],"title":"2.3. The PerformanceMeasure Interface"}],"url":"https://www.w3.org/TR/performance-timeline/#performance-timeline"},
 "b75a7d23": {"dfnID":"b75a7d23","dfnText":"realm","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-global-object-realm"}],"title":"2.2.1. The PerformanceMark Constructor"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-global-object-realm"},
@@ -2556,6 +2404,213 @@ function genLinkingSyntaxes(dfn) {
 }
 }
 </script>
+<script>/* Boilerplate: script-mdn-anno */
+"use strict";
+{
+'use strict';
+// File copied from https://github.com/whatwg/whatwg.org/blob/main/resources.whatwg.org/standard-mdn-annos.js
+
+// Builds MDN annotation panels on demand from the compact `data-mdn` attribute written by
+// the spec generator (wattsi's EncodeMDNAnnotations; Bikeshed's mdnspeclinks.py builds its
+// panels eagerly for now). Only the wire format is shared: the browser labels, the
+// engine-support strings and the render grouping all live here.
+//
+// Archived commit snapshots load this file forever, so every format version this script
+// has ever understood has to keep working. Evolve the format by adding a branch in
+// `hydrate`, never by redefining a version that has already shipped.
+
+const MDN_URL = 'https://developer.mozilla.org/en-US/docs/Web/';
+const CANIUSE_URL = 'https://caniuse.com/#feat=';
+
+// Render groups, in the order they appear in a panel, separated by <hr>.
+const CURRENT_ENGINES = 0;
+const BORROWED_ENGINES = 1;
+const RETIRED_ENGINES = 2;
+const MOBILE = 3;
+const NON_BROWSER = 4;
+const GROUP_COUNT = 5;
+
+// Cell slots, in the order they appear in `data-mdn`. APPEND-ONLY: a new browser goes at
+// the end and is never inserted, so that old data still lines up and old copies of this
+// script can keep ignoring the cells they don't know about. `group` is what decides where
+// a row is rendered, so appending to this list doesn't constrain where the row shows up.
+const SLOTS = [
+  { id: 'firefox', label: 'Firefox', group: CURRENT_ENGINES },
+  { id: 'safari', label: 'Safari', group: CURRENT_ENGINES },
+  { id: 'chrome', label: 'Chrome', group: CURRENT_ENGINES },
+  { id: 'opera', label: 'Opera', group: BORROWED_ENGINES, mirrors: 'Chrome' },
+  { id: 'edge_blink', label: 'Edge', group: BORROWED_ENGINES },
+  { id: 'edge', label: 'Edge (Legacy)', group: RETIRED_ENGINES },
+  { id: 'ie', label: 'IE', group: RETIRED_ENGINES },
+  { id: 'firefox_android', label: 'Firefox for Android', group: MOBILE, mirrors: 'Firefox' },
+  { id: 'safari_ios', label: 'iOS Safari', group: MOBILE, mirrors: 'Safari' },
+  { id: 'chrome_android', label: 'Chrome for Android', group: MOBILE, mirrors: 'Chrome' },
+  { id: 'webview_android', label: 'Android WebView', group: MOBILE, mirrors: 'Chrome' },
+  { id: 'samsunginternet_android', label: 'Samsung Internet', group: MOBILE, mirrors: 'Chrome' },
+  { id: 'opera_android', label: 'Opera Mobile', group: MOBILE, mirrors: 'Chrome' },
+  { id: 'nodejs', label: 'Node.js', group: NON_BROWSER },
+];
+
+// One mnemonic character per engine-support note.
+const LEVELS = {
+  '0': { class: 'less-than-two-engines-text', text: 'In no current engines.' },
+  '1': { class: 'less-than-two-engines-text', text: 'In only one current engine.' },
+  '9': { class: 'all-engines-text', text: 'In all current engines.' },
+  's': { class: 'less-than-two-engines-text', text: 'Support in one engine under other name.' },
+  'S': { class: 'less-than-two-engines-text', text: 'Support in some engines under other name.' },
+  'v': { class: 'less-than-two-engines-text', text: 'Prefixed support in one engine.' },
+  'V': { class: 'less-than-two-engines-text', text: 'Prefixed support in some engines.' },
+  'p': { class: 'less-than-two-engines-text', text: 'Partial support in one engine.' },
+  'P': { class: 'less-than-two-engines-text', text: 'Partial support in some engines.' },
+};
+
+// Leading character of a cell, qualifying how the version after it should be read. `flag`
+// is whether to mark the version with 🔰 as well as explaining it in a tooltip.
+const CAVEATS = {
+  '*': { flag: true, title: () => 'Partial implementation.' },
+  '^': { flag: true, title: () => 'Requires setting a user preference or runtime flag.' },
+  '$': { flag: true, title: () => 'Requires a prefix or alternative name.' },
+  // Mirrored support is far too common to flag every occurrence; the tooltip is enough.
+  '@': { flag: false, title: (slot) => `Support is mirrored from ${slot.mirrors ?? 'the upstream browser'}.` },
+};
+
+const FLAG = '\u{1F530}'; // 🔰, marks a version that comes with a caveat
+const EN_DASH = '–';
+
+function element(name, attributes, ...children) {
+  const node = document.createElement(name);
+  for (const [attribute, value] of Object.entries(attributes)) {
+    if (value !== undefined) {
+      node.setAttribute(attribute, value);
+    }
+  }
+  node.append(...children);
+  return node;
+}
+
+function splitOnce(string, separator) {
+  const at = string.indexOf(separator);
+  return at === -1 ? [string, undefined] : [string.slice(0, at), string.slice(at + 1)];
+}
+
+// A version body says both whether the browser supports the feature and since when.
+function readVersion(body) {
+  if (body === '?') {
+    return { state: 'unknown', version: '?' };
+  }
+  if (body === '-') {
+    return { state: 'no', version: 'None' };
+  }
+  if (body === '!') {
+    return { state: 'yes', version: 'Yes' };
+  }
+  if (body.startsWith('=')) {
+    // A version that will never be superseded, so no trailing "+".
+    return { state: 'yes', version: body.slice(1) };
+  }
+  const [added, removed] = body.split('-');
+  if (removed !== undefined) {
+    return { state: 'no', version: added + EN_DASH + removed };
+  }
+  return { state: 'yes', version: added + '+' };
+}
+
+function readCell(cell, slot) {
+  const caveat = CAVEATS[cell[0]];
+  const { state, version } = readVersion(caveat ? cell.slice(1) : cell);
+  return {
+    state,
+    version: caveat?.flag ? `${FLAG} ${version}` : version,
+    title: caveat?.title(slot),
+  };
+}
+
+// A browser row is the browser's name in one cell and its version in the next. The logo
+// comes from CSS, keyed off the browser id in the row's class.
+function browserRow(slot, cell) {
+  const { state, version, title } = readCell(cell, slot);
+  return element('span', { class: `${slot.id} ${state}` },
+    element('span', {}, slot.label),
+    element('span', { title }, version));
+}
+
+// The caniuse row has a single cell instead, since its logo needs no label beside it.
+function caniuseRow(field) {
+  const [feature, title] = splitOnce(field, ',');
+  const link = element('a', { href: CANIUSE_URL + feature, title }, 'caniuse.com table');
+  return element('span', { class: 'caniuse' }, element('span', {}, link));
+}
+
+function supportTable(cells, caniuse) {
+  const groups = Array.from({ length: GROUP_COUNT }, () => []);
+  SLOTS.forEach((slot, slotIndex) => {
+    // An empty cell means this browser gets no row at all. Cells beyond SLOTS are
+    // browsers added after this copy of the script was written; ignore them.
+    if (cells[slotIndex]) {
+      groups[slot.group].push(browserRow(slot, cells[slotIndex]));
+    }
+  });
+  if (caniuse !== undefined) {
+    groups.push([caniuseRow(caniuse)]);
+  }
+
+  const table = element('div', { class: 'support' });
+  for (const rows of groups.filter((rows) => rows.length > 0)) {
+    if (table.hasChildNodes()) {
+      table.append(element('hr', {}));
+    }
+    table.append(...rows);
+  }
+  return table;
+}
+
+function featurePanel(record) {
+  const [slug, level, cells, caniuse] = record.split('|');
+
+  const article = element('a', { href: MDN_URL + slug }, slug.slice(slug.indexOf('/') + 1));
+  const panel = element('div', { class: 'feature' }, element('p', {}, article));
+
+  if (level in LEVELS) {
+    panel.append(element('p', { class: LEVELS[level].class }, LEVELS[level].text));
+  }
+  if (cells) {
+    panel.append(supportTable(cells.split(','), caniuse));
+  }
+  return panel;
+}
+
+function hydrate(anno) {
+  const [version, features] = splitOnce(anno.dataset.mdn, '|');
+  delete anno.dataset.mdn; // Only ever hydrate a panel once.
+
+  if (version !== 'v1') {
+    console.warn(`Unsupported MDN annotation data version "${version}".`, anno);
+    return;
+  }
+  anno.append(...features.split('~').map(featurePanel));
+}
+
+function hydrateIfNeeded(node) {
+  if (node instanceof Element && node.matches('.mdn-anno[data-mdn]')) {
+    hydrate(node);
+  }
+}
+
+// A click on the summary arrives before the browser opens the <details>, so hydrating
+// from it means the panel never flashes empty. That covers pointers and the keyboard,
+// since activating a summary dispatches a click either way.
+document.addEventListener('click', (event) => {
+  if (event.target instanceof Element) {
+    hydrateIfNeeded(event.target.closest('summary')?.parentElement);
+  }
+}, true);
+
+// And `toggle` is the catch-all for a panel opened some other way, such as find-in-page
+// or a fragment navigation into it. It fires a task after the state has already changed,
+// and it doesn't bubble, so it has to be a capture listener.
+document.addEventListener('toggle', (event) => hydrateIfNeeded(event.target), true);
+}
+</script>
 <script>/* Boilerplate: script-position-annos */
 "use strict";
 {
@@ -2649,7 +2704,6 @@ let refsData = {
 "https://infra.spec.whatwg.org/#map-exists": {"displayText":"exist","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"exist","type":"dfn","url":"https://infra.spec.whatwg.org/#map-exists"},
 "https://infra.spec.whatwg.org/#string-is": {"displayText":"is","export":true,"for_":["string"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"is","type":"dfn","url":"https://infra.spec.whatwg.org/#string-is"},
 "https://infra.spec.whatwg.org/#user-agent": {"displayText":"user agent","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"user agent","type":"dfn","url":"https://infra.spec.whatwg.org/#user-agent"},
-"https://w3c.github.io/hr-time/#the-performance-attr": {"displayText":"performance","export":true,"for_":[],"level":"3","normative":true,"shortname":"hr-time","spec":"hr-time-3","status":"current","text":"performance","type":"dfn","url":"https://w3c.github.io/hr-time/#the-performance-attr"},
 "https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp": {"displayText":"DOMHighResTimeStamp","export":true,"for_":[],"level":"3","normative":true,"shortname":"hr-time","spec":"hr-time-3","status":"current","text":"DOMHighResTimeStamp","type":"typedef","url":"https://w3c.github.io/hr-time/#typedefdef-domhighrestimestamp"},
 "https://w3c.github.io/navigation-timing/#performancenavigationtiming-performancenavigationtiming": {"displayText":"PerformanceNavigationTiming","export":true,"for_":["PerformanceNavigationTiming"],"level":"2","normative":true,"shortname":"navigation-timing","spec":"navigation-timing-2","status":"current","text":"performancenavigationtiming","type":"dfn","url":"https://w3c.github.io/navigation-timing/#performancenavigationtiming-performancenavigationtiming"},
 "https://w3c.github.io/navigation-timing/#performancetiming-performancetiming": {"displayText":"PerformanceTiming","export":true,"for_":["PerformanceTiming"],"level":"2","normative":true,"shortname":"navigation-timing","spec":"navigation-timing-2","status":"current","text":"performancetiming","type":"dfn","url":"https://w3c.github.io/navigation-timing/#performancetiming-performancetiming"},
