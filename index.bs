@@ -73,7 +73,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
 
 <div class="informative">
   <p>The following script shows how a developer can use the interfaces defined in this document to obtain timing data related to developer scripts.</p>
-  <pre class="example" id="example-basic-marks" highlight="js">
+  <pre class="example" id="example-basic-marks" highlight="js" oldids="example-1">
     async function run() {
       performance.mark("startTask1");
       await doTask1(); // Some developer code
@@ -106,7 +106,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   will miss latency to process the event, so instead we use the event
   hardware timestamp. We also want to know the name of the component to have
   more detailed analytics.</p>
-  <pre class="example" id="example-click-measure" highlight="js">
+  <pre class="example" id="example-click-measure" highlight="js" oldids="example-2">
     element.addEventListener("click", e => {
       const component = getComponent(element);
       fetch(component.url).then(() => {
@@ -128,11 +128,11 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
 
 <h3 id="extensions-performance-interface" data-dfn-for="Performance">Extensions to the <code><a for="/">Performance</a></code> interface</h3>
 
-<p>The <a>Performance</a> interface and {{DOMHighResTimeStamp}} are defined in [[HR-TIME-2]].
-  The {{PerformanceEntry}} interface is defined in [[PERFORMANCE-TIMELINE-2]].
+<p>The <a id="dom-performance">Performance</a> interface and <span id="dfn-domhighrestimestamp">{{DOMHighResTimeStamp}}</span> are defined in [[HR-TIME-2]].
+  The <span id="dfn-performanceentry">{{PerformanceEntry}}</span> interface is defined in [[PERFORMANCE-TIMELINE-2]].
 </p>
 
-<pre class="idl">
+<pre class="idl" id=idl-def-performance-partial-1>
   dictionary PerformanceMarkOptions {
       any detail;
       DOMHighResTimeStamp startTime;
@@ -153,7 +153,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   };
 </pre>
 
-<h4 id="mark-method" data-link-for="PerformanceMarkOptions"><dfn data-dfn-for="Performance" data-export>mark()</dfn> method</h4>
+<h4 id="mark-method" data-link-for="PerformanceMarkOptions" oldids="idl-def-performance-mark-markname-markoptions"><dfn data-dfn-for="Performance" data-export>mark()</dfn> method</h4>
 
 <p>Stores a timestamp with the associated name (a "mark"). It MUST run these steps:</p>
 <ol>
@@ -163,16 +163,16 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   <li>Return <var>entry</var>.</li>
 </ol>
 
-<h5 id="performancemarkoptions-dictionary" data-dfn-for="PerformanceMarkOptions"><dfn>PerformanceMarkOptions</dfn> dictionary</h5>
+<h5 id="performancemarkoptions-dictionary" data-dfn-for="PerformanceMarkOptions"><dfn oldids="dom-performancemarkoptions,idl-def-performancemarkoptions">PerformanceMarkOptions</dfn> dictionary</h5>
 
 <dl data-dfn-for="PerformanceMarkOptions">
-  <dt><dfn>detail</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemarkoptions-detail">detail</dfn></dt>
   <dd>Metadata to be included in the mark.</dd>
-  <dt><dfn>startTime</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemarkoptions-starttime">startTime</dfn></dt>
   <dd>Timestamp to be used as the mark time.</dd>
 </dl>
 
-<h4 id="clearmarks-method"><dfn data-dfn-for="Performance" data-export>clearMarks()</dfn> method</h4>
+<h4 id="clearmarks-method"><dfn data-dfn-for="Performance" data-export oldids="idl-def-performance-clearmarks-markname">clearMarks()</dfn> method</h4>
 
 <p>Removes the stored timestamp with the associated name. It MUST run these steps:</p>
 <ol>
@@ -181,7 +181,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   <li>Return <strong>undefined</strong>.</li>
 </ol>
 
-<h4 id="measure-method" data-link-for="PerformanceMeasureOptions"><dfn data-dfn-for="Performance" data-export>measure()</dfn> method</h4>
+<h4 id="measure-method" data-link-for="PerformanceMeasureOptions" oldids="idl-def-performance-measure-measurename-startormeasureoptions-endmark"><dfn data-dfn-for="Performance" data-export>measure()</dfn> method</h4>
 
 <p>Stores the {{DOMHighResTimeStamp}} duration between two marks along with the associated name (a "measure"). It MUST run these steps:</p>
 <ol>
@@ -246,20 +246,20 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   <li>Return <var>entry</var>.</li>
 </ol>
 
-<h5 id="performancemeasureoptions-dictionary" data-dfn-for="PerformanceMeasureOptions"><dfn>PerformanceMeasureOptions</dfn> dictionary</h5>
+<h5 id="performancemeasureoptions-dictionary" data-dfn-for="PerformanceMeasureOptions"><dfn oldids="dom-performancemeasureoptions,idl-def-performancemeasureoptions">PerformanceMeasureOptions</dfn> dictionary</h5>
 
 <dl data-dfn-for="PerformanceMeasureOptions">
-  <dt><dfn>detail</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemeasureoptions-detail">detail</dfn></dt>
   <dd>Metadata to be included in the measure.</dd>
-  <dt><dfn>start</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemeasureoptions-start">start</dfn></dt>
   <dd>Timestamp to be used as the start time or string to be used as start mark.</dd>
-  <dt><dfn>duration</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemeasureoptions-duration">duration</dfn></dt>
   <dd>Duration between the start and end times.</dd>
-  <dt><dfn>end</dfn></dt>
+  <dt><dfn oldids="idl-def-performancemeasureoptions-end">end</dfn></dt>
   <dd>Timestamp to be used as the end time or string to be used as end mark.</dd>
 </dl>
 
-<h4 id="clearmeasures-method"><dfn data-dfn-for="Performance" data-export>clearMeasures()</dfn> method</h4>
+<h4 id="clearmeasures-method"><dfn data-dfn-for="Performance" data-export oldids="idl-def-performance-clearmeasures-measurename">clearMeasures()</dfn> method</h4>
 
 <p>Removes stored timestamp with the associated name. It MUST run these steps:</p>
 <ol>
@@ -268,7 +268,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/; spec: HTML
   <li>Return <strong>undefined</strong>.</li>
 </ol>
 
-<h3 id="the-performancemark-interface" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">The <dfn>PerformanceMark</dfn> Interface</h3>
+<h3 id="the-performancemark-interface" data-dfn-for="PerformanceMark" data-link-for="PerformanceMark">The <dfn oldids="dom-performancemark,idl-def-performancemark">PerformanceMark</dfn> Interface</h3>
 
 <p>The <a>PerformanceMark</a> interface also exposes marks created via the <a>Performance</a> interface's {{Performance/mark()}} method to the <a>Performance Timeline</a>.</p>
 
@@ -293,9 +293,9 @@ interface:</p>
 
 <p>The <a>PerformanceMark</a> interface contains the following additional attribute:</p>
 
-<p>The <dfn attribute data-dfn-for="PerformanceMark" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
+<p>The <dfn attribute data-dfn-for="PerformanceMark" data-export oldids="idl-def-performancemark-detail">detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMarkOptions</a> dictionary).</p>
 
-<h4 id="the-performancemark-constructor">The <dfn id="dom-performancemark-constructor" data-lt="PerformanceMark constructor"><a>PerformanceMark</a> Constructor</dfn></h4>
+<h4 id="the-performancemark-constructor" oldids="idl-def-performancemark-constructor-markname-markoptions">The <dfn id="dom-performancemark-constructor" data-lt="PerformanceMark constructor" oldids="dfn-performancemark-constructor"><a>PerformanceMark</a> Constructor</dfn></h4>
 
 <p>The <a>PerformanceMark constructor</a> must run the following steps:</p>
 <ol>
@@ -326,7 +326,7 @@ interface:</p>
   </li>
 </ol>
 
-<h3 id="the-performancemeasure-interface" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">The <dfn>PerformanceMeasure</dfn> Interface</h3>
+<h3 id="the-performancemeasure-interface" data-dfn-for="PerformanceMeasure" data-link-for="PerformanceMeasure">The <dfn oldids="dom-performancemeasure,idl-def-performancemeasure">PerformanceMeasure</dfn> Interface</h3>
 
 <p>The <a>PerformanceMeasure</a> interface also exposes measures created via the <a>Performance</a> interface's {{Performance/measure()}} method to the <a>Performance Timeline</a>.</p>
 
@@ -349,7 +349,7 @@ interface:</p>
 
 <p>The <a>PerformanceMeasure</a> interface contains the following additional attribute:</p>
 
-<p>The <dfn attribute data-dfn-for="PerformanceMeasure" data-export>detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
+<p>The <dfn attribute data-dfn-for="PerformanceMeasure" data-export oldids="idl-def-performancemeasure-detail">detail</dfn> attribute must return the value it is set to (it's copied from the <a>PerformanceMeasureOptions</a> dictionary).</p>
 
 <h2 id="processing">Processing</h2>
 
@@ -358,7 +358,7 @@ interface:</p>
 
 <h3 id="convert-mark-to-timestamp">Convert a <var ignore>mark</var> to a <var ignore>timestamp</var></h3>
 
-<p>To <dfn id="convert-a-mark-to-a-timestamp" data-export>convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or {{DOMHighResTimeStamp}} run these steps:</p>
+<p>To <dfn id="convert-a-mark-to-a-timestamp" data-export oldids="dfn-convert-a-mark-to-a-timestamp">convert a mark to a timestamp</dfn>, given a <var>mark</var> that is a <code>DOMString</code> or {{DOMHighResTimeStamp}} run these steps:</p>
 <ol>
   <li>If <var>mark</var> is a <code>DOMString</code> and it has the same name as a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, let <var>end time</var> be the value returned by running the <a>convert a name to a timestamp</a> algorithm with <var ignore>name</var> set to the value of <var>mark</var>.</li>
   <li>Otherwise, if <var>mark</var> is a <code>DOMString</code>, let <var>end time</var> be the value of the <code>startTime</code> attribute from the most recent occurrence of a <a>PerformanceMark</a> object in the <a>performance entry buffer</a> whose <code>name</code> [=string/is=] <var>mark</var>. If no matching entry is found, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.</li>
@@ -373,7 +373,7 @@ interface:</p>
 
 <h3 id="convert-name-to-timestamp">Convert a <var ignore>name</var> to a <var ignore>timestamp</var></h3>
 
-<p>To <dfn id="convert-a-name-to-a-timestamp">convert a name to a timestamp</dfn> given a <var>name</var> that is a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, run these steps:</p>
+<p>To <dfn id="convert-a-name-to-a-timestamp" oldids="dfn-convert-a-name-to-a-timestamp">convert a name to a timestamp</dfn> given a <var>name</var> that is a <a href="https://webidl.spec.whatwg.org/#dfn-read-only">read only attribute</a> in the <code><a>PerformanceTiming</a></code> interface, run these steps:</p>
 <ol>
   <li>If the <a>global object</a> is not a <code>Window</code> object, <a href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a {{TypeError}}.</li>
   <li>If <var>name</var> is <code>navigationStart</code>, return <code>0</code>.</li>
@@ -400,7 +400,7 @@ their application's performance at scale, and surface this information to
 developers without requiring any site-specific work.</p>
 
 <dl>
-  <dt>"<dfn data-export>mark_fully_loaded</dfn>"</dt>
+  <dt>"<dfn data-export oldids="dfn-mark_fully_loaded">mark_fully_loaded</dfn>"</dt>
   <dd>The time when the page is considered fully loaded as marked by the
     developer in their application.
     <div class="note no-marker">
@@ -409,7 +409,7 @@ developers without requiring any site-specific work.</p>
         "<a>mark_fully_loaded</a>" mark name enables lab tools and analytics
         providers to automatically show the timing.
       </p>
-      <pre class="example" id="example-mark-fully-loaded" highlight="js">
+      <pre class="example" id="example-mark-fully-loaded" highlight="js" oldids="example-3">
             window.addEventListener("load", (event) => {
               Promise.all([
                 loadChatWidget(),
@@ -421,20 +421,20 @@ developers without requiring any site-specific work.</p>
           </pre>
     </div>
   </dd>
-  <dt>"<dfn data-export>mark_fully_visible</dfn>"</dt>
+  <dt>"<dfn data-export oldids="dfn-mark_fully_visible">mark_fully_visible</dfn>"</dt>
   <dd>The time when the page is considered fully visible to an end-user
     as marked by the developer in their application.</dd>
-  <dt>"<dfn data-export>mark_interactive</dfn>"</dt>
+  <dt>"<dfn data-export oldids="dfn-mark_interactive">mark_interactive</dfn>"</dt>
   <dd>The time when the page is considered interactive to an end-user as
     marked by the developer in their application.</dd>
-  <dt>"<dfn data-export>mark_feature_usage</dfn>"</dt>
+  <dt>"<dfn data-export oldids="dfn-mark_feature_usage">mark_feature_usage</dfn>"</dt>
   <dd>Mark the usage of a feature which may impact performance so that
     tooling and analytics can take it into account. The <a href="#dom-performancemark-detail">detail</a>
     metadata can contain any useful information about the feature, including:
     <dl>
-      <dt><dfn data-export>feature</dfn></dt>
+      <dt><dfn data-export oldids="dfn-feature">feature</dfn></dt>
       <dd>The name of the feature used.</dd>
-      <dt><dfn data-export>framework</dfn></dt>
+      <dt><dfn data-export oldids="dfn-framework">framework</dfn></dt>
       <dd>If applicable, the underlying framework the feature is intended
         for, such as a JavaScript framework, content management system, or
         e-commerce platform.</dd>
@@ -445,7 +445,7 @@ developers without requiring any site-specific work.</p>
         this feature's usage so that lab tools and analytics can measure
         whether it helped improve performance.
       </p>
-      <pre class="example" id="example-mark-feature-usage" highlight="js">
+      <pre class="example" id="example-mark-feature-usage" highlight="js" oldids="example-4">
         performance.mark('mark_feature_usage', {
           'detail': {
             'feature': 'ImageOptimizationComponent',
@@ -487,3 +487,5 @@ Sigbjorn Vik,
 Todd Reifsteck, and
 Tony Gentilcore
 for their contributions to this work.</p>
+<!-- Keeps ReSpec's #conformance anchor working; Bikeshed's Conformance section is #w3c-conformance. -->
+<div id=conformance></div>
