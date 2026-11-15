@@ -369,6 +369,7 @@ interface:</p>
       <li>Otherwise, let <var>end time</var> be <var>mark</var>.</li>
     </ol>
   </li>
+  <li>Return <var>end time</var>.</li>
 </ol>
 
 <h3 id="convert-name-to-timestamp">Convert a <var ignore>name</var> to a <var ignore>timestamp</var></h3>
